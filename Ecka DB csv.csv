@@ -1,0 +1,403 @@
+﻿eNumber,Czech,English,German,score,category
+322a,Lecitin - ovesný,Lecithins (Oat),Haferlecithin,0,"Emulsifier, stabiliser"
+E100,Kurkumin,Curcumin,Kurkumin,0,"Yellow food colouring in mustard, curry powder, sauces, cheese"
+E101,Riboflavin,"Riboflavin, Vitamin B2","Riboflavin, Vitamin B2",0,"Yellow food colouring, also a vitamin supplement"
+E140,Chlorofyly a chlorofyliny,Chlorophylls and chlorophyllins,Chlorophylle und Chlorophylline,0,"Green colouring for confectionery, chewing gum"
+E150,Karamel,Caramel,Zuckerkulör,0,"Brown colouring in soft drinks, sauces, confectionery"
+E150a,Karamel,Caramel I - Plain caramel,Karamell I - Einfacher Zuckerkulör,0,Brown colouring
+E160a,Karoteny,Carotenes,Carotine,0,Orange colouring
+E160a(i),Směs karotenů,Mixed carotenes,Gemischte Carotine,0,Orange colouring
+E160a(ii),Beta-karoten,Beta-carotene,Beta-Carotin,0,"Orange colouring, also a vitamin A precursor"
+E160c,"Paprikový extrakt, Kapsanthin, Kapsorubin","Paprika extract, capsanthin, capsorubin","Paprikaextrakt, Capsanthin, Capsorubin",0,Red-orange colouring from paprika
+E160d,Lykopen,Lycopene,Lycopin,0,"Red colouring, antioxidant"
+E161b,Lutein,Lutein,Lutein,0,Yellow colouring
+E161c,Kryptoxantin,Cryptoxanthin,Cryptoxanthin,0,Yellow-orange colouring
+E162,Betanin,"Beetroot Red, Betanin","Betanin, Betenrot",0,Red colouring from beetroot
+E163,Anthokyany,Anthocyanins,Anthocyane,0,Red to blue colouring from fruits and vegetables
+E164,"Šafrán, Šafránová žluť","Saffron, Saffron Yellow","Safran, Safrangelb",0,Yellow colouring from saffron
+E166,Santalové dřevo,Sandalwood,Sandelholz,0,Red colouring
+E170,Uhličitany vápenaté,Calcium carbonates,Calciumcarbonate,0,"Whitening agent, anti-caking agent"
+E234,Nisin,Nisin,Nisin,0,"Preservative in cheese, dairy products"
+E260,Kyselina octová,Acetic acid,Essigsäure,0,"Acidity regulator, preservative"
+E270,Kyselina mléčná,Lactic acid,Milchsäure,0,"Acidity regulator, preservative in yogurt, cheese"
+E290,Oxid uhličitý,Carbon dioxide,Kohlendioxid,0,"Packaging gas, aerating agent"
+E296,Kyselina jablečná,Malic acid,Apfelsäure,0,"Acidity regulator, flavouring agent"
+E300,Kyselina askorbová,"Ascorbic acid, Vitamin C","Ascorbinsäure, Vitamin C",0,Antioxidant
+E306,Extrakt s vysokým obsahem tokoferolů,Tocopherol-rich extract,Tocopherol-haltiger Extrakt,0,"Antioxidant, Vitamin E"
+E314,Guaiac Gum,Guaiac gum,Guajakharz,0,Antioxidant
+E322,Lecitiny,Lecithins,Lecithine,0,"Emulsifier, stabiliser in chocolate, margarine"
+E330,Kyselina citronová,Citric acid,Zitronensäure,0,"Acidity regulator, flavouring agent"
+E336,Vinany draselné,Potassium tartrates,Kaliumtartrate,0,Acidity regulator
+E363,Kyselina jantarová,Succinic acid,Bernsteinsäure,0,"Acidity regulator, flavour enhancer"
+E392,Rozmarýnové extrakty,Rosemary extracts,Rosmarinextrakte,0,Antioxidant
+E406,Agar,Agar,Agar,0,"Gelling agent, thickener in jellies, ice cream"
+E407a,Guma Euchema,Processed eucheuma seaweed,Euchema-Alge,0,"Gelling agent, thickener"
+E409,Arabinnogalaktan,Arabinogalactan,Arabinogalactan,0,"Stabiliser, emulsifier"
+E410,Karubin,"Locust bean gum, Carob gum",Johannisbrotkernmehl,0,"Thickener, stabiliser in ice cream, sauces"
+E412,Guma guar,Guar gum,Guarkernmehl,0,"Thickener, stabiliser in sauces, dairy products"
+E414,Arabská guma,"Gum arabic, Acacia gum",Gummi arabicum,0,"Thickener, stabiliser"
+E416,Guma karaya,Karaya gum,Karaya,0,"Thickener, emulsifier"
+E417,Guma tara,Tara gum,Tarakernmehl,0,"Thickener, gelling agent"
+E418,Guma gellan,Gellan gum,Gellan,0,"Gelling agent, stabiliser"
+E419,Guma ghatti,Ghatti gum,Ghatti,0,"Emulsifier, stabiliser"
+E425,Konjaková guma,Konjac gum,Konjakgummi,0,"Thickener, gelling agent"
+E440(i),Pektin,Pectin,Pektin,0,Gelling agent
+E574,Kyselina glukonová,Gluconic acid,Gluconsäure,0,Acidity regulator
+E640,Glycin,Glycine,Glycin,0,"Flavour enhancer, sweetener"
+E641,Leucin,L-Leucine,Leucin,0,Flavour enhancer
+E901,Včelí vosk,"Beeswax, white and yellow","Bienenwachs, weiß und gelb",0,Glazing agent for confectionery
+E913,Lanolin,Lanolin,Lanolin,0,Glazing agent
+E921,L-cystin,L-Cystine,L-Cystin,0,Flour treatment agent
+E941,Dusík,Nitrogen,Stickstoff,0,Packaging gas
+E948,Kyslík,Oxygen,Sauerstoff,0,Packaging gas
+E957,Thaumatin,Thaumatin,Thaumatin,0,"Sweetener, flavour enhancer"
+E960,Steviol-glykosidy,Steviol glycosides (Stevia),Steviolglycoside (Stevia),0,Sweetener
+E967,Xylitol,Xylitol,Xylit,0,"Sweetener, humectant"
+E968,Erythritol,Erythritol,Erythrit,0,"Sweetener, bulking agent"
+322,Lecitiny,Lecithins,Lecithine,0,"Emulsifier, stabiliser"
+E1105,Lysozym,Lysozyme,Lysozym,1,"Preservative, especially in cheese"
+E1204,Pullulan,Pullulan,Pullulan,1,"Glazing agent, thickener in confectionery"
+E141,Měďnaté komplexy chlorofylů a chlorofinů,Copper complexes of chlorophylls and chlorophyllins,Kupferkomplexe der Chlorophylle und Chlorophylline,1,Green colouring
+E1503,Ricinový olej,Castor oil,Rizinusöl,1,Glazing agent
+E1505,Triethyl-citrát,Triethyl citrate,Triethylcitrat,1,"Stabiliser, processing aid"
+E150b,Kaustický sulfitový karamel,Caramel II - Caustic sulphite caramel,Karamell II - Sulfitlaugen-Zuckerkulör,1,Brown colouring
+E153,Uhlík z rostlinné suroviny,Vegetable carbon,Pflanzenkohle,1,"Black colouring for confectionery, cheese"
+E160e,Beta-apo-8-karotenal,Beta-apo-8'-carotenal,Beta-Apo-8'-Carotenal,1,Red-orange colouring
+E161a,Flavoxantin,Flavoxanthin,Flavoxanthin,1,Yellow colouring
+E161d,Rubixantin,Rubixanthin,Rubixanthin,1,Red colouring
+E161e,Violoxantin,Violaxanthin,Violaxanthin,1,Yellow-orange colouring
+E161f,Rhodoxantin,Rhodoxanthin,Rhodoxanthin,1,Red colouring
+E175,Zlato,Gold,Gold,1,"Glazing agent, gold colouring for confectionery"
+E265,Kyselina octová bezvodá,Anhydrous acetic acid,Essigsäure (wasserfrei),1,Preservative
+E297,Kyselina fumarová,Fumaric acid,Fumarsäure,1,Acidity regulator
+E301,Askorban sodný,Sodium ascorbate,Natriumascorbat,1,Antioxidant
+E302,Askorban vápenatý,Calcium ascorbate,Calciumascorbat,1,Antioxidant
+E304,Askorbylpalmitát - Estery mastných kyselin s kyselinou askorbovou,Ascorbyl palmitate,Ascorbylpalmitat,1,Antioxidant
+E307,Alfa-tokoferol,Alpha-tocopherol,Alpha-Tocopherol,1,"Antioxidant, Vitamin E"
+E308,Gama-tokoferol,Gamma-tocopherol,Gamma-Tocopherol,1,"Antioxidant, Vitamin E"
+E309,Delta-tokoferol,Delta-tocopherol,Delta-Tocopherol,1,"Antioxidant, Vitamin E"
+E325,Mléčnan sodný,Sodium lactate,Natriumlactat,1,"Humectant, acidity regulator"
+E326,Mléčnan draselný,Potassium lactate,Kaliumlactat,1,"Humectant, acidity regulator"
+E327,Mléčnan vápenatý,Calcium lactate,Calciumlactat,1,"Stabiliser, firming agent"
+E331,Citronany sodné,Sodium citrates,Natriumcitrate,1,"Acidity regulator, emulsifier in cheese"
+E332,Citronany draselné,Potassium citrates,Kaliumcitrate,1,Acidity regulator
+E333,Citronany vápenaté,Calcium citrates,Calciumcitrate,1,"Firming agent, stabiliser"
+E334,Kyselina vinná,Tartaric acid,Weinsäure,1,"Acidity regulator, antioxidant"
+E351,Jablečnan draselný,Potassium malate,Kaliummalat,1,Acidity regulator
+E352,Jablečnany vápenaté,Calcium malates,Calciummalate,1,Acidity regulator
+E354,L+- vinan vápenatý,Calcium tartrate,Calciumtartrat,1,Stabiliser
+E383,Glycerofosforečnan vápenatý,Calcium glycerophosphate,Calciumglycerophosphat,1,Stabiliser
+E415,Xanthan,Xanthan gum,Xanthan,1,"Thickener, stabiliser in dressings, sauces"
+E422,Glycerol,Glycerol,Glycerin,1,"Humectant, solvent, sweetener"
+E440,Pektiny,Pectins,Pektine,1,"Gelling agent, thickener in jams, jellies"
+E442,Fosfatidy amonné,Ammonium phosphatides,Ammoniumphosphatide,1,Emulsifier in chocolate
+E445,Pryskyřičný ester,Glycerol esters of wood rosins,Glycerinester aus Wurzelharz,1,Emulsifier
+E460,Celulózy ( a. ),Celluloses,Cellulosen,1,"Bulking agent, anti-caking agent"
+E461,Methylcelulóza,Methyl cellulose,Methylcellulose,1,"Thickener, emulsifier"
+E462,Ethylcelulóza,Ethyl cellulose,Ethylcellulose,1,"Thickener, emulsifier"
+E463,Hydroxypropylcelulóza,Hydroxypropyl cellulose,Hydroxypropylcellulose,1,"Thickener, emulsifier"
+E464,Hydroxypropylmethylcelulóza,Hydroxypropyl methyl cellulose,Hydroxypropylmethylcellulose,1,"Thickener, emulsifier"
+E465,Ethylmethylcelulóza,Ethyl methyl cellulose,Ethylmethylcellulose,1,"Thickener, emulsifier"
+E466,Karboxymethylcelulóza,Carboxymethyl cellulose,Carboxymethylcellulose,1,"Thickener, stabiliser"
+E467,Ethylhydroxyethylcelulóza,Ethyl hydroxyethyl cellulose,Ethylhydroxyethylcellulose,1,"Thickener, stabiliser"
+E468,Kroskarmelóza,Croscarmellose,Croscarmellose,1,"Thickener, stabiliser"
+E469,Enzymově hydrolyzovaná karboxymethylcelulóza,Enzymatically hydrolysed carboxymethyl cellulose,Enzymatisch hydrolysierte Carboxymethylcellulose,1,"Thickener, stabiliser"
+E470,"Sodné, draselné a vápenaté soli mastných kyselin, hořečnaté soli mastných kyselin","Sodium, potassium and calcium salts of fatty acids, magnesium salts of fatty acids",Salze der Speisefettsäuren,1,"Emulsifier, anti-caking agent"
+E471,Mono a diglyceridy mastných kyselin,Mono- and diglycerides of fatty acids,Mono- und Diglyceride von Speisefettsäuren,1,"Emulsifier, stabiliser in bakery products, ice cream"
+E472,"Estery mono a diglyceridů mastných kyselin a, b, c, d, e, f","Esters of mono- and diglycerides of fatty acids (a, b, c, d, e, f)",Veresterte Mono- und Diglyceride von Speisefettsäuren,1,"Emulsifier, stabiliser"
+E473,Estery sacharózy s mastnými kyselinami,Sucrose esters of fatty acids,Zuckerester von Speisefettsäuren,1,Emulsifier
+E474,Sacharoglyceridy,Sucroglycerides,Saccharoglyceride,1,Emulsifier
+E475,Estery polyglycerolu s mastnými kyselinami,Polyglycerol esters of fatty acids,Polyglycerinester von Speisefettsäuren,1,Emulsifier
+E477,Estery propylenglykolu s mastnými kyselinami,Propylene glycol esters of fatty acids,Propylenglycolester von Speisefettsäuren,1,Emulsifier
+E478,Laktylované estery glycerolu a propandiolu,"Lactylated glycerol esters of fatty acids and propane-1,2-diol",Lactylierte Glycerinester und Propandiolester,1,Emulsifier
+E479b,Olej sójových bobů s glyceridy mastných kyselin,Thermally oxidised soya bean oil interacted with mono- and diglycerides of fatty acids,Thermooxidiertes Sojaöl mit Mono- und Diglyceriden,1,"Emulsifier, stabiliser"
+E488,Etoxylované mono a di glyceridy,Ethoxylated mono- and di-glycerides,Ethoxylierte Mono- und Diglyceride,1,Emulsifier
+E492,Tristearát sorbitolu,Sorbitan tristearate,Sorbitantristearat,1,Emulsifier
+E493,Monolaurát sorbitolu,Sorbitan monolaurate,Sorbitanmonolaurat,1,Emulsifier
+E494,Monooleát sorbitolu,Sorbitan monooleate,Sorbitanmonooleat,1,Emulsifier
+E495,Monopalmitát sorbitolu,Sorbitan monopalmitate,Sorbitanmonopalmitat,1,Emulsifier
+E500,Uhličitany sodné,Sodium carbonates,Natriumcarbonate,1,"Raising agent, acidity regulator"
+E500(i),Uhličitan sodný,Sodium carbonate,Natriumcarbonat,1,"Raising agent, acidity regulator"
+E500(ii),Hydrogenuhličitan sodný,Sodium hydrogen carbonate,Natriumhydrogencarbonat,1,"Raising agent, acidity regulator"
+E500(iii),Sekvikarbonát sodný,Sodium sesquicarbonate,Natriumsesquicarbonat,1,"Raising agent, acidity regulator"
+E504,Uhličitany hořečnaté,Magnesium carbonates,Magnesiumcarbonate,1,Anti-caking agent
+E509,Chlorid vápenatý,Calcium chloride,Calciumchlorid,1,Firming agent in canned vegetables
+E511,Chlorid hořečnatý,Magnesium chloride,Magnesiumchlorid,1,Firming agent
+E514,Sírany sodné,Sodium sulphates,Natriumsulfate,1,"Acidity regulator, firming agent"
+E515,Sírany draselné,Potassium sulphates,Kaliumsulfate,1,Acidity regulator
+E516,Síran vápenatý,Calcium sulphate,Calciumsulfat,1,"Firming agent, flour treatment agent"
+E518,Síran hořečnatý,Magnesium sulphate,Magnesiumsulfat,1,Firming agent
+E524,Hydroxid sodný,Sodium hydroxide,Natriumhydroxid,1,Acidity regulator
+E526,Hydroxid vápenatý,Calcium hydroxide,Calciumhydroxid,1,"Acidity regulator, firming agent"
+E528,Hydroxid hořečnatý,Magnesium hydroxide,Magnesiumhydroxid,1,Acidity regulator
+E529,Oxid vápenatý,Calcium oxide,Calciumoxid,1,Acidity regulator
+E530,Oxid hořečnatý,Magnesium oxide,Magnesiumoxid,1,Anti-caking agent
+E542,Jedlý fosfát,Edible bone phosphate,Speiseknochenphosphat,1,Anti-caking agent
+E551,Oxid křemičitý,Silicon dioxide,Siliciumdioxid,1,"Anti-caking agent in powdered foods, spices"
+E552,Křemičitan vápenatý,Calcium silicate,Calciumsilicat,1,Anti-caking agent
+E553a,Křemičitan hořečnatý,Magnesium silicate,Magnesiumsilicat,1,Anti-caking agent
+E570,Mastné kyseliny,Fatty acids,Speisefettsäuren,1,"Glazing agent, anti-caking agent"
+E572,Stearan hořečnatý,Magnesium stearate,Magnesiumstearat,1,Anti-caking agent
+E575,Glukonolakton,Glucono delta-lactone (GDL),Glucono-delta-lacton,1,"Acidity regulator, stabiliser, raising agent"
+E576,Glukonan sodný,Sodium gluconate,Natriumgluconat,1,Stabiliser
+E577,Glukonan draselný,Potassium gluconate,Kaliumgluconat,1,Stabiliser
+E578,Glukonan vápenatý,Calcium gluconate,Calciumgluconat,1,Firming agent
+E579,Glukonan železnatý,Ferrous gluconate,Eisengluconat,1,Colour stabiliser in canned olives
+E642,Lysin hydrochlorid,Lysine hydrochloride,Lysinhydrochlorid,1,Flavour enhancer
+E902,Vosk candelilla,Candelilla wax,Candelillawachs,1,Glazing agent
+E903,Karnaubský vosk,Carnauba wax,Carnaubawachs,1,"Glazing agent for sweets, chocolate"
+E904,Šelak,Shellac,Schellack,1,Glazing agent for sweets
+E908,Vosk z rýžových otrub,Rice bran wax,Reiskleiewachs,1,Glazing agent
+E912,Estery montanových kyselin,Montan acid esters,Montansäureester,1,Glazing agent
+E920,L-cystein,L-Cysteine,L-Cystein,1,Flour treatment agent
+E938,Argon,Argon,Argon,1,Packaging gas
+E939,Helium,Helium,Helium,1,Packaging gas
+E949,Vodík,Hydrogen,Wasserstoff,1,Packaging gas
+E953,Isomalt,Isomalt,Isomalt,1,"Sweetener, bulking agent"
+E959,Neohesperidin DC,Neohesperidin dihydrochalcone (NHDC),Neohesperidin DC,1,"Sweetener, flavour enhancer"
+E999,Extrakt kvilajové kůry,Quillaja extract,Quillajaextrakt,1,Foaming agent in soft drinks
+E1103,Invertasa,Invertase,Invertase,2,"Processing aid, enzyme"
+E1200,Polydextrosy,Polydextrose,Polydextrose,2,"Bulking agent, dietary fibre"
+E1404,Oxidovaný škrob,Oxidised starch,Oxidierte Stärke,2,"Thickener, stabiliser, gelling agent"
+E1410,Fosfát škrobu,Monostarch phosphate,Monostärkephosphat,2,"Thickener, stabiliser"
+E1412,Zesíťovaný fosfát škrobu,Distarch phosphate,Distärkephosphat,2,"Thickener, stabiliser"
+E1413,Fosfát zesíťovaného škrobu,Phosphated distarch phosphate,Phosphatiertes Distärkephosphat,2,"Thickener, stabiliser"
+E1414,Acetát zasíťovaného fosfátu škrobu,Acetylated distarch phosphate,Acetyliertes Distärkephosphat,2,"Thickener, stabiliser"
+E1420,Acetát škrobu,Acetylated starch,Acetylierte Stärke,2,"Thickener, stabiliser"
+E1422,Acetát zesíťovaného adipátu škrobu,Acetylated distarch adipate,Acetyliertes Distärkeadipat,2,"Thickener, stabiliser"
+E1440,Hydroxypropylether škrobu,Hydroxypropyl starch,Hydroxypropylstärke,2,"Thickener, stabiliser"
+E1442,Hydroxypropylether zesíťovaného fosfátu škrobu,Hydroxypropyl distarch phosphate,Hydroxypropyl-Distärkephosphat,2,"Thickener, stabiliser"
+E1450,Sodná sůl oktenylsukcinátu škrobu,Starch sodium octenyl succinate,Stärkenatriumoctenylsuccinat,2,"Emulsifier, stabiliser"
+E1451,Acetylovaný oxidovaný škrob,Acetylated oxidised starch,Acetylierte oxidierte Stärke,2,"Thickener, stabiliser"
+E1517,Glyceryl-diacetát,Glyceryl diacetate,Glycerindiacetat,2,"Humectant, solvent"
+E1518,Glyceryl-triacetát,Glyceryl triacetate,Glycerintriacetat,2,"Humectant, solvent, plasticizer"
+E1521,Polyethylenglykol (PEG 6000),Polyethylene glycol (PEG 6000),Polyethylenglykol (PEG 6000),2,"Glazing agent, solvent"
+E172,Oxidy a hydroxidy železa,Iron oxides and hydroxides,Eisenoxide und -hydroxide,2,"Red, brown, yellow, and black colouring"
+E261,Octan draselný,Potassium acetates,Kaliumacetat,2,"Acidity regulator, preservative"
+E262,Octany sodné,Sodium acetates,Natriumacetat,2,"Acidity regulator, preservative"
+E263,Octan vápenatý,Calcium acetate,Calciumacetat,2,Preservative
+E315,Kyselina erythorbová,Erythorbic acid,Erythorbinsäure,2,Antioxidant
+E316,Erythorban sodný,Sodium erythorbate,Natriumerythorbat,2,Antioxidant
+E323,Anoxomer,Anoxomer,Anoxomer,2,Antioxidant
+E335,Vinany sodné,Sodium tartrates,Natriumtartrate,2,"Acidity regulator, emulsifier"
+E337,Vinan sodnodraselný,Potassium sodium tartrate,Kaliumnatriumtartrat,2,Acidity regulator
+E338,Kyselina fosforečná,Phosphoric acid,Phosphorsäure,2,Acidity regulator in soft drinks
+E339,Fosforečnany sodné,Sodium phosphates,Natriumphosphate,2,"Emulsifier, stabiliser, acidity regulator"
+E340,Fosforečnany draselné,Potassium phosphates,Kaliumphosphate,2,"Emulsifier, stabiliser"
+E340(i),Dihydrogenfosforečnan draselný,Monopotassium phosphate,Kaliumdihydrogenphosphat,2,Acidity regulator
+E340(ii),Monohydrogenfosforečnan draselný,Dipotassium phosphate,Dikaliumphosphat,2,Acidity regulator
+E340(iii),Fosforečnan draselný,Tripotassium phosphate,Trikaliumphosphat,2,Acidity regulator
+E341,Fosforečnany vápenaté,Calcium phosphates,Calciumphosphate,2,"Acidity regulator, anti-caking agent"
+E342,Fosforečnany amonné,Ammonium phosphates,Ammoniumphosphate,2,Acidity regulator
+E343,Fosforečnany hořečnaté,Magnesium phosphates,Magnesiumphosphate,2,"Acidity regulator, anti-caking agent"
+E350,Jablečnany sodné,Sodium malates,Natriummalat,2,Acidity regulator
+E353,Kyselina metavinná,Metatartaric acid,Metatartarsäure,2,Stabiliser
+E355,Kyselina adipová,Adipic acid,Adipinsäure,2,"Acidity regulator, flavouring agent"
+E356,Adipan sodný,Sodium adipate,Natriumadipat,2,Acidity regulator
+E357,Adipan draselný,Potassium adipate,Kaliumadipat,2,Acidity regulator
+E380,Citronan triamonný,Triammonium citrate,Triammoniumcitrat,2,Acidity regulator
+E381,Citronan železitoamonný,Ferric ammonium citrate,Eisen(III)ammoniumcitrat,2,Colouring agent
+E384,Citronan isopropylnatý,Isopropyl citrate,Isopropylcitrat,2,Antioxidant
+E387,Oxystearin,Oxystearin,Oxystearin,2,Emulsifier
+E388,Kyselina thiodipropionová,Thiodipropionic acid,Thiodipropionsäure,2,Antioxidant
+E389,Dilauryl thiodipropionát,Dilauryl thiodipropionate,Dilaurylthiodipropionat,2,Antioxidant
+E390,Distearyl thiodipropionát,Distearyl thiodipropionate,Distearylthiodipropionat,2,Antioxidant
+E400,Kyselina alginová,Alginic acid,Alginsäure,2,"Thickener, gelling agent, stabiliser"
+E407,Karagenan,Carrageenan,Carrageen,2,"Gelling agent, thickener in desserts, processed meats"
+E413,Tragant,Tragacanth,Traganth,2,"Thickener, emulsifier in sauces, ice cream"
+E432,Polyoxyethylensorbitanmonolaurát,Polysorbate 20,Polyoxyethylensorbitanmonolaurat,2,Emulsifier
+E433,Polyoxyethylensorbitanmonooleát,Polysorbate 80,Polyoxyethylensorbitanmonooleat,2,Emulsifier
+E434,Polyoxyethylensorbitanmonopalmitát,Polysorbate 40,Polyoxyethylensorbitanmonopalmitat,2,Emulsifier
+E435,Polyoxyethylensorbitanmonostearát,Polysorbate 60,Polyoxyethylensorbitanmonostearat,2,Emulsifier
+E436,Polyoxyethylensorbitantristearát,Polysorbate 65,Polyoxyethylensorbitantristearat,2,Emulsifier
+E440(ii),Amidovaný pektin,Amidated pectin,Amidiertes Pektin,2,Gelling agent
+E444,Acetát isobutyrát sacharózy,Sucrose acetate isobutyrate (SAIB),Saccharoseacetatisobutyrat,2,"Emulsifier, stabiliser"
+E446,Sukcistearin,Succistearin,Succistearin,2,Emulsifier
+E481,Stearoylaktylát sodný,Sodium stearoyl-2-lactylate,Natriumstearoyl-2-lactat,2,"Emulsifier, stabiliser in bakery products"
+E482,Stearoyllaktylát vápenatý,Calcium stearoyl-2-lactylate,Calciumstearoyl-2-lactat,2,"Emulsifier, stabiliser"
+E483,Stearyltartarát,Stearyl tartrate,Stearyltartrat,2,Emulsifier
+E484,Stearylcitrát,Stearyl citrate,Stearylcitat,2,Emulsifier
+E501,Uhličitany draselné,Potassium carbonates,Kaliumcarbonate,2,"Raising agent, acidity regulator"
+E503,Uhličitan amonný,Ammonium carbonates,Ammoniumcarbonate,2,Raising agent in biscuits and crackers
+E507,Kyselina chlorovodíková,Hydrochloric acid,Salzsäure,2,Acidity regulator
+E508,Chlorid draselný,Potassium chloride,Kaliumchlorid,2,"Flavour enhancer, gelling agent"
+E510,Chlorid amonný,Ammonium chloride,Ammoniumchlorid,2,"Raising agent, yeast nutrient"
+E513,Kyselina sírová,Sulphuric acid,Schwefelsäure,2,Acidity regulator
+E517,Síran amonný,Ammonium sulphate,Ammonsulfat,2,Flour treatment agent
+E521,Síran sodnohlinitý,Sodium aluminium sulphate,Natriumaluminiumsulfat,2,Firming agent
+E522,Síran draselnohlinitý,Potassium aluminium sulphate,Kaliumaluminiumsulfat,2,Firming agent
+E523,Síran amonnohlinitý,Ammonium aluminium sulphate,Ammoniumaluminiumsulfat,2,Firming agent
+E525,Hydroxid draselný,Potassium hydroxide,Kaliumhydroxid,2,Acidity regulator
+E527,Hydroxid amonný,Ammonium hydroxide,Ammoniumhydroxid,2,Acidity regulator
+E535,Ferrokyanid sodný,Sodium ferrocyanide,Natriumferrocyanid,2,Anti-caking agent in salt
+E536,Ferrokyanid draselný,Potassium ferrocyanide,Kaliumferrocyanid,2,Anti-caking agent in salt
+E538,Ferrokyanid vápenatý,Calcium ferrocyanide,Calciumferrocyanid,2,Anti-caking agent
+E539,Thiosíran sodný,Sodium thiosulphate,Natriumthiosulfat,2,Antioxidant
+E541,Fosforečnan sodnohlinitý,Sodium aluminium phosphate,Natriumaluminiumphosphat,2,"Emulsifier, raising agent"
+E550,Křemičitan sodný,Sodium silicate,Natriumsilicat,2,Anti-caking agent
+E553b,Talek,Talc,Talkum,2,"Anti-caking agent, glazing agent"
+E554,Hlinitokřemičitan sodný,Sodium aluminosilicate,Natriumaluminiumsilicat,2,Anti-caking agent
+E555,Hlinitokřemičitan draselný,Potassium aluminium silicate,Kaliumaluminiumsilicat,2,Anti-caking agent
+E556,Hlinitokřemičitan vápenatý,Calcium aluminosilicate,Calciumaluminiumsilicat,2,Anti-caking agent
+E559,Křemičitan hlinitý,Aluminium silicate,Aluminiumsilicat,2,Anti-caking agent
+E585,Mléčnan železnatý,Ferrous lactate,Eisen(II)-lactat,2,Colour stabiliser
+E650,Octan zinečnatý,Zinc acetate,Zinkacetat,2,Stabiliser
+E900,Dimethylsilikonový olej,Dimethylpolysiloxane,Dimethylpolysiloxan,2,Anti-foaming agent
+E905c,Ropný vosk,Petroleum wax,Petroleumwachs,2,Glazing agent
+E914,Oxidovaný polyethylenový vosk,Oxidised polyethylene wax,Oxidiertes Polyethylenwachs,2,Glazing agent
+E942,Oxid dusný,Nitrous oxide,Distickstoffoxid,2,Propellant in whipped cream
+E943a,Butan,Butane,Butan,2,Propellant
+E943b,Isobutan,Isobutane,Isobutan,2,Propellant
+E944,Propan,Propane,Propan,2,Propellant
+E946,Oktafluorcyklobutan,Octafluorocyclobutane,Octafluorcyclobutan,2,Propellant
+E955,Sukralosa,Sucralose,Sukralosa,2,Sweetener
+E956,Alitam,Alitame,Alitam,2,Sweetener
+E965,Maltitol,Maltitol,Maltit,2,"Sweetener, humectant"
+E966,Laktitol,Lactitol,Lactit,2,"Sweetener, bulking agent"
+E104,Chinolinová žluť,Quinoline Yellow,Chinolingelb,3,"Yellow colouring in confectionery, smoked fish"
+E122,Azorubin,"Azorubine, Carmoisine",Azorubin,3,"Red colouring in jellies, marzipan, jams"
+E1411,Diškrobový glycerol,Distarch glycerol,Distärkeglycerol,3,"Thickener, stabiliser"
+E142,Zeleň S,Green S,Grün S,3,"Green colouring for sweets, mint sauces"
+E1452,Škrobový oktenylsukcinát hlinitý (SAOS),Starch aluminium octenyl succinate,Stärke-Aluminiumoctenylsuccinat,3,"Emulsifier, stabiliser"
+E150c,Amoniakový karamel,Caramel III - Ammonia caramel,Karamell III - Ammoniak-Zuckerkulör,3,Brown colouring
+E150d,Amoniak sulfitový karamel,Caramel IV - Sulphite ammonia caramel,Karamell IV - Ammoniumsulfit-Zuckerkulör,3,Brown colouring
+E1519,Benzylalkohol,Benzyl alcohol,Benzylalkohol,3,Preservative
+E1520,Propylenglykol,Propylene glycol,Propylenglykol,3,"Humectant, solvent"
+E160b,"Annatto, Bixin, Norbixin","Annatto, Bixin, Norbixin","Annatto, Bixin, Norbixin",3,"Red-orange colouring in cheese, butter"
+E161g,Kanthaxanthin,Canthaxanthin,Canthaxanthin,3,"Orange-red colouring in sausages, poultry skin"
+E200,Kyselina sorbová,Sorbic acid,Sorbinsäure,3,"Preservative for cheese, dried fruits, wine"
+E201,Sorban sodný,Sodium sorbate,Natriumsorbat,3,Preservative
+E202,Sorban draselný,Potassium sorbate,Kaliumsorbat,3,"Preservative for yogurts, cheese, bakery products"
+E203,Sorban vápenatý,Calcium sorbate,Calciumsulfit,3,Preservative
+E235,Natamycin,Natamycin,Natamycin,3,Preservative for cheese and sausages
+E236,Kyselina mravenčí,Formic acid,Ameisensäure,3,Preservative
+E242,Dimethyldikarbonát (dimethyldiuhličitan),Dimethyl dicarbonate,Dimethyldicarbonat,3,"Preservative in wine, soft drinks"
+E280,Kyselina propionová,Propionic acid,Propionsäure,3,"Preservative for bread, bakery products"
+E281,Propionan sodný,Sodium propionate,Natriumpropionat,3,Preservative
+E282,Propionan vápenatý,Calcium propionate,Calciumpropionat,3,Preservative
+E283,Propionan draselný,Potassium propionate,Kaliumpropionat,3,Preservative
+E320,Butylhydroxyanisol (BHA),Butylated hydroxyanisole (BHA),Butylhydroxyanisol,3,"Antioxidant in fats, chewing gum"
+E321,Butylhydroxytoluen (BHT),Butylated hydroxytoluene (BHT),Butylhydroxytoluen,3,Antioxidant in fats and oils
+E385,Ethylendiamintetraacetát vápenato-disodný,Calcium disodium EDTA,Calcium-Dinatrium-EDTA,3,"Stabiliser, preservative"
+E386,Ethylendiamintetraacetát disodný,Disodium EDTA,Dinatrium-EDTA,3,Stabiliser
+E401,Alginát sodný,Sodium alginate,Natriumalginat,3,"Thickener, gelling agent"
+E402,Alginát draselný,Potassium alginate,Kaliumalginat,3,"Thickener, gelling agent"
+E403,Alginát amonný,Ammonium alginate,Ammoniumalginat,3,"Thickener, gelling agent"
+E404,Alginát vápenatý,Calcium alginate,Calciumalginat,3,"Thickener, gelling agent"
+E405,Propylenglykolalginát,"Propane-1,2-diol alginate",Propylenglycolalginat,3,"Thickener, emulsifier"
+E420,Sorbitol,Sorbitol,Sorbit,3,"Sweetener, humectant in confectionery, diet products"
+E421,Mannitol,Mannitol,Mannit,3,"Sweetener, anti-caking agent"
+E430,Polyoxyethylen stearát,Polyoxyethylene stearate,Polyoxyethylenstearat,3,Emulsifier
+E431,Polyoxyethylen monostearát,Polyoxyethylene monostearate,Polyoxyethylenmonostearat,3,Emulsifier
+E450,Difosforečnany,Diphosphates,Diphosphate,3,"Emulsifier, stabiliser, acidity regulator"
+E451,Trifosforečnany - sodný a draselný,Triphosphates - sodium and potassium,Triphosphate - Natrium- und Kalium,3,"Emulsifier, stabiliser"
+E452,"Polyfosforečnany ( sodný, draselný a vápenatý )","Polyphosphates (sodium, potassium and calcium)","Polyphosphate (Natrium, Kalium und Calcium)",3,"Emulsifier, stabiliser"
+E459,Beta - cyklodextrin,Beta-cyclodextrin,Beta-Cyclodextrin,3,"Stabiliser, emulsifier"
+E476,Polyglycerolpolyricinoleát,Polyglycerol polyricinoleate (PGPR),Polyglycerol-Polyricinoleat,3,Emulsifier in chocolate and spreads
+E491,Monostearát sorbitolu,Sorbitan monostearate,Sorbitanmonostearat,3,"Emulsifier, stabiliser"
+E520,Síran hlinitý,Aluminium sulphate,Aluminiumsulfat,3,Firming agent
+E558,Křemičitan hlinitohořečnatý,Aluminium magnesium silicate,Aluminiummagnesiumsilicat,3,Anti-caking agent
+E626,Kyselina guanylová,Guanylic acid,Guanylsäure,3,Flavour enhancer
+E627,Guanylan sodný,Disodium guanylate,Dinatriumguanylat,3,"Flavour enhancer in instant soups, crisps"
+E628,Guanylan draselný,Dipotassium guanylate,Dikaliumguanylat,3,Flavour enhancer
+E629,Guanylan vápenatý,Calcium guanylate,Calciuminosinat,3,Flavour enhancer
+E630,Kyselina inosinová,Inosinic acid,Inosinsäure,3,Flavour enhancer
+E631,Inosinan sodný,Disodium inosinate,Dinatriuminosinate,3,"Flavour enhancer in instant noodles, crisps"
+E632,Inosinan draselný,Dipotassium inosinate,Dikaliuminosinat,3,Flavour enhancer
+E633,Inosinan vápenatý,Calcium inosinate,Calciuminosinat,3,Flavour enhancer
+E636,Maltol,Maltol,Maltol,3,Flavour enhancer
+E637,Ethylmaltol,Ethyl maltol,Ethylmaltol,3,Flavour enhancer
+E905,Mikrokrystalický vosk,Microcrystalline wax,Mikrokristalline Wachse,3,"Glazing agent, anti-caking agent"
+E905b,Ropná vazelína,Petrolatum,Petrolatum,3,Glazing agent
+E927a,Azoformamid,Azodicarbonamide,Azodicarbonamid,3,Flour treatment agent
+E927b,Močovina,"Carbamide, Urea","Harnstoff, Carbamid",3,Raising agent
+E929,Peroxid acetonu,Acetone peroxide,Acetonperoxid,3,Flour treatment agent
+E930,Peroxid vápenatý,Calcium peroxide,Calciumperoxid,3,Flour treatment agent
+E945,Chlorpentanfluoretan,Chloropentafluoroethane,Chlorpentafluorethan,3,Propellant
+E958,Glycyrrhizin,Glycyrrhizin,Glycyrrhizin,3,"Sweetener, flavour enhancer"
+E961,Neotam,Neotame,Neotam,3,Sweetener
+E102,Tartrazin,Tartrazine,Tartrazin,4,"Yellow colouring in sweets, soft drinks, sauces"
+E1102,Glukosaoxidasa,Glucose oxidase,Glukoseoxidase,4,Stabiliser
+E1201,"Polyvinylpyrrolidon (PVP, Povidon)",Polyvinylpyrrolidone (PVP),Polyvinylpyrrolidon,4,"Stabiliser, clarifying agent in beer, wine"
+E1202,"Polyvinylpolypyrrolidon (Síťovaný povidon, PVPP)",Polyvinylpolypyrrolidone (PVPP),Polyvinylpolypyrrolidon,4,Clarifying agent in wine and beer
+E127,Erythrosin ( Cl potravinářská červeň 14 ),Erythrosine,Erythrosin,4,"Red colouring for cocktail cherries, canned fruits"
+E129,Červeň Allura AC ( Cl potravinářská červeň 17 ),Allura Red AC,Allurarot AC,4,"Red colouring in sweets, beverages, desserts"
+E131,Patentní modř V (CI Potravinářská modř V),Patent Blue V,Patentblau V,4,"Blue colouring in sweets, drinks"
+E143,Fast green FCF,Fast Green FCF,Fast Green FCF,4,Green colouring
+E151,"Čerň BN (Lesklá čerň BN, Brilantní čerň BN)",Brilliant Black BN,Brillantschwarz BN,4,"Black colouring in confectionery, sauces"
+E154,Hněď FK ( CI potravinářská hněď 1 ),Brown FK,Braun FK,4,Brown colouring in smoked fish
+E171,Oxid titaničitý,Titanium dioxide,Titandioxid,4,"White colouring in sweets, chewing gum, sauces"
+E173,Hliník ( CI kovový pigment ),Aluminium,Aluminium,4,Silver colouring for confectionery decoration
+E174,Stříbro,Silver,Silber,4,"Glazing agent, silver colouring for confectionery"
+E180,Litholrubin BK,Litholrubine BK,Litholrubin BK,4,Red colouring for cheese rinds
+E182,Orchil,Orcein,Orcein,4,Red-violet colouring
+E209,Heptylparaben,Heptyl p-hydroxybenzoate,Heptylparaben,4,Preservative
+E211,Benzoan sodný,Sodium benzoate,Natriumbenzoat,4,"Preservative in soft drinks, salads, sauces"
+E212,Benzoan draselný,Potassium benzoate,Kaliumbenzoat,4,Preservative
+E213,Benzoan vápenatý,Calcium benzoate,Calciumbenzoat,4,Preservative
+E214,Ethylparahydroxybenzoát,Ethyl p-hydroxybenzoate,Ethylparahydroxybenzoat,4,Preservative
+E215,Ethylparahydroxybenzoát sodná sůl,Sodium ethyl p-hydroxybenzoate,Natriumethylparahydroxybenzoat,4,Preservative
+E216,Propylparahydroxybenzoát,Propyl p-hydroxybenzoate,Propylparahydroxybenzoat,4,Preservative
+E217,Propylparahydroxybenzoát sodná sůl,Sodium propyl p-hydroxybenzoate,Natriumpropylparahydroxybenzoat,4,Preservative
+E218,Methylparahydroxybenzoát,Methyl p-hydroxybenzoate,Methylparahydroxybenzoat,4,Preservative
+E219,Methylparahydroxybenzoát sodná sůl,Sodium methyl p-hydroxybenzoate,Natriummethylparahydroxybenzoat,4,Preservative
+E231,Orthofenylfenol,Orthophenylphenol,Orthophenylphenol,4,Preservative for fruit skins
+E233,Thiabendazol,Thiabendazole,Thiabendazol,4,Preservative for fruit skins
+E239,Hexamethylentetraamin,Hexamethylene tetramine,Hexamethylentetramin,4,Preservative in cheese
+E251,Dusičnan sodný,Sodium nitrate,Natriumnitrat,4,Preservative in meat products
+E252,Dusičnan draselný,"Potassium nitrate, Saltpetre","Kaliumnitrat, Salpeter",4,Preservative in meat products
+E310,Propylgallát,Propyl gallate,Propylgallat,4,Antioxidant in fats and oils
+E311,Oktylgallát,Octyl gallate,Octylgallat,4,Antioxidant
+E324,Ethoxyquin,Ethoxyquin,Ethoxyquin,4,Antioxidant
+E443,Bromovaný rostlinný olej,Brominated vegetable oil (BVO),Bromiertes Pflanzenöl,4,Stabiliser in soft drinks
+E480,Dioktylsulfosukcinát sodný,Sodium dioctyl sulphosuccinate,Natriumdioctylsulfosuccinat,4,"Wetting agent, emulsifier"
+E487,Laurylsulfát sodný,Sodium lauryl sulphate,Natriumlaurylsulfat,4,Emulsifier
+E512,Chlorid cínatý,Stannous chloride,Zinn(II)chlorid,4,Antioxidant
+E634,Vápenaté ribonukleotidy,Calcium 5'-ribonucleotides,Calcium-5'-Ribonucleotide,4,Flavour enhancer
+E635,Disodné ribonukleotidy,Disodium 5'-ribonucleotides,Dinatrium-5'-Ribonucleotide,4,Flavour enhancer
+E905a,Minerální olej,Mineral oil,Mineralöl,4,Glazing agent
+E926,Oxid chloričitý,Chlorine dioxide,Chlordioxid,4,Flour treatment agent
+E928,Benzoyl peroxid,Benzoyl peroxide,Benzoylperoxid,4,Flour treatment agent
+E950,Acesulfam K,Acesulfame K,Acesulfam K,4,"Sweetener in diet soft drinks, chewing gum"
+E962,Sůl aspartamu/acesulfamu,Salt of aspartame-acesulfame,Salz von Aspartam-Acesulfam,4,Sweetener
+E107,Žluť 2G,Yellow 2G,Gelb 2G,5,Yellow colouring
+E110,Žluť SY,Sunset Yellow FCF,Gelborange S,5,"Orange colouring in sweets, soft drinks, biscuits"
+E120,Kyselina karmínová,"Cochineal, Carminic acid",Echtes Karmin,5,"Red colouring in yogurts, sweets, processed meats"
+E128,"Červeň 2G ( Cl potravinářská červeň 10, Azogeranin )",Red 2G,Rot 2G,5,Red colouring in sausages
+E132,"Indigotin ( Cl potravinářská modř 1, Indigocarmine )","Indigotine, Indigo carmine",Indigotin,5,"Blue colouring in confectionery, ice cream"
+E133,Brilantní modř FCF ( Cl potravinářská modř 2 ),Brilliant Blue FCF,Brillantblau FCF,5,"Blue colouring in soft drinks, sweets"
+E155,Hněď HT ( CI potravinářská hněď 3 ),Brown HT,Braun HT,5,Brown colouring in chocolate and liquorice
+E210,Kyselina Benzoová,Benzoic acid,Benzoesäure,5,"Preservative in acidic foods, soft drinks, sauces"
+E220,Oxid siřičitý,Sulphur dioxide,Schwefeldioxid,5,"Preservative, antioxidant in dried fruit, wine"
+E221,Siřičitan sodný,Sodium sulphite,Natriumsulfit,5,"Preservative, antioxidant"
+E222,Hydrogensiřičitan sodný,Sodium hydrogen sulphite,Natriumhydrogensulfit,5,"Preservative, antioxidant"
+E223,Disiřičitan sodný,Sodium metabisulphite,Natriummetabisulfit,5,"Preservative, antioxidant"
+E224,Disiřičitan draselný,Potassium metabisulphite,Kaliummetabisulfit,5,"Preservative, antioxidant"
+E225,Siřičitan draselný,Potassium sulphite,Kaliumsulfit,5,"Preservative, antioxidant"
+E226,Siřičitan vápenatý,Calcium sulphite,Calciumsulfit,5,"Preservative, antioxidant"
+E227,Hydrogensiřičitan vápenatý,Calcium hydrogen sulphite,Calciumhydrogensulfit,5,"Preservative, antioxidant"
+E228,Hydrogensiřičitan draselný,Potassium hydrogen sulphite,Kaliumhydrogensulfit,5,"Preservative, antioxidant"
+E230,Bifenyl,"Biphenyl, Diphenyl","Biphenyl, Diphenyl",5,Preservative for citrus fruit skins
+E232,Orthofenylfenolát sodný,Sodium orthophenylphenate,Natrium-Orthophenylphenolat,5,Preservative for fruit skins
+E249,Dusitan draselný,Potassium nitrite,Kaliumnitrit,5,Preservative in cured meat products
+E250,Dusitan sodný,Sodium nitrite,Natriumnitrit,5,Preservative in cured meat products
+E284,Kyselina boritá,Boric acid,Borsäure,5,Preservative
+E285,Tetraboritan sodný (Borax),"Sodium tetraborate, Borax","Natriumtetraborat, Borax",5,Preservative
+E312,Dodecylgallát,Dodecyl gallate,Dodecylgallat,5,Antioxidant
+E319,Terciální butylhydrochinon (TBHQ),Tertiary butylhydroquinone (TBHQ),Tert-Butylhydrochinon,5,Antioxidant in fats and oils
+E620,Kyselina l-glutamová,L-Glutamic acid,L-Glutaminsäure,5,Flavour enhancer
+E621,L-glutaman sodný,Monosodium glutamate (MSG),Mononatriumglutamat (MSG),5,"Flavour enhancer in savoury foods, sauces"
+E622,Glutaman draselný,Monopotassium glutamate,Monokaliumglutamat,5,Flavour enhancer
+E623,Glutaman vápenatý,Calcium diglutamate,Calciumdiglutamat,5,Flavour enhancer
+E624,Glutaman amonný,Monoammonium glutamate,Monoammoniumglutamat,5,Flavour enhancer
+E625,Glutaman hořečnatý,Magnesium diglutamate,Magnesiumdiglutamat,5,Flavour enhancer
+E924a,Bromičnan draselný,Potassium bromate,Kaliumbromat,5,Flour treatment agent
+E925,Chlor,Chlorine,Chlor,5,Flour treatment agent
+E940,Dichlordifluormetan,Dichlorodifluoromethane,Dichlordifluormethan,5,Propellant
+E951,Aspartam,Aspartame,Aspartam,5,Sweetener in diet products
+E954,Sacharin a jeho soli,Saccharin and its salts,Saccharin und seine Salze,5,Sweetener
+E121,Citronová červeň 2,Citrus Red 2,Citrusrot 2,6,Red colouring for citrus fruit skins
+E123,Amarant,Amaranth,Amarant,6,"Red colouring, used in spirits and cake decorations"
+E124,"Ponceau 4R (Cl potravinářská červeň 7, Košenilová červeň A)","Ponceau 4R, Cochineal Red A","Ponceau 4R, Cochenillerot A",6,"Red colouring in sausages, sweets, jellies"
+E240,Formaldehyd,Formaldehyde,Formaldehyd,6,Preservative
+E952,Cyklamáty,Cyclamates,Cyclamate,6,Sweetener

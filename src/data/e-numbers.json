@@ -1,0 +1,2816 @@
+[
+  {
+    "id": "322A",
+    "name": "Lecitin - ovesný",
+    "englishName": "Lecithins (Oat)",
+    "rating": 1,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E100",
+    "name": "Kurkumin",
+    "englishName": "Curcumin",
+    "rating": 1,
+    "description": "Yellow food colouring in mustard, curry powder, sauces, cheese"
+  },
+  {
+    "id": "E101",
+    "name": "Riboflavin",
+    "englishName": "Riboflavin, Vitamin B2",
+    "rating": 1,
+    "description": "Yellow food colouring, also a vitamin supplement"
+  },
+  {
+    "id": "E140",
+    "name": "Chlorofyly a chlorofyliny",
+    "englishName": "Chlorophylls and chlorophyllins",
+    "rating": 1,
+    "description": "Green colouring for confectionery, chewing gum"
+  },
+  {
+    "id": "E150",
+    "name": "Karamel",
+    "englishName": "Caramel",
+    "rating": 1,
+    "description": "Brown colouring in soft drinks, sauces, confectionery"
+  },
+  {
+    "id": "E150A",
+    "name": "Karamel",
+    "englishName": "Caramel I - Plain caramel",
+    "rating": 1,
+    "description": "Brown colouring"
+  },
+  {
+    "id": "E160A",
+    "name": "Karoteny",
+    "englishName": "Carotenes",
+    "rating": 1,
+    "description": "Orange colouring"
+  },
+  {
+    "id": "E160A(I)",
+    "name": "Směs karotenů",
+    "englishName": "Mixed carotenes",
+    "rating": 1,
+    "description": "Orange colouring"
+  },
+  {
+    "id": "E160A(II)",
+    "name": "Beta-karoten",
+    "englishName": "Beta-carotene",
+    "rating": 1,
+    "description": "Orange colouring, also a vitamin A precursor"
+  },
+  {
+    "id": "E160C",
+    "name": "Paprikový extrakt, Kapsanthin, Kapsorubin",
+    "englishName": "Paprika extract, capsanthin, capsorubin",
+    "rating": 1,
+    "description": "Red-orange colouring from paprika"
+  },
+  {
+    "id": "E160D",
+    "name": "Lykopen",
+    "englishName": "Lycopene",
+    "rating": 1,
+    "description": "Red colouring, antioxidant"
+  },
+  {
+    "id": "E161B",
+    "name": "Lutein",
+    "englishName": "Lutein",
+    "rating": 1,
+    "description": "Yellow colouring"
+  },
+  {
+    "id": "E161C",
+    "name": "Kryptoxantin",
+    "englishName": "Cryptoxanthin",
+    "rating": 1,
+    "description": "Yellow-orange colouring"
+  },
+  {
+    "id": "E162",
+    "name": "Betanin",
+    "englishName": "Beetroot Red, Betanin",
+    "rating": 1,
+    "description": "Red colouring from beetroot"
+  },
+  {
+    "id": "E163",
+    "name": "Anthokyany",
+    "englishName": "Anthocyanins",
+    "rating": 1,
+    "description": "Red to blue colouring from fruits and vegetables"
+  },
+  {
+    "id": "E164",
+    "name": "Šafrán, Šafránová žluť",
+    "englishName": "Saffron, Saffron Yellow",
+    "rating": 1,
+    "description": "Yellow colouring from saffron"
+  },
+  {
+    "id": "E166",
+    "name": "Santalové dřevo",
+    "englishName": "Sandalwood",
+    "rating": 1,
+    "description": "Red colouring"
+  },
+  {
+    "id": "E170",
+    "name": "Uhličitany vápenaté",
+    "englishName": "Calcium carbonates",
+    "rating": 1,
+    "description": "Whitening agent, anti-caking agent"
+  },
+  {
+    "id": "E234",
+    "name": "Nisin",
+    "englishName": "Nisin",
+    "rating": 1,
+    "description": "Preservative in cheese, dairy products"
+  },
+  {
+    "id": "E260",
+    "name": "Kyselina octová",
+    "englishName": "Acetic acid",
+    "rating": 1,
+    "description": "Acidity regulator, preservative"
+  },
+  {
+    "id": "E270",
+    "name": "Kyselina mléčná",
+    "englishName": "Lactic acid",
+    "rating": 1,
+    "description": "Acidity regulator, preservative in yogurt, cheese"
+  },
+  {
+    "id": "E290",
+    "name": "Oxid uhličitý",
+    "englishName": "Carbon dioxide",
+    "rating": 1,
+    "description": "Packaging gas, aerating agent"
+  },
+  {
+    "id": "E296",
+    "name": "Kyselina jablečná",
+    "englishName": "Malic acid",
+    "rating": 1,
+    "description": "Acidity regulator, flavouring agent"
+  },
+  {
+    "id": "E300",
+    "name": "Kyselina askorbová",
+    "englishName": "Ascorbic acid, Vitamin C",
+    "rating": 1,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E306",
+    "name": "Extrakt s vysokým obsahem tokoferolů",
+    "englishName": "Tocopherol-rich extract",
+    "rating": 1,
+    "description": "Antioxidant, Vitamin E"
+  },
+  {
+    "id": "E314",
+    "name": "Guaiac Gum",
+    "englishName": "Guaiac gum",
+    "rating": 1,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E322",
+    "name": "Lecitiny",
+    "englishName": "Lecithins",
+    "rating": 1,
+    "description": "Emulsifier, stabiliser in chocolate, margarine"
+  },
+  {
+    "id": "E330",
+    "name": "Kyselina citronová",
+    "englishName": "Citric acid",
+    "rating": 1,
+    "description": "Acidity regulator, flavouring agent"
+  },
+  {
+    "id": "E336",
+    "name": "Vinany draselné",
+    "englishName": "Potassium tartrates",
+    "rating": 1,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E363",
+    "name": "Kyselina jantarová",
+    "englishName": "Succinic acid",
+    "rating": 1,
+    "description": "Acidity regulator, flavour enhancer"
+  },
+  {
+    "id": "E392",
+    "name": "Rozmarýnové extrakty",
+    "englishName": "Rosemary extracts",
+    "rating": 1,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E406",
+    "name": "Agar",
+    "englishName": "Agar",
+    "rating": 1,
+    "description": "Gelling agent, thickener in jellies, ice cream"
+  },
+  {
+    "id": "E407A",
+    "name": "Guma Euchema",
+    "englishName": "Processed eucheuma seaweed",
+    "rating": 1,
+    "description": "Gelling agent, thickener"
+  },
+  {
+    "id": "E409",
+    "name": "Arabinnogalaktan",
+    "englishName": "Arabinogalactan",
+    "rating": 1,
+    "description": "Stabiliser, emulsifier"
+  },
+  {
+    "id": "E410",
+    "name": "Karubin",
+    "englishName": "Locust bean gum, Carob gum",
+    "rating": 1,
+    "description": "Thickener, stabiliser in ice cream, sauces"
+  },
+  {
+    "id": "E412",
+    "name": "Guma guar",
+    "englishName": "Guar gum",
+    "rating": 1,
+    "description": "Thickener, stabiliser in sauces, dairy products"
+  },
+  {
+    "id": "E414",
+    "name": "Arabská guma",
+    "englishName": "Gum arabic, Acacia gum",
+    "rating": 1,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E416",
+    "name": "Guma karaya",
+    "englishName": "Karaya gum",
+    "rating": 1,
+    "description": "Thickener, emulsifier"
+  },
+  {
+    "id": "E417",
+    "name": "Guma tara",
+    "englishName": "Tara gum",
+    "rating": 1,
+    "description": "Thickener, gelling agent"
+  },
+  {
+    "id": "E418",
+    "name": "Guma gellan",
+    "englishName": "Gellan gum",
+    "rating": 1,
+    "description": "Gelling agent, stabiliser"
+  },
+  {
+    "id": "E419",
+    "name": "Guma ghatti",
+    "englishName": "Ghatti gum",
+    "rating": 1,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E425",
+    "name": "Konjaková guma",
+    "englishName": "Konjac gum",
+    "rating": 1,
+    "description": "Thickener, gelling agent"
+  },
+  {
+    "id": "E440(I)",
+    "name": "Pektin",
+    "englishName": "Pectin",
+    "rating": 1,
+    "description": "Gelling agent"
+  },
+  {
+    "id": "E574",
+    "name": "Kyselina glukonová",
+    "englishName": "Gluconic acid",
+    "rating": 1,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E640",
+    "name": "Glycin",
+    "englishName": "Glycine",
+    "rating": 1,
+    "description": "Flavour enhancer, sweetener"
+  },
+  {
+    "id": "E641",
+    "name": "Leucin",
+    "englishName": "L-Leucine",
+    "rating": 1,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E901",
+    "name": "Včelí vosk",
+    "englishName": "Beeswax, white and yellow",
+    "rating": 1,
+    "description": "Glazing agent for confectionery"
+  },
+  {
+    "id": "E913",
+    "name": "Lanolin",
+    "englishName": "Lanolin",
+    "rating": 1,
+    "description": "Glazing agent"
+  },
+  {
+    "id": "E921",
+    "name": "L-cystin",
+    "englishName": "L-Cystine",
+    "rating": 1,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E941",
+    "name": "Dusík",
+    "englishName": "Nitrogen",
+    "rating": 1,
+    "description": "Packaging gas"
+  },
+  {
+    "id": "E948",
+    "name": "Kyslík",
+    "englishName": "Oxygen",
+    "rating": 1,
+    "description": "Packaging gas"
+  },
+  {
+    "id": "E957",
+    "name": "Thaumatin",
+    "englishName": "Thaumatin",
+    "rating": 1,
+    "description": "Sweetener, flavour enhancer"
+  },
+  {
+    "id": "E960",
+    "name": "Steviol-glykosidy",
+    "englishName": "Steviol glycosides (Stevia)",
+    "rating": 1,
+    "description": "Sweetener"
+  },
+  {
+    "id": "E967",
+    "name": "Xylitol",
+    "englishName": "Xylitol",
+    "rating": 1,
+    "description": "Sweetener, humectant"
+  },
+  {
+    "id": "E968",
+    "name": "Erythritol",
+    "englishName": "Erythritol",
+    "rating": 1,
+    "description": "Sweetener, bulking agent"
+  },
+  {
+    "id": "322",
+    "name": "Lecitiny",
+    "englishName": "Lecithins",
+    "rating": 1,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E1105",
+    "name": "Lysozym",
+    "englishName": "Lysozyme",
+    "rating": 2,
+    "description": "Preservative, especially in cheese"
+  },
+  {
+    "id": "E1204",
+    "name": "Pullulan",
+    "englishName": "Pullulan",
+    "rating": 2,
+    "description": "Glazing agent, thickener in confectionery"
+  },
+  {
+    "id": "E141",
+    "name": "Měďnaté komplexy chlorofylů a chlorofinů",
+    "englishName": "Copper complexes of chlorophylls and chlorophyllins",
+    "rating": 2,
+    "description": "Green colouring"
+  },
+  {
+    "id": "E1503",
+    "name": "Ricinový olej",
+    "englishName": "Castor oil",
+    "rating": 2,
+    "description": "Glazing agent"
+  },
+  {
+    "id": "E1505",
+    "name": "Triethyl-citrát",
+    "englishName": "Triethyl citrate",
+    "rating": 2,
+    "description": "Stabiliser, processing aid"
+  },
+  {
+    "id": "E150B",
+    "name": "Kaustický sulfitový karamel",
+    "englishName": "Caramel II - Caustic sulphite caramel",
+    "rating": 2,
+    "description": "Brown colouring"
+  },
+  {
+    "id": "E153",
+    "name": "Uhlík z rostlinné suroviny",
+    "englishName": "Vegetable carbon",
+    "rating": 2,
+    "description": "Black colouring for confectionery, cheese"
+  },
+  {
+    "id": "E160E",
+    "name": "Beta-apo-8-karotenal",
+    "englishName": "Beta-apo-8'-carotenal",
+    "rating": 2,
+    "description": "Red-orange colouring"
+  },
+  {
+    "id": "E161A",
+    "name": "Flavoxantin",
+    "englishName": "Flavoxanthin",
+    "rating": 2,
+    "description": "Yellow colouring"
+  },
+  {
+    "id": "E161D",
+    "name": "Rubixantin",
+    "englishName": "Rubixanthin",
+    "rating": 2,
+    "description": "Red colouring"
+  },
+  {
+    "id": "E161E",
+    "name": "Violoxantin",
+    "englishName": "Violaxanthin",
+    "rating": 2,
+    "description": "Yellow-orange colouring"
+  },
+  {
+    "id": "E161F",
+    "name": "Rhodoxantin",
+    "englishName": "Rhodoxanthin",
+    "rating": 2,
+    "description": "Red colouring"
+  },
+  {
+    "id": "E175",
+    "name": "Zlato",
+    "englishName": "Gold",
+    "rating": 2,
+    "description": "Glazing agent, gold colouring for confectionery"
+  },
+  {
+    "id": "E265",
+    "name": "Kyselina octová bezvodá",
+    "englishName": "Anhydrous acetic acid",
+    "rating": 2,
+    "description": "Preservative"
+  },
+  {
+    "id": "E297",
+    "name": "Kyselina fumarová",
+    "englishName": "Fumaric acid",
+    "rating": 2,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E301",
+    "name": "Askorban sodný",
+    "englishName": "Sodium ascorbate",
+    "rating": 2,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E302",
+    "name": "Askorban vápenatý",
+    "englishName": "Calcium ascorbate",
+    "rating": 2,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E304",
+    "name": "Askorbylpalmitát - Estery mastných kyselin s kyselinou askorbovou",
+    "englishName": "Ascorbyl palmitate",
+    "rating": 2,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E307",
+    "name": "Alfa-tokoferol",
+    "englishName": "Alpha-tocopherol",
+    "rating": 2,
+    "description": "Antioxidant, Vitamin E"
+  },
+  {
+    "id": "E308",
+    "name": "Gama-tokoferol",
+    "englishName": "Gamma-tocopherol",
+    "rating": 2,
+    "description": "Antioxidant, Vitamin E"
+  },
+  {
+    "id": "E309",
+    "name": "Delta-tokoferol",
+    "englishName": "Delta-tocopherol",
+    "rating": 2,
+    "description": "Antioxidant, Vitamin E"
+  },
+  {
+    "id": "E325",
+    "name": "Mléčnan sodný",
+    "englishName": "Sodium lactate",
+    "rating": 2,
+    "description": "Humectant, acidity regulator"
+  },
+  {
+    "id": "E326",
+    "name": "Mléčnan draselný",
+    "englishName": "Potassium lactate",
+    "rating": 2,
+    "description": "Humectant, acidity regulator"
+  },
+  {
+    "id": "E327",
+    "name": "Mléčnan vápenatý",
+    "englishName": "Calcium lactate",
+    "rating": 2,
+    "description": "Stabiliser, firming agent"
+  },
+  {
+    "id": "E331",
+    "name": "Citronany sodné",
+    "englishName": "Sodium citrates",
+    "rating": 2,
+    "description": "Acidity regulator, emulsifier in cheese"
+  },
+  {
+    "id": "E332",
+    "name": "Citronany draselné",
+    "englishName": "Potassium citrates",
+    "rating": 2,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E333",
+    "name": "Citronany vápenaté",
+    "englishName": "Calcium citrates",
+    "rating": 2,
+    "description": "Firming agent, stabiliser"
+  },
+  {
+    "id": "E334",
+    "name": "Kyselina vinná",
+    "englishName": "Tartaric acid",
+    "rating": 2,
+    "description": "Acidity regulator, antioxidant"
+  },
+  {
+    "id": "E351",
+    "name": "Jablečnan draselný",
+    "englishName": "Potassium malate",
+    "rating": 2,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E352",
+    "name": "Jablečnany vápenaté",
+    "englishName": "Calcium malates",
+    "rating": 2,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E354",
+    "name": "L+- vinan vápenatý",
+    "englishName": "Calcium tartrate",
+    "rating": 2,
+    "description": "Stabiliser"
+  },
+  {
+    "id": "E383",
+    "name": "Glycerofosforečnan vápenatý",
+    "englishName": "Calcium glycerophosphate",
+    "rating": 2,
+    "description": "Stabiliser"
+  },
+  {
+    "id": "E415",
+    "name": "Xanthan",
+    "englishName": "Xanthan gum",
+    "rating": 2,
+    "description": "Thickener, stabiliser in dressings, sauces"
+  },
+  {
+    "id": "E422",
+    "name": "Glycerol",
+    "englishName": "Glycerol",
+    "rating": 2,
+    "description": "Humectant, solvent, sweetener"
+  },
+  {
+    "id": "E440",
+    "name": "Pektiny",
+    "englishName": "Pectins",
+    "rating": 2,
+    "description": "Gelling agent, thickener in jams, jellies"
+  },
+  {
+    "id": "E442",
+    "name": "Fosfatidy amonné",
+    "englishName": "Ammonium phosphatides",
+    "rating": 2,
+    "description": "Emulsifier in chocolate"
+  },
+  {
+    "id": "E445",
+    "name": "Pryskyřičný ester",
+    "englishName": "Glycerol esters of wood rosins",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E460",
+    "name": "Celulózy ( a. )",
+    "englishName": "Celluloses",
+    "rating": 2,
+    "description": "Bulking agent, anti-caking agent"
+  },
+  {
+    "id": "E461",
+    "name": "Methylcelulóza",
+    "englishName": "Methyl cellulose",
+    "rating": 2,
+    "description": "Thickener, emulsifier"
+  },
+  {
+    "id": "E462",
+    "name": "Ethylcelulóza",
+    "englishName": "Ethyl cellulose",
+    "rating": 2,
+    "description": "Thickener, emulsifier"
+  },
+  {
+    "id": "E463",
+    "name": "Hydroxypropylcelulóza",
+    "englishName": "Hydroxypropyl cellulose",
+    "rating": 2,
+    "description": "Thickener, emulsifier"
+  },
+  {
+    "id": "E464",
+    "name": "Hydroxypropylmethylcelulóza",
+    "englishName": "Hydroxypropyl methyl cellulose",
+    "rating": 2,
+    "description": "Thickener, emulsifier"
+  },
+  {
+    "id": "E465",
+    "name": "Ethylmethylcelulóza",
+    "englishName": "Ethyl methyl cellulose",
+    "rating": 2,
+    "description": "Thickener, emulsifier"
+  },
+  {
+    "id": "E466",
+    "name": "Karboxymethylcelulóza",
+    "englishName": "Carboxymethyl cellulose",
+    "rating": 2,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E467",
+    "name": "Ethylhydroxyethylcelulóza",
+    "englishName": "Ethyl hydroxyethyl cellulose",
+    "rating": 2,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E468",
+    "name": "Kroskarmelóza",
+    "englishName": "Croscarmellose",
+    "rating": 2,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E469",
+    "name": "Enzymově hydrolyzovaná karboxymethylcelulóza",
+    "englishName": "Enzymatically hydrolysed carboxymethyl cellulose",
+    "rating": 2,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E470",
+    "name": "Sodné, draselné a vápenaté soli mastných kyselin, hořečnaté soli mastných kyselin",
+    "englishName": "Sodium, potassium and calcium salts of fatty acids, magnesium salts of fatty acids",
+    "rating": 2,
+    "description": "Emulsifier, anti-caking agent"
+  },
+  {
+    "id": "E471",
+    "name": "Mono a diglyceridy mastných kyselin",
+    "englishName": "Mono- and diglycerides of fatty acids",
+    "rating": 2,
+    "description": "Emulsifier, stabiliser in bakery products, ice cream"
+  },
+  {
+    "id": "E472",
+    "name": "Estery mono a diglyceridů mastných kyselin a, b, c, d, e, f",
+    "englishName": "Esters of mono- and diglycerides of fatty acids (a, b, c, d, e, f)",
+    "rating": 2,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E473",
+    "name": "Estery sacharózy s mastnými kyselinami",
+    "englishName": "Sucrose esters of fatty acids",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E474",
+    "name": "Sacharoglyceridy",
+    "englishName": "Sucroglycerides",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E475",
+    "name": "Estery polyglycerolu s mastnými kyselinami",
+    "englishName": "Polyglycerol esters of fatty acids",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E477",
+    "name": "Estery propylenglykolu s mastnými kyselinami",
+    "englishName": "Propylene glycol esters of fatty acids",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E478",
+    "name": "Laktylované estery glycerolu a propandiolu",
+    "englishName": "Lactylated glycerol esters of fatty acids and propane-1,2-diol",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E479B",
+    "name": "Olej sójových bobů s glyceridy mastných kyselin",
+    "englishName": "Thermally oxidised soya bean oil interacted with mono- and diglycerides of fatty acids",
+    "rating": 2,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E488",
+    "name": "Etoxylované mono a di glyceridy",
+    "englishName": "Ethoxylated mono- and di-glycerides",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E492",
+    "name": "Tristearát sorbitolu",
+    "englishName": "Sorbitan tristearate",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E493",
+    "name": "Monolaurát sorbitolu",
+    "englishName": "Sorbitan monolaurate",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E494",
+    "name": "Monooleát sorbitolu",
+    "englishName": "Sorbitan monooleate",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E495",
+    "name": "Monopalmitát sorbitolu",
+    "englishName": "Sorbitan monopalmitate",
+    "rating": 2,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E500",
+    "name": "Uhličitany sodné",
+    "englishName": "Sodium carbonates",
+    "rating": 2,
+    "description": "Raising agent, acidity regulator"
+  },
+  {
+    "id": "E500(I)",
+    "name": "Uhličitan sodný",
+    "englishName": "Sodium carbonate",
+    "rating": 2,
+    "description": "Raising agent, acidity regulator"
+  },
+  {
+    "id": "E500(II)",
+    "name": "Hydrogenuhličitan sodný",
+    "englishName": "Sodium hydrogen carbonate",
+    "rating": 2,
+    "description": "Raising agent, acidity regulator"
+  },
+  {
+    "id": "E500(III)",
+    "name": "Sekvikarbonát sodný",
+    "englishName": "Sodium sesquicarbonate",
+    "rating": 2,
+    "description": "Raising agent, acidity regulator"
+  },
+  {
+    "id": "E504",
+    "name": "Uhličitany hořečnaté",
+    "englishName": "Magnesium carbonates",
+    "rating": 2,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E509",
+    "name": "Chlorid vápenatý",
+    "englishName": "Calcium chloride",
+    "rating": 2,
+    "description": "Firming agent in canned vegetables"
+  },
+  {
+    "id": "E511",
+    "name": "Chlorid hořečnatý",
+    "englishName": "Magnesium chloride",
+    "rating": 2,
+    "description": "Firming agent"
+  },
+  {
+    "id": "E514",
+    "name": "Sírany sodné",
+    "englishName": "Sodium sulphates",
+    "rating": 2,
+    "description": "Acidity regulator, firming agent"
+  },
+  {
+    "id": "E515",
+    "name": "Sírany draselné",
+    "englishName": "Potassium sulphates",
+    "rating": 2,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E516",
+    "name": "Síran vápenatý",
+    "englishName": "Calcium sulphate",
+    "rating": 2,
+    "description": "Firming agent, flour treatment agent"
+  },
+  {
+    "id": "E518",
+    "name": "Síran hořečnatý",
+    "englishName": "Magnesium sulphate",
+    "rating": 2,
+    "description": "Firming agent"
+  },
+  {
+    "id": "E524",
+    "name": "Hydroxid sodný",
+    "englishName": "Sodium hydroxide",
+    "rating": 2,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E526",
+    "name": "Hydroxid vápenatý",
+    "englishName": "Calcium hydroxide",
+    "rating": 2,
+    "description": "Acidity regulator, firming agent"
+  },
+  {
+    "id": "E528",
+    "name": "Hydroxid hořečnatý",
+    "englishName": "Magnesium hydroxide",
+    "rating": 2,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E529",
+    "name": "Oxid vápenatý",
+    "englishName": "Calcium oxide",
+    "rating": 2,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E530",
+    "name": "Oxid hořečnatý",
+    "englishName": "Magnesium oxide",
+    "rating": 2,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E542",
+    "name": "Jedlý fosfát",
+    "englishName": "Edible bone phosphate",
+    "rating": 2,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E551",
+    "name": "Oxid křemičitý",
+    "englishName": "Silicon dioxide",
+    "rating": 2,
+    "description": "Anti-caking agent in powdered foods, spices"
+  },
+  {
+    "id": "E552",
+    "name": "Křemičitan vápenatý",
+    "englishName": "Calcium silicate",
+    "rating": 2,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E553A",
+    "name": "Křemičitan hořečnatý",
+    "englishName": "Magnesium silicate",
+    "rating": 2,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E570",
+    "name": "Mastné kyseliny",
+    "englishName": "Fatty acids",
+    "rating": 2,
+    "description": "Glazing agent, anti-caking agent"
+  },
+  {
+    "id": "E572",
+    "name": "Stearan hořečnatý",
+    "englishName": "Magnesium stearate",
+    "rating": 2,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E575",
+    "name": "Glukonolakton",
+    "englishName": "Glucono delta-lactone (GDL)",
+    "rating": 2,
+    "description": "Acidity regulator, stabiliser, raising agent"
+  },
+  {
+    "id": "E576",
+    "name": "Glukonan sodný",
+    "englishName": "Sodium gluconate",
+    "rating": 2,
+    "description": "Stabiliser"
+  },
+  {
+    "id": "E577",
+    "name": "Glukonan draselný",
+    "englishName": "Potassium gluconate",
+    "rating": 2,
+    "description": "Stabiliser"
+  },
+  {
+    "id": "E578",
+    "name": "Glukonan vápenatý",
+    "englishName": "Calcium gluconate",
+    "rating": 2,
+    "description": "Firming agent"
+  },
+  {
+    "id": "E579",
+    "name": "Glukonan železnatý",
+    "englishName": "Ferrous gluconate",
+    "rating": 2,
+    "description": "Colour stabiliser in canned olives"
+  },
+  {
+    "id": "E642",
+    "name": "Lysin hydrochlorid",
+    "englishName": "Lysine hydrochloride",
+    "rating": 2,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E902",
+    "name": "Vosk candelilla",
+    "englishName": "Candelilla wax",
+    "rating": 2,
+    "description": "Glazing agent"
+  },
+  {
+    "id": "E903",
+    "name": "Karnaubský vosk",
+    "englishName": "Carnauba wax",
+    "rating": 2,
+    "description": "Glazing agent for sweets, chocolate"
+  },
+  {
+    "id": "E904",
+    "name": "Šelak",
+    "englishName": "Shellac",
+    "rating": 2,
+    "description": "Glazing agent for sweets"
+  },
+  {
+    "id": "E908",
+    "name": "Vosk z rýžových otrub",
+    "englishName": "Rice bran wax",
+    "rating": 2,
+    "description": "Glazing agent"
+  },
+  {
+    "id": "E912",
+    "name": "Estery montanových kyselin",
+    "englishName": "Montan acid esters",
+    "rating": 2,
+    "description": "Glazing agent"
+  },
+  {
+    "id": "E920",
+    "name": "L-cystein",
+    "englishName": "L-Cysteine",
+    "rating": 2,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E938",
+    "name": "Argon",
+    "englishName": "Argon",
+    "rating": 2,
+    "description": "Packaging gas"
+  },
+  {
+    "id": "E939",
+    "name": "Helium",
+    "englishName": "Helium",
+    "rating": 2,
+    "description": "Packaging gas"
+  },
+  {
+    "id": "E949",
+    "name": "Vodík",
+    "englishName": "Hydrogen",
+    "rating": 2,
+    "description": "Packaging gas"
+  },
+  {
+    "id": "E953",
+    "name": "Isomalt",
+    "englishName": "Isomalt",
+    "rating": 2,
+    "description": "Sweetener, bulking agent"
+  },
+  {
+    "id": "E959",
+    "name": "Neohesperidin DC",
+    "englishName": "Neohesperidin dihydrochalcone (NHDC)",
+    "rating": 2,
+    "description": "Sweetener, flavour enhancer"
+  },
+  {
+    "id": "E999",
+    "name": "Extrakt kvilajové kůry",
+    "englishName": "Quillaja extract",
+    "rating": 2,
+    "description": "Foaming agent in soft drinks"
+  },
+  {
+    "id": "E1103",
+    "name": "Invertasa",
+    "englishName": "Invertase",
+    "rating": 3,
+    "description": "Processing aid, enzyme"
+  },
+  {
+    "id": "E1200",
+    "name": "Polydextrosy",
+    "englishName": "Polydextrose",
+    "rating": 3,
+    "description": "Bulking agent, dietary fibre"
+  },
+  {
+    "id": "E1404",
+    "name": "Oxidovaný škrob",
+    "englishName": "Oxidised starch",
+    "rating": 3,
+    "description": "Thickener, stabiliser, gelling agent"
+  },
+  {
+    "id": "E1410",
+    "name": "Fosfát škrobu",
+    "englishName": "Monostarch phosphate",
+    "rating": 3,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E1412",
+    "name": "Zesíťovaný fosfát škrobu",
+    "englishName": "Distarch phosphate",
+    "rating": 3,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E1413",
+    "name": "Fosfát zesíťovaného škrobu",
+    "englishName": "Phosphated distarch phosphate",
+    "rating": 3,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E1414",
+    "name": "Acetát zasíťovaného fosfátu škrobu",
+    "englishName": "Acetylated distarch phosphate",
+    "rating": 3,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E1420",
+    "name": "Acetát škrobu",
+    "englishName": "Acetylated starch",
+    "rating": 3,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E1422",
+    "name": "Acetát zesíťovaného adipátu škrobu",
+    "englishName": "Acetylated distarch adipate",
+    "rating": 3,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E1440",
+    "name": "Hydroxypropylether škrobu",
+    "englishName": "Hydroxypropyl starch",
+    "rating": 3,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E1442",
+    "name": "Hydroxypropylether zesíťovaného fosfátu škrobu",
+    "englishName": "Hydroxypropyl distarch phosphate",
+    "rating": 3,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E1450",
+    "name": "Sodná sůl oktenylsukcinátu škrobu",
+    "englishName": "Starch sodium octenyl succinate",
+    "rating": 3,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E1451",
+    "name": "Acetylovaný oxidovaný škrob",
+    "englishName": "Acetylated oxidised starch",
+    "rating": 3,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E1517",
+    "name": "Glyceryl-diacetát",
+    "englishName": "Glyceryl diacetate",
+    "rating": 3,
+    "description": "Humectant, solvent"
+  },
+  {
+    "id": "E1518",
+    "name": "Glyceryl-triacetát",
+    "englishName": "Glyceryl triacetate",
+    "rating": 3,
+    "description": "Humectant, solvent, plasticizer"
+  },
+  {
+    "id": "E1521",
+    "name": "Polyethylenglykol (PEG 6000)",
+    "englishName": "Polyethylene glycol (PEG 6000)",
+    "rating": 3,
+    "description": "Glazing agent, solvent"
+  },
+  {
+    "id": "E172",
+    "name": "Oxidy a hydroxidy železa",
+    "englishName": "Iron oxides and hydroxides",
+    "rating": 3,
+    "description": "Red, brown, yellow, and black colouring"
+  },
+  {
+    "id": "E261",
+    "name": "Octan draselný",
+    "englishName": "Potassium acetates",
+    "rating": 3,
+    "description": "Acidity regulator, preservative"
+  },
+  {
+    "id": "E262",
+    "name": "Octany sodné",
+    "englishName": "Sodium acetates",
+    "rating": 3,
+    "description": "Acidity regulator, preservative"
+  },
+  {
+    "id": "E263",
+    "name": "Octan vápenatý",
+    "englishName": "Calcium acetate",
+    "rating": 3,
+    "description": "Preservative"
+  },
+  {
+    "id": "E315",
+    "name": "Kyselina erythorbová",
+    "englishName": "Erythorbic acid",
+    "rating": 3,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E316",
+    "name": "Erythorban sodný",
+    "englishName": "Sodium erythorbate",
+    "rating": 3,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E323",
+    "name": "Anoxomer",
+    "englishName": "Anoxomer",
+    "rating": 3,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E335",
+    "name": "Vinany sodné",
+    "englishName": "Sodium tartrates",
+    "rating": 3,
+    "description": "Acidity regulator, emulsifier"
+  },
+  {
+    "id": "E337",
+    "name": "Vinan sodnodraselný",
+    "englishName": "Potassium sodium tartrate",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E338",
+    "name": "Kyselina fosforečná",
+    "englishName": "Phosphoric acid",
+    "rating": 3,
+    "description": "Acidity regulator in soft drinks"
+  },
+  {
+    "id": "E339",
+    "name": "Fosforečnany sodné",
+    "englishName": "Sodium phosphates",
+    "rating": 3,
+    "description": "Emulsifier, stabiliser, acidity regulator"
+  },
+  {
+    "id": "E340",
+    "name": "Fosforečnany draselné",
+    "englishName": "Potassium phosphates",
+    "rating": 3,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E340(I)",
+    "name": "Dihydrogenfosforečnan draselný",
+    "englishName": "Monopotassium phosphate",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E340(II)",
+    "name": "Monohydrogenfosforečnan draselný",
+    "englishName": "Dipotassium phosphate",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E340(III)",
+    "name": "Fosforečnan draselný",
+    "englishName": "Tripotassium phosphate",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E341",
+    "name": "Fosforečnany vápenaté",
+    "englishName": "Calcium phosphates",
+    "rating": 3,
+    "description": "Acidity regulator, anti-caking agent"
+  },
+  {
+    "id": "E342",
+    "name": "Fosforečnany amonné",
+    "englishName": "Ammonium phosphates",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E343",
+    "name": "Fosforečnany hořečnaté",
+    "englishName": "Magnesium phosphates",
+    "rating": 3,
+    "description": "Acidity regulator, anti-caking agent"
+  },
+  {
+    "id": "E350",
+    "name": "Jablečnany sodné",
+    "englishName": "Sodium malates",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E353",
+    "name": "Kyselina metavinná",
+    "englishName": "Metatartaric acid",
+    "rating": 3,
+    "description": "Stabiliser"
+  },
+  {
+    "id": "E355",
+    "name": "Kyselina adipová",
+    "englishName": "Adipic acid",
+    "rating": 3,
+    "description": "Acidity regulator, flavouring agent"
+  },
+  {
+    "id": "E356",
+    "name": "Adipan sodný",
+    "englishName": "Sodium adipate",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E357",
+    "name": "Adipan draselný",
+    "englishName": "Potassium adipate",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E380",
+    "name": "Citronan triamonný",
+    "englishName": "Triammonium citrate",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E381",
+    "name": "Citronan železitoamonný",
+    "englishName": "Ferric ammonium citrate",
+    "rating": 3,
+    "description": "Colouring agent"
+  },
+  {
+    "id": "E384",
+    "name": "Citronan isopropylnatý",
+    "englishName": "Isopropyl citrate",
+    "rating": 3,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E387",
+    "name": "Oxystearin",
+    "englishName": "Oxystearin",
+    "rating": 3,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E388",
+    "name": "Kyselina thiodipropionová",
+    "englishName": "Thiodipropionic acid",
+    "rating": 3,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E389",
+    "name": "Dilauryl thiodipropionát",
+    "englishName": "Dilauryl thiodipropionate",
+    "rating": 3,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E390",
+    "name": "Distearyl thiodipropionát",
+    "englishName": "Distearyl thiodipropionate",
+    "rating": 3,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E400",
+    "name": "Kyselina alginová",
+    "englishName": "Alginic acid",
+    "rating": 3,
+    "description": "Thickener, gelling agent, stabiliser"
+  },
+  {
+    "id": "E407",
+    "name": "Karagenan",
+    "englishName": "Carrageenan",
+    "rating": 3,
+    "description": "Gelling agent, thickener in desserts, processed meats"
+  },
+  {
+    "id": "E413",
+    "name": "Tragant",
+    "englishName": "Tragacanth",
+    "rating": 3,
+    "description": "Thickener, emulsifier in sauces, ice cream"
+  },
+  {
+    "id": "E432",
+    "name": "Polyoxyethylensorbitanmonolaurát",
+    "englishName": "Polysorbate 20",
+    "rating": 3,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E433",
+    "name": "Polyoxyethylensorbitanmonooleát",
+    "englishName": "Polysorbate 80",
+    "rating": 3,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E434",
+    "name": "Polyoxyethylensorbitanmonopalmitát",
+    "englishName": "Polysorbate 40",
+    "rating": 3,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E435",
+    "name": "Polyoxyethylensorbitanmonostearát",
+    "englishName": "Polysorbate 60",
+    "rating": 3,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E436",
+    "name": "Polyoxyethylensorbitantristearát",
+    "englishName": "Polysorbate 65",
+    "rating": 3,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E440(II)",
+    "name": "Amidovaný pektin",
+    "englishName": "Amidated pectin",
+    "rating": 3,
+    "description": "Gelling agent"
+  },
+  {
+    "id": "E444",
+    "name": "Acetát isobutyrát sacharózy",
+    "englishName": "Sucrose acetate isobutyrate (SAIB)",
+    "rating": 3,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E446",
+    "name": "Sukcistearin",
+    "englishName": "Succistearin",
+    "rating": 3,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E481",
+    "name": "Stearoylaktylát sodný",
+    "englishName": "Sodium stearoyl-2-lactylate",
+    "rating": 3,
+    "description": "Emulsifier, stabiliser in bakery products"
+  },
+  {
+    "id": "E482",
+    "name": "Stearoyllaktylát vápenatý",
+    "englishName": "Calcium stearoyl-2-lactylate",
+    "rating": 3,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E483",
+    "name": "Stearyltartarát",
+    "englishName": "Stearyl tartrate",
+    "rating": 3,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E484",
+    "name": "Stearylcitrát",
+    "englishName": "Stearyl citrate",
+    "rating": 3,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E501",
+    "name": "Uhličitany draselné",
+    "englishName": "Potassium carbonates",
+    "rating": 3,
+    "description": "Raising agent, acidity regulator"
+  },
+  {
+    "id": "E503",
+    "name": "Uhličitan amonný",
+    "englishName": "Ammonium carbonates",
+    "rating": 3,
+    "description": "Raising agent in biscuits and crackers"
+  },
+  {
+    "id": "E507",
+    "name": "Kyselina chlorovodíková",
+    "englishName": "Hydrochloric acid",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E508",
+    "name": "Chlorid draselný",
+    "englishName": "Potassium chloride",
+    "rating": 3,
+    "description": "Flavour enhancer, gelling agent"
+  },
+  {
+    "id": "E510",
+    "name": "Chlorid amonný",
+    "englishName": "Ammonium chloride",
+    "rating": 3,
+    "description": "Raising agent, yeast nutrient"
+  },
+  {
+    "id": "E513",
+    "name": "Kyselina sírová",
+    "englishName": "Sulphuric acid",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E517",
+    "name": "Síran amonný",
+    "englishName": "Ammonium sulphate",
+    "rating": 3,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E521",
+    "name": "Síran sodnohlinitý",
+    "englishName": "Sodium aluminium sulphate",
+    "rating": 3,
+    "description": "Firming agent"
+  },
+  {
+    "id": "E522",
+    "name": "Síran draselnohlinitý",
+    "englishName": "Potassium aluminium sulphate",
+    "rating": 3,
+    "description": "Firming agent"
+  },
+  {
+    "id": "E523",
+    "name": "Síran amonnohlinitý",
+    "englishName": "Ammonium aluminium sulphate",
+    "rating": 3,
+    "description": "Firming agent"
+  },
+  {
+    "id": "E525",
+    "name": "Hydroxid draselný",
+    "englishName": "Potassium hydroxide",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E527",
+    "name": "Hydroxid amonný",
+    "englishName": "Ammonium hydroxide",
+    "rating": 3,
+    "description": "Acidity regulator"
+  },
+  {
+    "id": "E535",
+    "name": "Ferrokyanid sodný",
+    "englishName": "Sodium ferrocyanide",
+    "rating": 3,
+    "description": "Anti-caking agent in salt"
+  },
+  {
+    "id": "E536",
+    "name": "Ferrokyanid draselný",
+    "englishName": "Potassium ferrocyanide",
+    "rating": 3,
+    "description": "Anti-caking agent in salt"
+  },
+  {
+    "id": "E538",
+    "name": "Ferrokyanid vápenatý",
+    "englishName": "Calcium ferrocyanide",
+    "rating": 3,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E539",
+    "name": "Thiosíran sodný",
+    "englishName": "Sodium thiosulphate",
+    "rating": 3,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E541",
+    "name": "Fosforečnan sodnohlinitý",
+    "englishName": "Sodium aluminium phosphate",
+    "rating": 3,
+    "description": "Emulsifier, raising agent"
+  },
+  {
+    "id": "E550",
+    "name": "Křemičitan sodný",
+    "englishName": "Sodium silicate",
+    "rating": 3,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E553B",
+    "name": "Talek",
+    "englishName": "Talc",
+    "rating": 3,
+    "description": "Anti-caking agent, glazing agent"
+  },
+  {
+    "id": "E554",
+    "name": "Hlinitokřemičitan sodný",
+    "englishName": "Sodium aluminosilicate",
+    "rating": 3,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E555",
+    "name": "Hlinitokřemičitan draselný",
+    "englishName": "Potassium aluminium silicate",
+    "rating": 3,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E556",
+    "name": "Hlinitokřemičitan vápenatý",
+    "englishName": "Calcium aluminosilicate",
+    "rating": 3,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E559",
+    "name": "Křemičitan hlinitý",
+    "englishName": "Aluminium silicate",
+    "rating": 3,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E585",
+    "name": "Mléčnan železnatý",
+    "englishName": "Ferrous lactate",
+    "rating": 3,
+    "description": "Colour stabiliser"
+  },
+  {
+    "id": "E650",
+    "name": "Octan zinečnatý",
+    "englishName": "Zinc acetate",
+    "rating": 3,
+    "description": "Stabiliser"
+  },
+  {
+    "id": "E900",
+    "name": "Dimethylsilikonový olej",
+    "englishName": "Dimethylpolysiloxane",
+    "rating": 3,
+    "description": "Anti-foaming agent"
+  },
+  {
+    "id": "E905C",
+    "name": "Ropný vosk",
+    "englishName": "Petroleum wax",
+    "rating": 3,
+    "description": "Glazing agent"
+  },
+  {
+    "id": "E914",
+    "name": "Oxidovaný polyethylenový vosk",
+    "englishName": "Oxidised polyethylene wax",
+    "rating": 3,
+    "description": "Glazing agent"
+  },
+  {
+    "id": "E942",
+    "name": "Oxid dusný",
+    "englishName": "Nitrous oxide",
+    "rating": 3,
+    "description": "Propellant in whipped cream"
+  },
+  {
+    "id": "E943A",
+    "name": "Butan",
+    "englishName": "Butane",
+    "rating": 3,
+    "description": "Propellant"
+  },
+  {
+    "id": "E943B",
+    "name": "Isobutan",
+    "englishName": "Isobutane",
+    "rating": 3,
+    "description": "Propellant"
+  },
+  {
+    "id": "E944",
+    "name": "Propan",
+    "englishName": "Propane",
+    "rating": 3,
+    "description": "Propellant"
+  },
+  {
+    "id": "E946",
+    "name": "Oktafluorcyklobutan",
+    "englishName": "Octafluorocyclobutane",
+    "rating": 3,
+    "description": "Propellant"
+  },
+  {
+    "id": "E955",
+    "name": "Sukralosa",
+    "englishName": "Sucralose",
+    "rating": 3,
+    "description": "Sweetener"
+  },
+  {
+    "id": "E956",
+    "name": "Alitam",
+    "englishName": "Alitame",
+    "rating": 3,
+    "description": "Sweetener"
+  },
+  {
+    "id": "E965",
+    "name": "Maltitol",
+    "englishName": "Maltitol",
+    "rating": 3,
+    "description": "Sweetener, humectant"
+  },
+  {
+    "id": "E966",
+    "name": "Laktitol",
+    "englishName": "Lactitol",
+    "rating": 3,
+    "description": "Sweetener, bulking agent"
+  },
+  {
+    "id": "E104",
+    "name": "Chinolinová žluť",
+    "englishName": "Quinoline Yellow",
+    "rating": 4,
+    "description": "Yellow colouring in confectionery, smoked fish"
+  },
+  {
+    "id": "E122",
+    "name": "Azorubin",
+    "englishName": "Azorubine, Carmoisine",
+    "rating": 4,
+    "description": "Red colouring in jellies, marzipan, jams"
+  },
+  {
+    "id": "E1411",
+    "name": "Diškrobový glycerol",
+    "englishName": "Distarch glycerol",
+    "rating": 4,
+    "description": "Thickener, stabiliser"
+  },
+  {
+    "id": "E142",
+    "name": "Zeleň S",
+    "englishName": "Green S",
+    "rating": 4,
+    "description": "Green colouring for sweets, mint sauces"
+  },
+  {
+    "id": "E1452",
+    "name": "Škrobový oktenylsukcinát hlinitý (SAOS)",
+    "englishName": "Starch aluminium octenyl succinate",
+    "rating": 4,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E150C",
+    "name": "Amoniakový karamel",
+    "englishName": "Caramel III - Ammonia caramel",
+    "rating": 4,
+    "description": "Brown colouring"
+  },
+  {
+    "id": "E150D",
+    "name": "Amoniak sulfitový karamel",
+    "englishName": "Caramel IV - Sulphite ammonia caramel",
+    "rating": 4,
+    "description": "Brown colouring"
+  },
+  {
+    "id": "E1519",
+    "name": "Benzylalkohol",
+    "englishName": "Benzyl alcohol",
+    "rating": 4,
+    "description": "Preservative"
+  },
+  {
+    "id": "E1520",
+    "name": "Propylenglykol",
+    "englishName": "Propylene glycol",
+    "rating": 4,
+    "description": "Humectant, solvent"
+  },
+  {
+    "id": "E160B",
+    "name": "Annatto, Bixin, Norbixin",
+    "englishName": "Annatto, Bixin, Norbixin",
+    "rating": 4,
+    "description": "Red-orange colouring in cheese, butter"
+  },
+  {
+    "id": "E161G",
+    "name": "Kanthaxanthin",
+    "englishName": "Canthaxanthin",
+    "rating": 4,
+    "description": "Orange-red colouring in sausages, poultry skin"
+  },
+  {
+    "id": "E200",
+    "name": "Kyselina sorbová",
+    "englishName": "Sorbic acid",
+    "rating": 4,
+    "description": "Preservative for cheese, dried fruits, wine"
+  },
+  {
+    "id": "E201",
+    "name": "Sorban sodný",
+    "englishName": "Sodium sorbate",
+    "rating": 4,
+    "description": "Preservative"
+  },
+  {
+    "id": "E202",
+    "name": "Sorban draselný",
+    "englishName": "Potassium sorbate",
+    "rating": 4,
+    "description": "Preservative for yogurts, cheese, bakery products"
+  },
+  {
+    "id": "E203",
+    "name": "Sorban vápenatý",
+    "englishName": "Calcium sorbate",
+    "rating": 4,
+    "description": "Preservative"
+  },
+  {
+    "id": "E235",
+    "name": "Natamycin",
+    "englishName": "Natamycin",
+    "rating": 4,
+    "description": "Preservative for cheese and sausages"
+  },
+  {
+    "id": "E236",
+    "name": "Kyselina mravenčí",
+    "englishName": "Formic acid",
+    "rating": 4,
+    "description": "Preservative"
+  },
+  {
+    "id": "E242",
+    "name": "Dimethyldikarbonát (dimethyldiuhličitan)",
+    "englishName": "Dimethyl dicarbonate",
+    "rating": 4,
+    "description": "Preservative in wine, soft drinks"
+  },
+  {
+    "id": "E280",
+    "name": "Kyselina propionová",
+    "englishName": "Propionic acid",
+    "rating": 4,
+    "description": "Preservative for bread, bakery products"
+  },
+  {
+    "id": "E281",
+    "name": "Propionan sodný",
+    "englishName": "Sodium propionate",
+    "rating": 4,
+    "description": "Preservative"
+  },
+  {
+    "id": "E282",
+    "name": "Propionan vápenatý",
+    "englishName": "Calcium propionate",
+    "rating": 4,
+    "description": "Preservative"
+  },
+  {
+    "id": "E283",
+    "name": "Propionan draselný",
+    "englishName": "Potassium propionate",
+    "rating": 4,
+    "description": "Preservative"
+  },
+  {
+    "id": "E320",
+    "name": "Butylhydroxyanisol (BHA)",
+    "englishName": "Butylated hydroxyanisole (BHA)",
+    "rating": 4,
+    "description": "Antioxidant in fats, chewing gum"
+  },
+  {
+    "id": "E321",
+    "name": "Butylhydroxytoluen (BHT)",
+    "englishName": "Butylated hydroxytoluene (BHT)",
+    "rating": 4,
+    "description": "Antioxidant in fats and oils"
+  },
+  {
+    "id": "E385",
+    "name": "Ethylendiamintetraacetát vápenato-disodný",
+    "englishName": "Calcium disodium EDTA",
+    "rating": 4,
+    "description": "Stabiliser, preservative"
+  },
+  {
+    "id": "E386",
+    "name": "Ethylendiamintetraacetát disodný",
+    "englishName": "Disodium EDTA",
+    "rating": 4,
+    "description": "Stabiliser"
+  },
+  {
+    "id": "E401",
+    "name": "Alginát sodný",
+    "englishName": "Sodium alginate",
+    "rating": 4,
+    "description": "Thickener, gelling agent"
+  },
+  {
+    "id": "E402",
+    "name": "Alginát draselný",
+    "englishName": "Potassium alginate",
+    "rating": 4,
+    "description": "Thickener, gelling agent"
+  },
+  {
+    "id": "E403",
+    "name": "Alginát amonný",
+    "englishName": "Ammonium alginate",
+    "rating": 4,
+    "description": "Thickener, gelling agent"
+  },
+  {
+    "id": "E404",
+    "name": "Alginát vápenatý",
+    "englishName": "Calcium alginate",
+    "rating": 4,
+    "description": "Thickener, gelling agent"
+  },
+  {
+    "id": "E405",
+    "name": "Propylenglykolalginát",
+    "englishName": "Propane-1,2-diol alginate",
+    "rating": 4,
+    "description": "Thickener, emulsifier"
+  },
+  {
+    "id": "E420",
+    "name": "Sorbitol",
+    "englishName": "Sorbitol",
+    "rating": 4,
+    "description": "Sweetener, humectant in confectionery, diet products"
+  },
+  {
+    "id": "E421",
+    "name": "Mannitol",
+    "englishName": "Mannitol",
+    "rating": 4,
+    "description": "Sweetener, anti-caking agent"
+  },
+  {
+    "id": "E430",
+    "name": "Polyoxyethylen stearát",
+    "englishName": "Polyoxyethylene stearate",
+    "rating": 4,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E431",
+    "name": "Polyoxyethylen monostearát",
+    "englishName": "Polyoxyethylene monostearate",
+    "rating": 4,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E450",
+    "name": "Difosforečnany",
+    "englishName": "Diphosphates",
+    "rating": 4,
+    "description": "Emulsifier, stabiliser, acidity regulator"
+  },
+  {
+    "id": "E451",
+    "name": "Trifosforečnany - sodný a draselný",
+    "englishName": "Triphosphates - sodium and potassium",
+    "rating": 4,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E452",
+    "name": "Polyfosforečnany ( sodný, draselný a vápenatý )",
+    "englishName": "Polyphosphates (sodium, potassium and calcium)",
+    "rating": 4,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E459",
+    "name": "Beta - cyklodextrin",
+    "englishName": "Beta-cyclodextrin",
+    "rating": 4,
+    "description": "Stabiliser, emulsifier"
+  },
+  {
+    "id": "E476",
+    "name": "Polyglycerolpolyricinoleát",
+    "englishName": "Polyglycerol polyricinoleate (PGPR)",
+    "rating": 4,
+    "description": "Emulsifier in chocolate and spreads"
+  },
+  {
+    "id": "E491",
+    "name": "Monostearát sorbitolu",
+    "englishName": "Sorbitan monostearate",
+    "rating": 4,
+    "description": "Emulsifier, stabiliser"
+  },
+  {
+    "id": "E520",
+    "name": "Síran hlinitý",
+    "englishName": "Aluminium sulphate",
+    "rating": 4,
+    "description": "Firming agent"
+  },
+  {
+    "id": "E558",
+    "name": "Křemičitan hlinitohořečnatý",
+    "englishName": "Aluminium magnesium silicate",
+    "rating": 4,
+    "description": "Anti-caking agent"
+  },
+  {
+    "id": "E626",
+    "name": "Kyselina guanylová",
+    "englishName": "Guanylic acid",
+    "rating": 4,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E627",
+    "name": "Guanylan sodný",
+    "englishName": "Disodium guanylate",
+    "rating": 4,
+    "description": "Flavour enhancer in instant soups, crisps"
+  },
+  {
+    "id": "E628",
+    "name": "Guanylan draselný",
+    "englishName": "Dipotassium guanylate",
+    "rating": 4,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E629",
+    "name": "Guanylan vápenatý",
+    "englishName": "Calcium guanylate",
+    "rating": 4,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E630",
+    "name": "Kyselina inosinová",
+    "englishName": "Inosinic acid",
+    "rating": 4,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E631",
+    "name": "Inosinan sodný",
+    "englishName": "Disodium inosinate",
+    "rating": 4,
+    "description": "Flavour enhancer in instant noodles, crisps"
+  },
+  {
+    "id": "E632",
+    "name": "Inosinan draselný",
+    "englishName": "Dipotassium inosinate",
+    "rating": 4,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E633",
+    "name": "Inosinan vápenatý",
+    "englishName": "Calcium inosinate",
+    "rating": 4,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E636",
+    "name": "Maltol",
+    "englishName": "Maltol",
+    "rating": 4,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E637",
+    "name": "Ethylmaltol",
+    "englishName": "Ethyl maltol",
+    "rating": 4,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E905",
+    "name": "Mikrokrystalický vosk",
+    "englishName": "Microcrystalline wax",
+    "rating": 4,
+    "description": "Glazing agent, anti-caking agent"
+  },
+  {
+    "id": "E905B",
+    "name": "Ropná vazelína",
+    "englishName": "Petrolatum",
+    "rating": 4,
+    "description": "Glazing agent"
+  },
+  {
+    "id": "E927A",
+    "name": "Azoformamid",
+    "englishName": "Azodicarbonamide",
+    "rating": 4,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E927B",
+    "name": "Močovina",
+    "englishName": "Carbamide, Urea",
+    "rating": 4,
+    "description": "Raising agent"
+  },
+  {
+    "id": "E929",
+    "name": "Peroxid acetonu",
+    "englishName": "Acetone peroxide",
+    "rating": 4,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E930",
+    "name": "Peroxid vápenatý",
+    "englishName": "Calcium peroxide",
+    "rating": 4,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E945",
+    "name": "Chlorpentanfluoretan",
+    "englishName": "Chloropentafluoroethane",
+    "rating": 4,
+    "description": "Propellant"
+  },
+  {
+    "id": "E958",
+    "name": "Glycyrrhizin",
+    "englishName": "Glycyrrhizin",
+    "rating": 4,
+    "description": "Sweetener, flavour enhancer"
+  },
+  {
+    "id": "E961",
+    "name": "Neotam",
+    "englishName": "Neotame",
+    "rating": 4,
+    "description": "Sweetener"
+  },
+  {
+    "id": "E102",
+    "name": "Tartrazin",
+    "englishName": "Tartrazine",
+    "rating": 5,
+    "description": "Yellow colouring in sweets, soft drinks, sauces"
+  },
+  {
+    "id": "E1102",
+    "name": "Glukosaoxidasa",
+    "englishName": "Glucose oxidase",
+    "rating": 5,
+    "description": "Stabiliser"
+  },
+  {
+    "id": "E1201",
+    "name": "Polyvinylpyrrolidon (PVP, Povidon)",
+    "englishName": "Polyvinylpyrrolidone (PVP)",
+    "rating": 5,
+    "description": "Stabiliser, clarifying agent in beer, wine"
+  },
+  {
+    "id": "E1202",
+    "name": "Polyvinylpolypyrrolidon (Síťovaný povidon, PVPP)",
+    "englishName": "Polyvinylpolypyrrolidone (PVPP)",
+    "rating": 5,
+    "description": "Clarifying agent in wine and beer"
+  },
+  {
+    "id": "E127",
+    "name": "Erythrosin ( Cl potravinářská červeň 14 )",
+    "englishName": "Erythrosine",
+    "rating": 5,
+    "description": "Red colouring for cocktail cherries, canned fruits"
+  },
+  {
+    "id": "E129",
+    "name": "Červeň Allura AC ( Cl potravinářská červeň 17 )",
+    "englishName": "Allura Red AC",
+    "rating": 5,
+    "description": "Red colouring in sweets, beverages, desserts"
+  },
+  {
+    "id": "E131",
+    "name": "Patentní modř V (CI Potravinářská modř V)",
+    "englishName": "Patent Blue V",
+    "rating": 5,
+    "description": "Blue colouring in sweets, drinks"
+  },
+  {
+    "id": "E143",
+    "name": "Fast green FCF",
+    "englishName": "Fast Green FCF",
+    "rating": 5,
+    "description": "Green colouring"
+  },
+  {
+    "id": "E151",
+    "name": "Čerň BN (Lesklá čerň BN, Brilantní čerň BN)",
+    "englishName": "Brilliant Black BN",
+    "rating": 5,
+    "description": "Black colouring in confectionery, sauces"
+  },
+  {
+    "id": "E154",
+    "name": "Hněď FK ( CI potravinářská hněď 1 )",
+    "englishName": "Brown FK",
+    "rating": 5,
+    "description": "Brown colouring in smoked fish"
+  },
+  {
+    "id": "E171",
+    "name": "Oxid titaničitý",
+    "englishName": "Titanium dioxide",
+    "rating": 5,
+    "description": "White colouring in sweets, chewing gum, sauces"
+  },
+  {
+    "id": "E173",
+    "name": "Hliník ( CI kovový pigment )",
+    "englishName": "Aluminium",
+    "rating": 5,
+    "description": "Silver colouring for confectionery decoration"
+  },
+  {
+    "id": "E174",
+    "name": "Stříbro",
+    "englishName": "Silver",
+    "rating": 5,
+    "description": "Glazing agent, silver colouring for confectionery"
+  },
+  {
+    "id": "E180",
+    "name": "Litholrubin BK",
+    "englishName": "Litholrubine BK",
+    "rating": 5,
+    "description": "Red colouring for cheese rinds"
+  },
+  {
+    "id": "E182",
+    "name": "Orchil",
+    "englishName": "Orcein",
+    "rating": 5,
+    "description": "Red-violet colouring"
+  },
+  {
+    "id": "E209",
+    "name": "Heptylparaben",
+    "englishName": "Heptyl p-hydroxybenzoate",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E211",
+    "name": "Benzoan sodný",
+    "englishName": "Sodium benzoate",
+    "rating": 5,
+    "description": "Preservative in soft drinks, salads, sauces"
+  },
+  {
+    "id": "E212",
+    "name": "Benzoan draselný",
+    "englishName": "Potassium benzoate",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E213",
+    "name": "Benzoan vápenatý",
+    "englishName": "Calcium benzoate",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E214",
+    "name": "Ethylparahydroxybenzoát",
+    "englishName": "Ethyl p-hydroxybenzoate",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E215",
+    "name": "Ethylparahydroxybenzoát sodná sůl",
+    "englishName": "Sodium ethyl p-hydroxybenzoate",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E216",
+    "name": "Propylparahydroxybenzoát",
+    "englishName": "Propyl p-hydroxybenzoate",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E217",
+    "name": "Propylparahydroxybenzoát sodná sůl",
+    "englishName": "Sodium propyl p-hydroxybenzoate",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E218",
+    "name": "Methylparahydroxybenzoát",
+    "englishName": "Methyl p-hydroxybenzoate",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E219",
+    "name": "Methylparahydroxybenzoát sodná sůl",
+    "englishName": "Sodium methyl p-hydroxybenzoate",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E231",
+    "name": "Orthofenylfenol",
+    "englishName": "Orthophenylphenol",
+    "rating": 5,
+    "description": "Preservative for fruit skins"
+  },
+  {
+    "id": "E233",
+    "name": "Thiabendazol",
+    "englishName": "Thiabendazole",
+    "rating": 5,
+    "description": "Preservative for fruit skins"
+  },
+  {
+    "id": "E239",
+    "name": "Hexamethylentetraamin",
+    "englishName": "Hexamethylene tetramine",
+    "rating": 5,
+    "description": "Preservative in cheese"
+  },
+  {
+    "id": "E251",
+    "name": "Dusičnan sodný",
+    "englishName": "Sodium nitrate",
+    "rating": 5,
+    "description": "Preservative in meat products"
+  },
+  {
+    "id": "E252",
+    "name": "Dusičnan draselný",
+    "englishName": "Potassium nitrate, Saltpetre",
+    "rating": 5,
+    "description": "Preservative in meat products"
+  },
+  {
+    "id": "E310",
+    "name": "Propylgallát",
+    "englishName": "Propyl gallate",
+    "rating": 5,
+    "description": "Antioxidant in fats and oils"
+  },
+  {
+    "id": "E311",
+    "name": "Oktylgallát",
+    "englishName": "Octyl gallate",
+    "rating": 5,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E324",
+    "name": "Ethoxyquin",
+    "englishName": "Ethoxyquin",
+    "rating": 5,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E443",
+    "name": "Bromovaný rostlinný olej",
+    "englishName": "Brominated vegetable oil (BVO)",
+    "rating": 5,
+    "description": "Stabiliser in soft drinks"
+  },
+  {
+    "id": "E480",
+    "name": "Dioktylsulfosukcinát sodný",
+    "englishName": "Sodium dioctyl sulphosuccinate",
+    "rating": 5,
+    "description": "Wetting agent, emulsifier"
+  },
+  {
+    "id": "E487",
+    "name": "Laurylsulfát sodný",
+    "englishName": "Sodium lauryl sulphate",
+    "rating": 5,
+    "description": "Emulsifier"
+  },
+  {
+    "id": "E512",
+    "name": "Chlorid cínatý",
+    "englishName": "Stannous chloride",
+    "rating": 5,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E634",
+    "name": "Vápenaté ribonukleotidy",
+    "englishName": "Calcium 5'-ribonucleotides",
+    "rating": 5,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E635",
+    "name": "Disodné ribonukleotidy",
+    "englishName": "Disodium 5'-ribonucleotides",
+    "rating": 5,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E905A",
+    "name": "Minerální olej",
+    "englishName": "Mineral oil",
+    "rating": 5,
+    "description": "Glazing agent"
+  },
+  {
+    "id": "E926",
+    "name": "Oxid chloričitý",
+    "englishName": "Chlorine dioxide",
+    "rating": 5,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E928",
+    "name": "Benzoyl peroxid",
+    "englishName": "Benzoyl peroxide",
+    "rating": 5,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E950",
+    "name": "Acesulfam K",
+    "englishName": "Acesulfame K",
+    "rating": 5,
+    "description": "Sweetener in diet soft drinks, chewing gum"
+  },
+  {
+    "id": "E962",
+    "name": "Sůl aspartamu/acesulfamu",
+    "englishName": "Salt of aspartame-acesulfame",
+    "rating": 5,
+    "description": "Sweetener"
+  },
+  {
+    "id": "E107",
+    "name": "Žluť 2G",
+    "englishName": "Yellow 2G",
+    "rating": 5,
+    "description": "Yellow colouring"
+  },
+  {
+    "id": "E110",
+    "name": "Žluť SY",
+    "englishName": "Sunset Yellow FCF",
+    "rating": 5,
+    "description": "Orange colouring in sweets, soft drinks, biscuits"
+  },
+  {
+    "id": "E120",
+    "name": "Kyselina karmínová",
+    "englishName": "Cochineal, Carminic acid",
+    "rating": 5,
+    "description": "Red colouring in yogurts, sweets, processed meats"
+  },
+  {
+    "id": "E128",
+    "name": "Červeň 2G ( Cl potravinářská červeň 10, Azogeranin )",
+    "englishName": "Red 2G",
+    "rating": 5,
+    "description": "Red colouring in sausages"
+  },
+  {
+    "id": "E132",
+    "name": "Indigotin ( Cl potravinářská modř 1, Indigocarmine )",
+    "englishName": "Indigotine, Indigo carmine",
+    "rating": 5,
+    "description": "Blue colouring in confectionery, ice cream"
+  },
+  {
+    "id": "E133",
+    "name": "Brilantní modř FCF ( Cl potravinářská modř 2 )",
+    "englishName": "Brilliant Blue FCF",
+    "rating": 5,
+    "description": "Blue colouring in soft drinks, sweets"
+  },
+  {
+    "id": "E155",
+    "name": "Hněď HT ( CI potravinářská hněď 3 )",
+    "englishName": "Brown HT",
+    "rating": 5,
+    "description": "Brown colouring in chocolate and liquorice"
+  },
+  {
+    "id": "E210",
+    "name": "Kyselina Benzoová",
+    "englishName": "Benzoic acid",
+    "rating": 5,
+    "description": "Preservative in acidic foods, soft drinks, sauces"
+  },
+  {
+    "id": "E220",
+    "name": "Oxid siřičitý",
+    "englishName": "Sulphur dioxide",
+    "rating": 5,
+    "description": "Preservative, antioxidant in dried fruit, wine"
+  },
+  {
+    "id": "E221",
+    "name": "Siřičitan sodný",
+    "englishName": "Sodium sulphite",
+    "rating": 5,
+    "description": "Preservative, antioxidant"
+  },
+  {
+    "id": "E222",
+    "name": "Hydrogensiřičitan sodný",
+    "englishName": "Sodium hydrogen sulphite",
+    "rating": 5,
+    "description": "Preservative, antioxidant"
+  },
+  {
+    "id": "E223",
+    "name": "Disiřičitan sodný",
+    "englishName": "Sodium metabisulphite",
+    "rating": 5,
+    "description": "Preservative, antioxidant"
+  },
+  {
+    "id": "E224",
+    "name": "Disiřičitan draselný",
+    "englishName": "Potassium metabisulphite",
+    "rating": 5,
+    "description": "Preservative, antioxidant"
+  },
+  {
+    "id": "E225",
+    "name": "Siřičitan draselný",
+    "englishName": "Potassium sulphite",
+    "rating": 5,
+    "description": "Preservative, antioxidant"
+  },
+  {
+    "id": "E226",
+    "name": "Siřičitan vápenatý",
+    "englishName": "Calcium sulphite",
+    "rating": 5,
+    "description": "Preservative, antioxidant"
+  },
+  {
+    "id": "E227",
+    "name": "Hydrogensiřičitan vápenatý",
+    "englishName": "Calcium hydrogen sulphite",
+    "rating": 5,
+    "description": "Preservative, antioxidant"
+  },
+  {
+    "id": "E228",
+    "name": "Hydrogensiřičitan draselný",
+    "englishName": "Potassium hydrogen sulphite",
+    "rating": 5,
+    "description": "Preservative, antioxidant"
+  },
+  {
+    "id": "E230",
+    "name": "Bifenyl",
+    "englishName": "Biphenyl, Diphenyl",
+    "rating": 5,
+    "description": "Preservative for citrus fruit skins"
+  },
+  {
+    "id": "E232",
+    "name": "Orthofenylfenolát sodný",
+    "englishName": "Sodium orthophenylphenate",
+    "rating": 5,
+    "description": "Preservative for fruit skins"
+  },
+  {
+    "id": "E249",
+    "name": "Dusitan draselný",
+    "englishName": "Potassium nitrite",
+    "rating": 5,
+    "description": "Preservative in cured meat products"
+  },
+  {
+    "id": "E250",
+    "name": "Dusitan sodný",
+    "englishName": "Sodium nitrite",
+    "rating": 5,
+    "description": "Preservative in cured meat products"
+  },
+  {
+    "id": "E284",
+    "name": "Kyselina boritá",
+    "englishName": "Boric acid",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E285",
+    "name": "Tetraboritan sodný (Borax)",
+    "englishName": "Sodium tetraborate, Borax",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E312",
+    "name": "Dodecylgallát",
+    "englishName": "Dodecyl gallate",
+    "rating": 5,
+    "description": "Antioxidant"
+  },
+  {
+    "id": "E319",
+    "name": "Terciální butylhydrochinon (TBHQ)",
+    "englishName": "Tertiary butylhydroquinone (TBHQ)",
+    "rating": 5,
+    "description": "Antioxidant in fats and oils"
+  },
+  {
+    "id": "E620",
+    "name": "Kyselina l-glutamová",
+    "englishName": "L-Glutamic acid",
+    "rating": 5,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E621",
+    "name": "L-glutaman sodný",
+    "englishName": "Monosodium glutamate (MSG)",
+    "rating": 5,
+    "description": "Flavour enhancer in savoury foods, sauces"
+  },
+  {
+    "id": "E622",
+    "name": "Glutaman draselný",
+    "englishName": "Monopotassium glutamate",
+    "rating": 5,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E623",
+    "name": "Glutaman vápenatý",
+    "englishName": "Calcium diglutamate",
+    "rating": 5,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E624",
+    "name": "Glutaman amonný",
+    "englishName": "Monoammonium glutamate",
+    "rating": 5,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E625",
+    "name": "Glutaman hořečnatý",
+    "englishName": "Magnesium diglutamate",
+    "rating": 5,
+    "description": "Flavour enhancer"
+  },
+  {
+    "id": "E924A",
+    "name": "Bromičnan draselný",
+    "englishName": "Potassium bromate",
+    "rating": 5,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E925",
+    "name": "Chlor",
+    "englishName": "Chlorine",
+    "rating": 5,
+    "description": "Flour treatment agent"
+  },
+  {
+    "id": "E940",
+    "name": "Dichlordifluormetan",
+    "englishName": "Dichlorodifluoromethane",
+    "rating": 5,
+    "description": "Propellant"
+  },
+  {
+    "id": "E951",
+    "name": "Aspartam",
+    "englishName": "Aspartame",
+    "rating": 5,
+    "description": "Sweetener in diet products"
+  },
+  {
+    "id": "E954",
+    "name": "Sacharin a jeho soli",
+    "englishName": "Saccharin and its salts",
+    "rating": 5,
+    "description": "Sweetener"
+  },
+  {
+    "id": "E121",
+    "name": "Citronová červeň 2",
+    "englishName": "Citrus Red 2",
+    "rating": 5,
+    "description": "Red colouring for citrus fruit skins"
+  },
+  {
+    "id": "E123",
+    "name": "Amarant",
+    "englishName": "Amaranth",
+    "rating": 5,
+    "description": "Red colouring, used in spirits and cake decorations"
+  },
+  {
+    "id": "E124",
+    "name": "Ponceau 4R (Cl potravinářská červeň 7, Košenilová červeň A)",
+    "englishName": "Ponceau 4R, Cochineal Red A",
+    "rating": 5,
+    "description": "Red colouring in sausages, sweets, jellies"
+  },
+  {
+    "id": "E240",
+    "name": "Formaldehyd",
+    "englishName": "Formaldehyde",
+    "rating": 5,
+    "description": "Preservative"
+  },
+  {
+    "id": "E952",
+    "name": "Cyklamáty",
+    "englishName": "Cyclamates",
+    "rating": 5,
+    "description": "Sweetener"
+  }
+]
