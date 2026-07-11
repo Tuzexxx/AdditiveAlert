@@ -1,21 +1,66 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Tesseract from 'tesseract.js';
 import { Camera, Search, AlertTriangle, CheckCircle, Info } from 'lucide-react';
-import eNumbersData from './data/e-numbers.json';
+import { supabase } from './supabaseClient';
+import defaultENumbersData from './data/e-numbers.json';
 import './index.css';
 
 function App() {
   const [inputText, setInputText] = useState('');
   const [isScanning, setIsScanning] = useState(false);
   const [results, setResults] = useState([]);
+  const [eNumbersData, setENumbersData] = useState(defaultENumbersData);
   const fileInputRef = useRef(null);
+
+  // Fetch dynamic data from Supabase on load
+  useEffect(() => {
+    const fetchAdditives = async () => {
+      // 1. Try to load from localStorage first for instant offline speed
+      const cached = localStorage.getItem('additivealert_db');
+      if (cached) {
+        setENumbersData(JSON.parse(cached));
+      }
+
+      // 2. Fetch fresh data from Supabase in background if online
+      if (supabase) {
+        try {
+          const { data, error } = await supabase.from('additives').select('*');
+          if (data && !error) {
+            // Map db schema back to app format
+            const mappedData = data.map(item => ({
+              id: item.id,
+              name: item.name,
+              englishName: item.english_name,
+              rating: item.rating,
+              description: item.description
+            }));
+            setENumbersData(mappedData);
+            localStorage.setItem('additivealert_db', JSON.stringify(mappedData));
+          }
+        } catch (err) {
+          console.error("Failed to sync database:", err);
+        }
+      }
+    };
+    
+    fetchAdditives();
+  }, []);
 
   const handleTextChange = (e) => {
     setInputText(e.target.value);
   };
 
+  const reportUnknownAdditive = async (scannedName) => {
+    if (!supabase) return;
+    try {
+      await supabase.from('pending_additives').insert([{ scanned_name: scannedName }]);
+    } catch (err) {
+      console.error("Failed to report unknown additive", err);
+    }
+  };
+
   const extractENumbers = (text) => {
-    const results = [];
+    const resultsArray = [];
     const textUpper = text.toUpperCase();
     
     // 1. Direct Regex for E-numbers (E100, E-100, E 100)
@@ -50,8 +95,7 @@ function App() {
         }
       }
 
-      // Look for bare numbers in the text if we can isolate them nicely
-      // To avoid matching '100' in '100g', we use regex boundary
+      // Look for bare numbers in the text
       if (!found) {
          const numRegex = new RegExp(`\\b${numOnlyId}\\b`, 'g');
          if (numRegex.test(textUpper)) {
@@ -60,20 +104,26 @@ function App() {
       }
       
       if (found) {
-        if (!results.find(r => r.id === item.id)) {
-          results.push(item);
+        if (!resultsArray.find(r => r.id === item.id)) {
+          resultsArray.push(item);
         }
       }
     });
     
     // Check if regex matched anything that wasn't found in DB
     eNumberMatches.forEach(eNum => {
-      if (!results.find(r => r.id.toUpperCase() === eNum)) {
-         results.push({ id: eNum, name: "Unknown Additive", rating: 3, description: "Not found in our database. Consume with caution." });
+      if (!resultsArray.find(r => r.id.toUpperCase() === eNum)) {
+         resultsArray.push({ id: eNum, name: "Unknown Additive", rating: 3, description: "Not found in our database. Flagged for review." });
+         reportUnknownAdditive(eNum); // Pushes to Supabase
       }
     });
     
-    setResults(results.sort((a, b) => b.rating - a.rating));
+    // If absolutely no E-numbers matched, but user typed something manually, report the whole string
+    if (resultsArray.length === 0 && text.trim().length > 3 && !isScanning) {
+       reportUnknownAdditive(text.trim());
+    }
+    
+    setResults(resultsArray.sort((a, b) => b.rating - a.rating));
   };
 
   const handleScanClick = () => {
