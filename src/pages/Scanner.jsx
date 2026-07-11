@@ -67,23 +67,31 @@ export default function Scanner() {
 
   const extractENumbers = (text) => {
     const resultsArray = [];
-    const textUpper = text.toUpperCase();
     
-    const eRegex = /[Ee][-\s]?\d{3,4}[a-z]?/g;
+    // Strict regex with word boundaries to avoid matching random combinations
+    const eRegex = /\b[Ee][-\s]?\d{3,4}[a-z]?\b/g;
     const eMatches = text.match(eRegex) || [];
     const eNumberMatches = [...new Set(eMatches.map(m => m.replace(/[-\s]/g, '').toUpperCase()))];
     
     eNumbersData.forEach(item => {
       const standardId = item.id.toUpperCase();
-      const numOnlyId = standardId.startsWith('E') ? standardId.substring(1) : standardId;
-      
       let found = false;
-      if (eNumberMatches.includes(standardId)) found = true;
-      if (!found && item.name?.length > 3 && textUpper.includes(item.name.toUpperCase())) found = true;
-      if (!found && item.englishName?.length > 3 && textUpper.includes(item.englishName.toUpperCase())) found = true;
-      if (!found) {
-         const numRegex = new RegExp(`\\b${numOnlyId}\\b`, 'g');
-         if (numRegex.test(textUpper)) found = true;
+      
+      if (eNumberMatches.includes(standardId)) {
+        found = true;
+      }
+      
+      // Custom boundary match for non-ASCII names (Czech diacritics break JS \b)
+      if (!found && item.name?.length > 3) {
+        const nameEscaped = item.name.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const nameRegex = new RegExp(`(^|[\\s,.:;()\\-])` + nameEscaped + `([\\s,.:;()\\-]|$)`, 'i');
+        if (nameRegex.test(text)) found = true;
+      }
+      
+      if (!found && item.englishName?.length > 3) {
+        const engEscaped = item.englishName.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const engRegex = new RegExp(`(^|[\\s,.:;()\\-])` + engEscaped + `([\\s,.:;()\\-]|$)`, 'i');
+        if (engRegex.test(text)) found = true;
       }
       
       if (found && !resultsArray.find(r => r.id === item.id)) {
@@ -92,6 +100,7 @@ export default function Scanner() {
       }
     });
     
+    // Check if regex matched anything that wasn't found in DB
     eNumberMatches.forEach(eNum => {
       if (!resultsArray.find(r => r.id.toUpperCase() === eNum)) {
          const unknownItem = { id: eNum, name: "Unknown Additive", rating: 3, description: "Not found in our database. Flagged for review." };
@@ -100,10 +109,6 @@ export default function Scanner() {
          saveScanHistory(unknownItem);
       }
     });
-    
-    if (resultsArray.length === 0 && text.trim().length > 3 && !isScanning) {
-       reportUnknownAdditive(text.trim());
-    }
     
     setResults(resultsArray.sort((a, b) => b.rating - a.rating));
   };
