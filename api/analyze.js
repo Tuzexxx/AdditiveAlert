@@ -101,6 +101,9 @@ Output ONLY valid JSON matching this schema:
       generationConfig: {
         responseMimeType: 'application/json',
         temperature: 0.1,
+        thinkingConfig: {
+          thinkingBudget: 50,
+        },
       },
     });
 

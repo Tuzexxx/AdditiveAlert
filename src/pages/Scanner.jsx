@@ -4,6 +4,7 @@ import { supabase } from '../supabaseClient';
 import defaultENumbersData from '../data/e-numbers.json';
 import { useLanguage } from '../i18n/LanguageContext';
 import { matchAdditivesOffline } from '../utils/fuzzyMatcher';
+import TopRiskyAdditives from '../components/TopRiskyAdditives';
 
 // Helper function to compress and resize camera photos before upload
 function compressImage(file, maxDimension = 1600, quality = 0.85) {
@@ -50,6 +51,27 @@ function getLocalizedAdditiveName(dbItem, fallbackName, currentLang) {
     return dbItem?.germanName || fallbackName || dbItem?.name;
   }
   return dbItem?.czechName || dbItem?.name || fallbackName;
+}
+
+// Track occurrence counts for level 4 and 5 additives
+function recordRiskyScanCounts(items) {
+  try {
+    const current = JSON.parse(localStorage.getItem('additivealert_risky_counts') || '{}');
+    let updated = false;
+
+    items.forEach((item) => {
+      if (item.rating >= 4 && item.id && item.id !== 'N/A') {
+        current[item.id] = (current[item.id] || 0) + 1;
+        updated = true;
+      }
+    });
+
+    if (updated) {
+      localStorage.setItem('additivealert_risky_counts', JSON.stringify(current));
+    }
+  } catch {
+    // ignore
+  }
 }
 
 export default function Scanner() {
@@ -103,6 +125,7 @@ export default function Scanner() {
 
   // Batch save scan history for authenticated user
   const saveBatchScanHistory = async (items) => {
+    recordRiskyScanCounts(items);
     if (!session || !supabase || !items.length) return;
     try {
       const rows = items.map((item) => ({
@@ -124,7 +147,8 @@ export default function Scanner() {
 
     const resultsArray = matches.map(({ item, matchedSnippet }) => ({
       id: item.id,
-      name: getLocalizedAdditiveName(item, item.name, lang),
+      name: item.name,
+      matchedDb: item,
       rating: item.rating,
       ferpotravinaScore: item.ferpotravinaScore,
       description: item.description,
@@ -136,12 +160,33 @@ export default function Scanner() {
     setResults(resultsArray);
     saveBatchScanHistory(resultsArray);
     setStatusNotice(t.offlineNotice);
+    return resultsArray;
   };
 
-  // Main analyze handler: calls Gemini Flash Serverless API with fallback
+  // Two-stage analyze handler: instant local match + AI Vision enrichment
   const analyzeIngredients = async ({ imageBase64, textContent }) => {
     setIsScanning(true);
     setStatusNotice(null);
+
+    // If text was provided, provide instant local preview in 0.01 seconds!
+    if (textContent) {
+      const localMatches = matchAdditivesOffline(textContent, eNumbersData);
+      if (localMatches.length > 0) {
+        const instantArray = localMatches.map(({ item, matchedSnippet }) => ({
+          id: item.id,
+          name: item.name,
+          matchedDb: item,
+          rating: item.rating,
+          ferpotravinaScore: item.ferpotravinaScore,
+          description: item.description,
+          category: item.description,
+          original_text: matchedSnippet,
+        }));
+        instantArray.sort((a, b) => b.rating - a.rating);
+        setResults(instantArray);
+        setStatusNotice(t.instantPreviewNotice);
+      }
+    }
 
     try {
       const response = await fetch('/api/analyze', {
@@ -166,13 +211,13 @@ export default function Scanner() {
             (db) => db.id.toUpperCase() === (aiItem.id || '').toUpperCase()
           );
 
-          // Get accurate rating: strict adherence to Fér Potravina if matched
           const finalRating = matchedDb?.rating ?? aiItem.rating ?? 3;
           const ferpotravinaScore = matchedDb?.ferpotravinaScore ?? (matchedDb?.rating != null ? matchedDb.rating : null);
 
           return {
             id: aiItem.id || 'N/A',
-            name: getLocalizedAdditiveName(matchedDb, aiItem.name, lang),
+            name: aiItem.name,
+            matchedDb: matchedDb,
             original_text: aiItem.original_text,
             category: aiItem.category,
             rating: finalRating,
@@ -323,58 +368,63 @@ export default function Scanner() {
             </span>
           </div>
 
-          {results.map((item, index) => (
-            <div key={`${item.id}-${index}`} className={`ingredient-card rating-${item.rating}`}>
-              <div className="card-header">
-                <span className="card-title">
-                  {item.rating >= 4 ? (
-                    <AlertTriangle size={18} color="var(--rating-5)" />
-                  ) : item.rating <= 2 ? (
-                    <CheckCircle size={18} color="var(--rating-1)" />
-                  ) : (
-                    <Info size={18} color="var(--rating-3)" />
-                  )}
-                  {item.id !== 'N/A' ? `${item.id} - ` : ''}
-                  {item.name}
-                </span>
+          {results.map((item, index) => {
+            const dbItem = item.matchedDb || eNumbersData.find((d) => d.id.toUpperCase() === (item.id || '').toUpperCase());
+            const displayName = getLocalizedAdditiveName(dbItem, item.name, lang);
 
-                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                  {item.ferpotravinaScore !== null && item.ferpotravinaScore !== undefined && (
-                    <span className="badge-ferpotravina" title="Originální skóre škodlivosti podle Fér Potravina (0-6)">
-                      Fér: {item.ferpotravinaScore}/6
+            return (
+              <div key={`${item.id}-${index}`} className={`ingredient-card rating-${item.rating}`}>
+                <div className="card-header">
+                  <span className="card-title">
+                    {item.rating >= 4 ? (
+                      <AlertTriangle size={18} color="var(--rating-5)" />
+                    ) : item.rating <= 2 ? (
+                      <CheckCircle size={18} color="var(--rating-1)" />
+                    ) : (
+                      <Info size={18} color="var(--rating-3)" />
+                    )}
+                    {item.id !== 'N/A' ? `${item.id} - ` : ''}
+                    {displayName}
+                  </span>
+
+                  <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                    {item.ferpotravinaScore !== null && item.ferpotravinaScore !== undefined && (
+                      <span className="badge-ferpotravina" title="Originální skóre škodlivosti podle Fér Potravina (0-6)">
+                        Fér: {item.ferpotravinaScore}/6
+                      </span>
+                    )}
+                    <span className={`badge badge-${item.rating}`}>
+                      {t.riskScore}: {item.rating}/5
+                    </span>
+                  </div>
+                </div>
+
+                {item.description && <p className="card-desc">{item.description}</p>}
+
+                {item.reason && item.reason !== item.description && (
+                  <div className="card-reason">
+                    <strong>{t.whyCare}:</strong> {item.reason}
+                  </div>
+                )}
+
+                <div className="card-meta">
+                  {item.category && (
+                    <span className="card-meta-item">
+                      {t.category}: {item.category}
                     </span>
                   )}
-                  <span className={`badge badge-${item.rating}`}>
-                    {t.riskScore}: {item.rating}/5
+                  {item.original_text && (
+                    <span className="card-meta-item">
+                      {t.originalText}: <em>"{item.original_text}"</em>
+                    </span>
+                  )}
+                  <span className="card-meta-item">
+                    {t.riskLevels[item.rating] || ''}
                   </span>
                 </div>
               </div>
-
-              {item.description && <p className="card-desc">{item.description}</p>}
-
-              {item.reason && item.reason !== item.description && (
-                <div className="card-reason">
-                  <strong>{t.whyCare}:</strong> {item.reason}
-                </div>
-              )}
-
-              <div className="card-meta">
-                {item.category && (
-                  <span className="card-meta-item">
-                    {t.category}: {item.category}
-                  </span>
-                )}
-                {item.original_text && (
-                  <span className="card-meta-item">
-                    {t.originalText}: <em>"{item.original_text}"</em>
-                  </span>
-                )}
-                <span className="card-meta-item">
-                  {t.riskLevels[item.rating] || ''}
-                </span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
 
@@ -384,6 +434,9 @@ export default function Scanner() {
           <p>{t.noAdditivesFound}</p>
         </div>
       )}
+
+      {/* Top 5 Most Common Harmful Additives Widget */}
+      <TopRiskyAdditives eNumbersDatabase={eNumbersData} />
     </>
   );
 }
