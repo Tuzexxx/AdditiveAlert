@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle, Globe } from 'lucide-react';
+import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle, Globe, Zap, X } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import defaultENumbersData from '../data/e-numbers.json';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -81,6 +81,7 @@ export default function Scanner() {
   const [eNumbersData, setENumbersData] = useState(defaultENumbersData);
   const [session, setSession] = useState(null);
   const [statusNotice, setStatusNotice] = useState(null);
+  const [photoPreview, setPhotoPreview] = useState(null);
   const fileInputRef = useRef(null);
   const { lang, setLanguage, t } = useLanguage();
 
@@ -123,6 +124,40 @@ export default function Scanner() {
     fetchAdditives();
   }, []);
 
+  // REAL-TIME BLESKOVÝ NÁHLED: Jakmile uživatel píše nebo vloží text, okamžitě spustíme offline fuzzy match (0 ms)!
+  useEffect(() => {
+    const text = inputText.trim();
+    if (!text || text.length < 3) {
+      if (!isScanning && !photoPreview) {
+        setResults([]);
+        setStatusNotice(null);
+      }
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      const localMatches = matchAdditivesOffline(text, eNumbersData);
+      if (localMatches.length > 0) {
+        const instantArray = localMatches.map(({ item, matchedSnippet }) => ({
+          id: item.id,
+          name: item.name,
+          matchedDb: item,
+          rating: item.rating,
+          ferpotravinaScore: item.ferpotravinaScore,
+          description: item.description,
+          category: item.description,
+          original_text: matchedSnippet,
+          isInstant: true,
+        }));
+        instantArray.sort((a, b) => b.rating - a.rating);
+        setResults(instantArray);
+        setStatusNotice(t.instantPreviewNotice);
+      }
+    }, 120);
+
+    return () => clearTimeout(timer);
+  }, [inputText, eNumbersData, t.instantPreviewNotice]);
+
   // Batch save scan history for authenticated user
   const saveBatchScanHistory = async (items) => {
     recordRiskyScanCounts(items);
@@ -154,6 +189,7 @@ export default function Scanner() {
       description: item.description,
       category: item.description,
       original_text: matchedSnippet,
+      isInstant: true,
     }));
 
     resultsArray.sort((a, b) => b.rating - a.rating);
@@ -163,30 +199,9 @@ export default function Scanner() {
     return resultsArray;
   };
 
-  // Two-stage analyze handler: instant local match + AI Vision enrichment
+  // Main analyze handler: calls Gemini Flash Serverless API with fallback
   const analyzeIngredients = async ({ imageBase64, textContent }) => {
     setIsScanning(true);
-    setStatusNotice(null);
-
-    // If text was provided, provide instant local preview in 0.01 seconds!
-    if (textContent) {
-      const localMatches = matchAdditivesOffline(textContent, eNumbersData);
-      if (localMatches.length > 0) {
-        const instantArray = localMatches.map(({ item, matchedSnippet }) => ({
-          id: item.id,
-          name: item.name,
-          matchedDb: item,
-          rating: item.rating,
-          ferpotravinaScore: item.ferpotravinaScore,
-          description: item.description,
-          category: item.description,
-          original_text: matchedSnippet,
-        }));
-        instantArray.sort((a, b) => b.rating - a.rating);
-        setResults(instantArray);
-        setStatusNotice(t.instantPreviewNotice);
-      }
-    }
 
     try {
       const response = await fetch('/api/analyze', {
@@ -224,6 +239,7 @@ export default function Scanner() {
             ferpotravinaScore: ferpotravinaScore,
             description: matchedDb?.description || aiItem.reason,
             reason: aiItem.reason,
+            isInstant: false,
           };
         });
 
@@ -261,6 +277,7 @@ export default function Scanner() {
     try {
       setIsScanning(true);
       const compressedBase64 = await compressImage(file, 1600, 0.85);
+      setPhotoPreview(compressedBase64);
       await analyzeIngredients({ imageBase64: compressedBase64 });
     } catch (err) {
       console.error('Image compression or upload error:', err);
@@ -315,10 +332,36 @@ export default function Scanner() {
       </header>
 
       <div className="glass-panel">
+        {/* Photo preview if user uploaded a photo */}
+        {photoPreview && (
+          <div style={{ marginBottom: '14px', position: 'relative', display: 'inline-block' }}>
+            <img
+              src={photoPreview}
+              alt="Uploaded label"
+              style={{ maxHeight: '160px', borderRadius: '8px', border: '1px solid var(--glass-border)', display: 'block' }}
+            />
+            <button
+              type="button"
+              onClick={() => { setPhotoPreview(null); setResults([]); }}
+              style={{
+                position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.7)',
+                border: 'none', borderRadius: '50%', color: '#fff', padding: '4px', cursor: 'pointer'
+              }}
+              title="Remove photo"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        )}
+
         {isScanning && (
-          <div className="upload-overlay">
-            <div className="loader"></div>
-            <p style={{ fontWeight: 600 }}>{t.analyzing}</p>
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px',
+            background: 'rgba(59, 130, 246, 0.15)', borderRadius: '8px', border: '1px solid rgba(59, 130, 246, 0.3)',
+            marginBottom: '14px', color: '#93c5fd'
+          }}>
+            <div className="loader" style={{ width: '18px', height: '18px', borderWidth: '2px' }}></div>
+            <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>{t.analyzing}</span>
           </div>
         )}
 
@@ -362,7 +405,14 @@ export default function Scanner() {
       {results.length > 0 && (
         <div className="results-container">
           <div className="results-header">
-            <span>{t.resultsHeader}</span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {t.resultsHeader}
+              {results.some(r => r.isInstant) && (
+                <span style={{ fontSize: '0.75rem', color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 600 }}>
+                  <Zap size={13} /> {t.offlineNotice}
+                </span>
+              )}
+            </span>
             <span className="badge" style={{ background: 'rgba(255,255,255,0.1)' }}>
               {results.length} {t.foundCount}
             </span>
@@ -435,7 +485,7 @@ export default function Scanner() {
         </div>
       )}
 
-      {/* Top 5 Most Common Harmful Additives Widget */}
+      {/* Top 5 Most Common Harmful Additives Widget (Sorted: 1. Rating -> 2. Scan Frequency) */}
       <TopRiskyAdditives eNumbersDatabase={eNumbersData} />
     </>
   );
