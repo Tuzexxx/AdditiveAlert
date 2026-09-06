@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Home, User, Shield, LogOut } from 'lucide-react';
+import { Home, User, Shield, LogOut, History } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import { useState, useEffect } from 'react';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -60,18 +60,16 @@ export default function Navbar() {
 
         <div className="nav-links">
           <Link to="/" className="nav-item" title={t.navHome}><Home size={20} /></Link>
+          <Link to="/profile" className="nav-item" title={t.navHistory}><History size={20} /></Link>
           {isAdmin && (
             <Link to="/admin" className="nav-item" title={t.navAdmin}>
               <Shield size={20} color="var(--rating-5)"/>
             </Link>
           )}
           {session ? (
-            <>
-              <Link to="/profile" className="nav-item" title={t.navHistory}><User size={20} /></Link>
-              <button onClick={handleLogout} className="nav-item btn-icon" title={t.navLogout}>
-                <LogOut size={20} />
-              </button>
-            </>
+            <button onClick={handleLogout} className="nav-item btn-icon" title={t.navLogout}>
+              <LogOut size={20} />
+            </button>
           ) : (
             <Link to="/auth" className="nav-item" title={t.navLogin}><User size={20} /></Link>
           )}

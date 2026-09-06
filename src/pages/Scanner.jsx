@@ -5,6 +5,7 @@ import defaultENumbersData from '../data/e-numbers.json';
 import { useLanguage } from '../i18n/LanguageContext';
 import { matchAdditivesOffline } from '../utils/fuzzyMatcher';
 import TopRiskyAdditives from '../components/TopRiskyAdditives';
+import { getDeviceId } from '../utils/deviceId';
 
 // Helper function to compress and resize camera photos before upload
 function compressImage(file, maxDimension = 1600, quality = 0.85) {
@@ -61,13 +62,15 @@ function recordRiskyScanCounts(items) {
 
     items.forEach((item) => {
       if (item.rating >= 4 && item.id && item.id !== 'N/A') {
-        current[item.id] = (current[item.id] || 0) + 1;
+        const cleanId = item.id.toUpperCase().replace(/\s/g, '');
+        current[cleanId] = (current[cleanId] || 0) + 1;
         updated = true;
       }
     });
 
     if (updated) {
       localStorage.setItem('additivealert_risky_counts', JSON.stringify(current));
+      window.dispatchEvent(new Event('additivealert_counts_updated'));
     }
   } catch {
     // ignore
@@ -158,21 +161,73 @@ export default function Scanner() {
     return () => clearTimeout(timer);
   }, [inputText, eNumbersData, t.instantPreviewNotice]);
 
-  // Batch save scan history for authenticated user
-  const saveBatchScanHistory = async (items) => {
+  // Batch save scan history for anonymous device and authenticated user
+  const saveBatchScanHistory = async (items, scanMeta = {}) => {
+    if (!items || items.length === 0) return;
+
+    // 1. Update personal scan frequencies for risky additives (ratings 4 & 5)
     recordRiskyScanCounts(items);
-    if (!session || !supabase || !items.length) return;
+
+    // 2. Crowdsource to global community stats via /api/stats (non-blocking)
+    const validIds = items
+      .map((item) => (item.id || '').toUpperCase().replace(/\s/g, ''))
+      .filter((id) => id && id.startsWith('E') && id !== 'N/A');
+
+    if (validIds.length > 0) {
+      fetch('/api/stats', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: validIds }),
+      }).catch((err) => console.warn('Global stats sync notice:', err));
+    }
+
+    // 3. Save scan to local device history (anonymous, persistent, zero-login)
     try {
-      const rows = items.map((item) => ({
-        user_id: session.user.id,
-        ingredient_name: item.name || item.id,
-        e_number: item.id,
-        rating: item.rating,
-        risk_level: item.rating >= 4 ? 'High' : item.rating <= 2 ? 'Low' : 'Medium',
-      }));
-      await supabase.from('scan_history').insert(rows);
-    } catch (err) {
-      console.error('Failed to save history batch', err);
+      const deviceId = getDeviceId();
+      const existing = JSON.parse(localStorage.getItem('additivealert_scan_history') || '[]');
+      
+      const newScan = {
+        id: 'scan_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+        timestamp: new Date().toISOString(),
+        deviceId: deviceId,
+        snippet: scanMeta.snippet || (scanMeta.hasPhoto ? (lang === 'cs' ? 'Fotografie etikety' : lang === 'de' ? 'Etikettenfoto' : 'Photo of label') : 'Sken složení'),
+        hasPhoto: !!scanMeta.hasPhoto,
+        additives: items.map((item) => ({
+          id: item.id,
+          name: item.name,
+          czechName: item.matchedDb?.czechName || item.czechName || item.name,
+          englishName: item.matchedDb?.englishName || item.englishName || item.name,
+          germanName: item.matchedDb?.germanName || item.germanName || item.name,
+          rating: item.rating,
+          ferpotravinaScore: item.ferpotravinaScore,
+          category: item.category,
+          original_text: item.original_text,
+          description: item.description,
+        })),
+        maxRating: items.reduce((max, i) => Math.max(max, i.rating || 0), 0),
+      };
+
+      const updatedHistory = [newScan, ...existing].slice(0, 50);
+      localStorage.setItem('additivealert_scan_history', JSON.stringify(updatedHistory));
+      window.dispatchEvent(new Event('additivealert_history_updated'));
+    } catch (e) {
+      console.warn('Could not save local scan history:', e);
+    }
+
+    // 4. If logged into Supabase, also save to cloud account
+    if (session && supabase) {
+      try {
+        const rows = items.map((item) => ({
+          user_id: session.user.id,
+          ingredient_name: item.name || item.id,
+          e_number: item.id,
+          rating: item.rating,
+          risk_level: item.rating >= 4 ? 'High' : item.rating <= 2 ? 'Low' : 'Medium',
+        }));
+        await supabase.from('scan_history').insert(rows);
+      } catch (err) {
+        console.warn('Failed to save history batch to Supabase', err);
+      }
     }
   };
 
@@ -194,7 +249,10 @@ export default function Scanner() {
 
     resultsArray.sort((a, b) => b.rating - a.rating);
     setResults(resultsArray);
-    saveBatchScanHistory(resultsArray);
+    saveBatchScanHistory(resultsArray, {
+      snippet: text.slice(0, 80) + (text.length > 80 ? '...' : ''),
+      hasPhoto: false,
+    });
     setStatusNotice(t.offlineNotice);
     return resultsArray;
   };
@@ -245,7 +303,10 @@ export default function Scanner() {
 
         enriched.sort((a, b) => b.rating - a.rating);
         setResults(enriched);
-        saveBatchScanHistory(enriched);
+        saveBatchScanHistory(enriched, {
+          snippet: textContent ? (textContent.slice(0, 80) + (textContent.length > 80 ? '...' : '')) : null,
+          hasPhoto: !!imageBase64,
+        });
         setStatusNotice(t.aiNotice);
       } else {
         throw new Error('Invalid response format from Vision API');

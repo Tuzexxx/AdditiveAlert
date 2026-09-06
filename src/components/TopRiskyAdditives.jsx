@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { AlertTriangle, ChevronDown, ChevronUp, Flame, TrendingUp } from 'lucide-react';
+import { AlertTriangle, ChevronDown, ChevronUp, Flame, TrendingUp, Globe, Smartphone } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 
 // Curated reference knowledge for common packaging harmful additives (ratings 4 & 5)
@@ -93,12 +93,14 @@ const KNOWN_DANGER_DETAILS = {
 export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
   const { lang, t } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(true);
+  const [scopeMode, setScopeMode] = useState('personal'); // 'personal' | 'global'
   const [userScanCounts, setUserScanCounts] = useState({});
+  const [globalStats, setGlobalStats] = useState({});
   const [filterRating, setFilterRating] = useState('all'); // 'all', '5', '4'
 
-  // Load scan frequencies from localStorage
+  // Load personal scan frequencies from localStorage
   useEffect(() => {
-    const loadCounts = () => {
+    const loadPersonalCounts = () => {
       try {
         const stored = localStorage.getItem('additivealert_risky_counts');
         if (stored) {
@@ -108,38 +110,58 @@ export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
         // ignore
       }
     };
-    loadCounts();
+    loadPersonalCounts();
 
-    // Listen for storage changes if multiple tabs open
-    window.addEventListener('storage', loadCounts);
-    return () => window.removeEventListener('storage', loadCounts);
+    const fetchGlobal = () => {
+      fetch('/api/stats')
+        .then((res) => (res.ok ? res.json() : null))
+        .then((data) => {
+          if (data?.stats) {
+            setGlobalStats(data.stats);
+          }
+        })
+        .catch((err) => console.warn('Could not load global stats:', err));
+    };
+    fetchGlobal();
+
+    window.addEventListener('storage', loadPersonalCounts);
+    window.addEventListener('additivealert_counts_updated', () => {
+      loadPersonalCounts();
+      fetchGlobal();
+    });
+
+    return () => {
+      window.removeEventListener('storage', loadPersonalCounts);
+      window.removeEventListener('additivealert_counts_updated', loadPersonalCounts);
+    };
   }, []);
 
   // Filter and sort according to user rules:
   // Step 1: Harmfulness level (5 first, then 4)
-  // Step 2: Frequency of searches/scans (highest count first)
+  // Step 2: Frequency of searches/scans (Personal or Global counts)
   const topRiskyList = useMemo(() => {
-    // Filter database for harmful items (rating 4 and 5)
     let candidates = eNumbersDatabase.filter(
       (item) => item.rating >= 4 || (item.ferpotravinaScore && item.ferpotravinaScore >= 4)
     );
 
-    // Apply rating filter if selected
+    // Filter by rating if chosen
     if (filterRating === '5') {
       candidates = candidates.filter((item) => item.rating === 5);
     } else if (filterRating === '4') {
       candidates = candidates.filter((item) => item.rating === 4);
     }
 
-    // Sort: 1. Harmfulness (5 before 4) -> 2. Search frequency (highest count first)
+    const currentCounts = scopeMode === 'global' ? globalStats : userScanCounts;
+
+    // Sort: 1. Harmfulness (5 before 4) -> 2. Frequency (highest count first)
     candidates.sort((a, b) => {
       // Step 1: Rating level (5 before 4)
       if (b.rating !== a.rating) {
         return b.rating - a.rating;
       }
-      // Step 2: Frequency of user scans (higher count first)
-      const countA = userScanCounts[a.id] || 0;
-      const countB = userScanCounts[b.id] || 0;
+      // Step 2: Frequency of user/global scans (higher count first)
+      const countA = currentCounts[a.id] || 0;
+      const countB = currentCounts[b.id] || 0;
       if (countB !== countA) {
         return countB - countA;
       }
@@ -149,17 +171,14 @@ export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
       return ferB - ferA;
     });
 
-    // Take top 5
     return candidates.slice(0, 5);
-  }, [eNumbersDatabase, userScanCounts, filterRating]);
+  }, [eNumbersDatabase, userScanCounts, globalStats, scopeMode, filterRating]);
 
   const getLocalizedName = (item) => {
     if (lang === 'en') return item.englishName || item.name;
     if (lang === 'de') return item.germanName || item.name;
     return item.czechName || item.name;
   };
-
-  const hasAnyScans = Object.values(userScanCounts).some((c) => c > 0);
 
   return (
     <div className="glass-panel top-risky-panel">
@@ -184,37 +203,63 @@ export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
 
       {isExpanded && (
         <>
-          {/* Level Filter Tabs */}
-          <div style={{ display: 'flex', gap: '8px', marginTop: '12px', flexWrap: 'wrap' }}>
-            <button
-              type="button"
-              className={`lang-btn ${filterRating === 'all' ? 'active' : ''}`}
-              onClick={(e) => { e.stopPropagation(); setFilterRating('all'); }}
-              style={{ fontSize: '0.78rem', padding: '4px 10px', borderRadius: '12px' }}
-            >
-              Vše (5 & 4)
-            </button>
-            <button
-              type="button"
-              className={`lang-btn ${filterRating === '5' ? 'active' : ''}`}
-              onClick={(e) => { e.stopPropagation(); setFilterRating('5'); }}
-              style={{ fontSize: '0.78rem', padding: '4px 10px', borderRadius: '12px', color: filterRating === '5' ? '#fff' : 'var(--rating-5)' }}
-            >
-              🔴 Pouze úroveň 5/5
-            </button>
-            <button
-              type="button"
-              className={`lang-btn ${filterRating === '4' ? 'active' : ''}`}
-              onClick={(e) => { e.stopPropagation(); setFilterRating('4'); }}
-              style={{ fontSize: '0.78rem', padding: '4px 10px', borderRadius: '12px', color: filterRating === '4' ? '#fff' : 'var(--rating-4)' }}
-            >
-              🟠 Pouze úroveň 4/5
-            </button>
+          {/* Toggle: Personal vs. Global Community Stats */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', flexWrap: 'wrap', gap: '8px' }}>
+            <div className="lang-pills" style={{ padding: '2px' }}>
+              <button
+                type="button"
+                className={`lang-pill ${scopeMode === 'personal' ? 'active' : ''}`}
+                onClick={(e) => { e.stopPropagation(); setScopeMode('personal'); }}
+                style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.78rem' }}
+              >
+                <Smartphone size={13} />
+                {t.tabPersonal}
+              </button>
+              <button
+                type="button"
+                className={`lang-pill ${scopeMode === 'global' ? 'active' : ''}`}
+                onClick={(e) => { e.stopPropagation(); setScopeMode('global'); }}
+                style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.78rem' }}
+              >
+                <Globe size={13} />
+                {t.tabGlobal}
+              </button>
+            </div>
+
+            {/* Level Filter Tabs */}
+            <div style={{ display: 'flex', gap: '6px' }}>
+              <button
+                type="button"
+                className={`lang-btn ${filterRating === 'all' ? 'active' : ''}`}
+                onClick={(e) => { e.stopPropagation(); setFilterRating('all'); }}
+                style={{ fontSize: '0.75rem', padding: '3px 8px', borderRadius: '10px' }}
+              >
+                Vše (5 & 4)
+              </button>
+              <button
+                type="button"
+                className={`lang-btn ${filterRating === '5' ? 'active' : ''}`}
+                onClick={(e) => { e.stopPropagation(); setFilterRating('5'); }}
+                style={{ fontSize: '0.75rem', padding: '3px 8px', borderRadius: '10px', color: filterRating === '5' ? '#fff' : 'var(--rating-5)' }}
+              >
+                🔴 5/5
+              </button>
+              <button
+                type="button"
+                className={`lang-btn ${filterRating === '4' ? 'active' : ''}`}
+                onClick={(e) => { e.stopPropagation(); setFilterRating('4'); }}
+                style={{ fontSize: '0.75rem', padding: '3px 8px', borderRadius: '10px', color: filterRating === '4' ? '#fff' : 'var(--rating-4)' }}
+              >
+                🟠 4/5
+              </button>
+            </div>
           </div>
 
           <div className="top-risky-list" style={{ marginTop: '14px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {topRiskyList.map((item, idx) => {
-              const scanCount = userScanCounts[item.id] || 0;
+              const personalCount = userScanCounts[item.id] || 0;
+              const globalCount = globalStats[item.id] || 0;
+              const countToDisplay = scopeMode === 'global' ? globalCount : personalCount;
               const localizedName = getLocalizedName(item);
               const dangerInfo = KNOWN_DANGER_DETAILS[item.id];
               const foodSources = dangerInfo?.typicalFoods?.[lang] || dangerInfo?.typicalFoods?.cs || item.description;
@@ -260,14 +305,14 @@ export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
                       </span>
                     )}
 
-                    {scanCount > 0 ? (
+                    {countToDisplay > 0 ? (
                       <span style={{ color: 'var(--rating-4)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '4px' }}>
                         <TrendingUp size={13} />
-                        {t.scannedCount}: {scanCount}×
+                        {scopeMode === 'global' ? `Komunita: ${countToDisplay.toLocaleString()}×` : `${t.scannedCount}: ${countToDisplay}×`}
                       </span>
                     ) : (
                       <span style={{ opacity: 0.6 }}>
-                        Běžné na trhu
+                        {scopeMode === 'global' ? 'Běžné na trhu' : 'Zatím jste nenaskenovali'}
                       </span>
                     )}
                   </div>
