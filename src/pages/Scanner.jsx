@@ -3,6 +3,7 @@ import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle
 import { supabase } from '../supabaseClient';
 import defaultENumbersData from '../data/e-numbers.json';
 import { useLanguage } from '../i18n/LanguageContext';
+import { matchAdditivesOffline } from '../utils/fuzzyMatcher';
 
 // Helper function to compress and resize camera photos before upload
 function compressImage(file, maxDimension = 1600, quality = 0.85) {
@@ -117,65 +118,19 @@ export default function Scanner() {
     }
   };
 
-  // Offline fallback parsing using local dictionary
+  // Robust offline fallback parsing using fuzzy matching (abbreviations, stemming, diacritics)
   const extractENumbersOffline = (text) => {
-    const resultsArray = [];
-    const eRegex = /\b[Ee][-\s]?\d{3,4}[a-z]?\b/g;
-    const eMatches = text.match(eRegex) || [];
-    const eNumberMatches = [...new Set(eMatches.map((m) => m.replace(/[-\s]/g, '').toUpperCase()))];
+    const matches = matchAdditivesOffline(text, eNumbersData);
 
-    eNumbersData.forEach((item) => {
-      const standardId = item.id.toUpperCase();
-      let found = false;
-
-      if (eNumberMatches.includes(standardId)) {
-        found = true;
-      }
-
-      if (!found && item.czechName?.length > 3) {
-        const nameEscaped = item.czechName.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-        const nameRegex = new RegExp(`(^|[\\s,.:;()\\-])${nameEscaped}([\\s,.:;()\\-]|$)`, 'i');
-        if (nameRegex.test(text)) found = true;
-      }
-
-      if (!found && item.englishName?.length > 3) {
-        const engEscaped = item.englishName.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-        const engRegex = new RegExp(`(^|[\\s,.:;()\\-])${engEscaped}([\\s,.:;()\\-]|$)`, 'i');
-        if (engRegex.test(text)) found = true;
-      }
-
-      if (!found && item.germanName?.length > 3) {
-        const deEscaped = item.germanName.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-        const deRegex = new RegExp(`(^|[\\s,.:;()\\-])${deEscaped}([\\s,.:;()\\-]|$)`, 'i');
-        if (deRegex.test(text)) found = true;
-      }
-
-      if (found && !resultsArray.find((r) => r.id === item.id)) {
-        resultsArray.push({
-          id: item.id,
-          name: getLocalizedAdditiveName(item, item.name, lang),
-          rating: item.rating,
-          ferpotravinaScore: item.ferpotravinaScore,
-          description: item.description,
-          category: null,
-          original_text: null,
-        });
-      }
-    });
-
-    eNumberMatches.forEach((eNum) => {
-      if (!resultsArray.find((r) => r.id === eNum)) {
-        resultsArray.push({
-          id: eNum,
-          name: 'Unknown Additive',
-          rating: 3,
-          ferpotravinaScore: null,
-          description: 'Not found in local database.',
-          category: null,
-          original_text: eNum,
-        });
-      }
-    });
+    const resultsArray = matches.map(({ item, matchedSnippet }) => ({
+      id: item.id,
+      name: getLocalizedAdditiveName(item, item.name, lang),
+      rating: item.rating,
+      ferpotravinaScore: item.ferpotravinaScore,
+      description: item.description,
+      category: item.description,
+      original_text: matchedSnippet,
+    }));
 
     resultsArray.sort((a, b) => b.rating - a.rating);
     setResults(resultsArray);
