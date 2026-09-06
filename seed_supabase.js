@@ -24,13 +24,16 @@ const jsonPath = path.join(__dirname, 'src', 'data', 'e-numbers.json');
 const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 
 async function seedDatabase() {
-  console.log(`Starting to seed ${data.length} additives...`);
+  console.log(`Starting to seed ${data.length} additives with corrected scores...`);
   
   // Format data for Supabase
   const formattedData = data.map(item => ({
     id: item.id,
     name: item.name,
+    czech_name: item.czechName || item.name,
     english_name: item.englishName || null,
+    german_name: item.germanName || null,
+    ferpotravina_score: item.ferpotravinaScore ?? 0,
     rating: item.rating,
     description: item.description || null
   }));

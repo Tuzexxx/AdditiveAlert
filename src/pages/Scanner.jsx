@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle } from 'lucide-react';
+import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle, Globe } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import defaultENumbersData from '../data/e-numbers.json';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -41,6 +41,16 @@ function compressImage(file, maxDimension = 1600, quality = 0.85) {
   });
 }
 
+function getLocalizedAdditiveName(dbItem, fallbackName, currentLang) {
+  if (currentLang === 'en') {
+    return dbItem?.englishName || fallbackName || dbItem?.name;
+  }
+  if (currentLang === 'de') {
+    return dbItem?.germanName || fallbackName || dbItem?.name;
+  }
+  return dbItem?.czechName || dbItem?.name || fallbackName;
+}
+
 export default function Scanner() {
   const [inputText, setInputText] = useState('');
   const [isScanning, setIsScanning] = useState(false);
@@ -49,38 +59,48 @@ export default function Scanner() {
   const [session, setSession] = useState(null);
   const [statusNotice, setStatusNotice] = useState(null);
   const fileInputRef = useRef(null);
-  const { lang, t } = useLanguage();
+  const { lang, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
 
     const fetchAdditives = async () => {
-      const cached = localStorage.getItem('additivealert_db');
-      if (cached) setENumbersData(JSON.parse(cached));
+      // Invalidate old stale caches
+      localStorage.removeItem('additivealert_db');
+      
+      const cached = localStorage.getItem('additivealert_db_v3');
+      if (cached) {
+        setENumbersData(JSON.parse(cached));
+      } else {
+        setENumbersData(defaultENumbersData);
+      }
 
       if (supabase) {
         try {
           const { data, error } = await supabase.from('additives').select('*');
-          if (data && !error) {
+          if (data && !error && data.length > 0) {
             const mappedData = data.map((item) => ({
               id: item.id,
               name: item.name,
+              czechName: item.czech_name || item.name,
               englishName: item.english_name,
+              germanName: item.german_name,
+              ferpotravinaScore: item.ferpotravina_score,
               rating: item.rating,
               description: item.description,
             }));
             setENumbersData(mappedData);
-            localStorage.setItem('additivealert_db', JSON.stringify(mappedData));
+            localStorage.setItem('additivealert_db_v3', JSON.stringify(mappedData));
           }
         } catch (err) {
-          console.error('Failed to sync database:', err);
+          console.warn('Supabase offline or unreachable, using local database:', err);
         }
       }
     };
     fetchAdditives();
   }, []);
 
-  // Batch save scan history for the authenticated user
+  // Batch save scan history for authenticated user
   const saveBatchScanHistory = async (items) => {
     if (!session || !supabase || !items.length) return;
     try {
@@ -112,8 +132,8 @@ export default function Scanner() {
         found = true;
       }
 
-      if (!found && item.name?.length > 3) {
-        const nameEscaped = item.name.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+      if (!found && item.czechName?.length > 3) {
+        const nameEscaped = item.czechName.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
         const nameRegex = new RegExp(`(^|[\\s,.:;()\\-])${nameEscaped}([\\s,.:;()\\-]|$)`, 'i');
         if (nameRegex.test(text)) found = true;
       }
@@ -124,11 +144,18 @@ export default function Scanner() {
         if (engRegex.test(text)) found = true;
       }
 
+      if (!found && item.germanName?.length > 3) {
+        const deEscaped = item.germanName.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const deRegex = new RegExp(`(^|[\\s,.:;()\\-])${deEscaped}([\\s,.:;()\\-]|$)`, 'i');
+        if (deRegex.test(text)) found = true;
+      }
+
       if (found && !resultsArray.find((r) => r.id === item.id)) {
         resultsArray.push({
           id: item.id,
-          name: lang === 'en' && item.englishName ? item.englishName : item.name,
+          name: getLocalizedAdditiveName(item, item.name, lang),
           rating: item.rating,
+          ferpotravinaScore: item.ferpotravinaScore,
           description: item.description,
           category: null,
           original_text: null,
@@ -137,11 +164,12 @@ export default function Scanner() {
     });
 
     eNumberMatches.forEach((eNum) => {
-      if (!resultsArray.find((r) => r.id.toUpperCase() === eNum)) {
+      if (!resultsArray.find((r) => r.id === eNum)) {
         resultsArray.push({
           id: eNum,
           name: 'Unknown Additive',
           rating: 3,
+          ferpotravinaScore: null,
           description: 'Not found in local database.',
           category: null,
           original_text: eNum,
@@ -178,19 +206,22 @@ export default function Scanner() {
       const data = await response.json();
 
       if (data.success && Array.isArray(data.additives)) {
-        // Enrich Gemini results with our curated database ratings where available
         const enriched = data.additives.map((aiItem) => {
           const matchedDb = eNumbersData.find(
             (db) => db.id.toUpperCase() === (aiItem.id || '').toUpperCase()
           );
 
+          // Get accurate rating: strict adherence to Fér Potravina if matched
+          const finalRating = matchedDb?.rating ?? aiItem.rating ?? 3;
+          const ferpotravinaScore = matchedDb?.ferpotravinaScore ?? (matchedDb?.rating != null ? matchedDb.rating : null);
+
           return {
             id: aiItem.id || 'N/A',
-            name: aiItem.name || matchedDb?.name || aiItem.id,
+            name: getLocalizedAdditiveName(matchedDb, aiItem.name, lang),
             original_text: aiItem.original_text,
             category: aiItem.category,
-            // Prefer database score if available, otherwise trust Gemini's rating
-            rating: matchedDb?.rating ?? aiItem.rating ?? 3,
+            rating: finalRating,
+            ferpotravinaScore: ferpotravinaScore,
             description: matchedDb?.description || aiItem.reason,
             reason: aiItem.reason,
           };
@@ -205,7 +236,6 @@ export default function Scanner() {
       }
     } catch (err) {
       console.warn('AI analysis error, falling back to local database parsing:', err);
-      // Fallback: if we have text input, analyze it offline
       if (textContent) {
         extractENumbersOffline(textContent);
       } else {
@@ -230,7 +260,6 @@ export default function Scanner() {
 
     try {
       setIsScanning(true);
-      // Compress image client-side to prevent Vercel 4.5MB payload limit issues
       const compressedBase64 = await compressImage(file, 1600, 0.85);
       await analyzeIngredients({ imageBase64: compressedBase64 });
     } catch (err) {
@@ -238,7 +267,6 @@ export default function Scanner() {
       alert(t.errorScan);
       setIsScanning(false);
     } finally {
-      // Reset input value so same file can be uploaded again if needed
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
@@ -248,6 +276,36 @@ export default function Scanner() {
       <header className="header">
         <h1>{t.appTitle}</h1>
         <p>{t.appSubtitle}</p>
+        
+        {/* Prominent Language Switcher */}
+        <div className="language-bar">
+          <Globe size={14} style={{ opacity: 0.7 }} />
+          <span>{t.langName}:</span>
+          <div className="lang-pills">
+            <button
+              type="button"
+              className={`lang-pill ${lang === 'cs' ? 'active' : ''}`}
+              onClick={() => setLanguage('cs')}
+            >
+              🇨🇿 Čeština
+            </button>
+            <button
+              type="button"
+              className={`lang-pill ${lang === 'en' ? 'active' : ''}`}
+              onClick={() => setLanguage('en')}
+            >
+              🇬🇧 English
+            </button>
+            <button
+              type="button"
+              className={`lang-pill ${lang === 'de' ? 'active' : ''}`}
+              onClick={() => setLanguage('de')}
+            >
+              🇩🇪 Deutsch
+            </button>
+          </div>
+        </div>
+
         {statusNotice && (
           <span className="mode-tag">
             <Sparkles size={12} style={{ marginRight: '4px', verticalAlign: '-1px' }} />
@@ -324,9 +382,17 @@ export default function Scanner() {
                   {item.id !== 'N/A' ? `${item.id} - ` : ''}
                   {item.name}
                 </span>
-                <span className={`badge badge-${item.rating}`}>
-                  {t.riskScore}: {item.rating}/5
-                </span>
+
+                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  {item.ferpotravinaScore !== null && item.ferpotravinaScore !== undefined && (
+                    <span className="badge-ferpotravina" title="Originální skóre škodlivosti podle Fér Potravina (0-6)">
+                      Fér: {item.ferpotravinaScore}/6
+                    </span>
+                  )}
+                  <span className={`badge badge-${item.rating}`}>
+                    {t.riskScore}: {item.rating}/5
+                  </span>
+                </div>
               </div>
 
               {item.description && <p className="card-desc">{item.description}</p>}

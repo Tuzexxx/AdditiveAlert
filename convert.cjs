@@ -40,18 +40,28 @@ for (let i = 1; i < lines.length; i++) {
     const score = parseInt(parts[4], 10);
     const category = parts[5].trim();
     
-    // Map score 0-6 to 1-5
+    // Fér Potravina uses score 0 to 6:
+    // 0 = Příznivá (Zcela neškodná) -> 1/5
+    // 1 = Neškodná (např. E331 Citronany sodné) -> 1/5
+    // 2 = Nízké riziko -> 2/5
+    // 3 = Střední riziko (např. E450 Difosforečnany) -> 3/5
+    // 4 = Škodlivá -> 4/5
+    // 5 = Velmi škodlivá -> 5/5
+    // 6 = Nebezpečná / v některých zemích zakázaná -> 5/5
     let rating = 1;
-    if (score === 0) rating = 1;
-    else if (score === 1) rating = 2;
-    else if (score === 2) rating = 3;
-    else if (score === 3) rating = 4;
-    else if (score >= 4) rating = 5;
+    if (score <= 1) rating = 1;
+    else if (score === 2) rating = 2;
+    else if (score === 3) rating = 3;
+    else if (score === 4) rating = 4;
+    else if (score >= 5) rating = 5;
     
     eNumbers.push({
-      id: eNumber.toUpperCase(), // Normalize to uppercase
+      id: eNumber.toUpperCase(),
       name: czechName || englishName,
+      czechName: czechName,
       englishName: englishName,
+      germanName: germanName,
+      ferpotravinaScore: isNaN(score) ? 0 : score,
       rating: rating,
       description: category
     });
@@ -59,4 +69,4 @@ for (let i = 1; i < lines.length; i++) {
 }
 
 fs.writeFileSync(jsonPath, JSON.stringify(eNumbers, null, 2));
-console.log(`Generated ${eNumbers.length} E-numbers.`);
+console.log(`Generated ${eNumbers.length} E-numbers with fixed Fér Potravina scores and multilang names.`);
