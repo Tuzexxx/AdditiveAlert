@@ -284,8 +284,7 @@ export default function Scanner() {
             (db) => db.id.toUpperCase() === (aiItem.id || '').toUpperCase()
           );
 
-          const finalRating = matchedDb?.rating ?? aiItem.rating ?? 3;
-          const ferpotravinaScore = matchedDb?.ferpotravinaScore ?? (matchedDb?.rating != null ? matchedDb.rating : null);
+          const finalRating = matchedDb?.rating ?? matchedDb?.ferpotravinaScore ?? aiItem.rating ?? 0;
 
           return {
             id: aiItem.id || 'N/A',
@@ -294,7 +293,7 @@ export default function Scanner() {
             original_text: aiItem.original_text,
             category: aiItem.category,
             rating: finalRating,
-            ferpotravinaScore: ferpotravinaScore,
+            ferpotravinaScore: finalRating,
             description: matchedDb?.description || aiItem.reason,
             reason: aiItem.reason,
             isInstant: false,
@@ -499,13 +498,8 @@ export default function Scanner() {
                   </span>
 
                   <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                    {item.ferpotravinaScore !== null && item.ferpotravinaScore !== undefined && (
-                      <span className="badge-ferpotravina" title="Originální skóre škodlivosti podle Fér Potravina (0-6)">
-                        Fér: {item.ferpotravinaScore}/6
-                      </span>
-                    )}
                     <span className={`badge badge-${item.rating}`}>
-                      {t.riskScore}: {item.rating}/5
+                      {t.riskScore}: {item.rating}/6
                     </span>
                   </div>
                 </div>

@@ -8,11 +8,13 @@
   --text-secondary: #a0a6b1;
   --accent-color: #3b82f6;
   
+  --rating-0: #10b981; /* Safe / Green */
   --rating-1: #10b981; /* Green */
   --rating-2: #84cc16; /* Light green/yellow */
   --rating-3: #f59e0b; /* Yellow/Orange */
   --rating-4: #f97316; /* Orange/Red */
   --rating-5: #ef4444; /* Red */
+  --rating-6: #dc2626; /* Dark Red / Most dangerous */
   
   --glass-bg: rgba(26, 29, 36, 0.7);
   --glass-border: rgba(255, 255, 255, 0.08);
@@ -197,17 +199,21 @@ body {
   color: var(--text-secondary);
 }
 
+.rating-0 { border-left-color: var(--rating-0); }
 .rating-1 { border-left-color: var(--rating-1); }
 .rating-2 { border-left-color: var(--rating-2); }
 .rating-3 { border-left-color: var(--rating-3); }
 .rating-4 { border-left-color: var(--rating-4); }
 .rating-5 { border-left-color: var(--rating-5); }
+.rating-6 { border-left-color: var(--rating-6); }
 
+.badge-0 { background: rgba(16, 185, 129, 0.2); color: var(--rating-0); }
 .badge-1 { background: rgba(16, 185, 129, 0.2); color: var(--rating-1); }
 .badge-2 { background: rgba(132, 204, 22, 0.2); color: var(--rating-2); }
 .badge-3 { background: rgba(245, 158, 11, 0.2); color: var(--rating-3); }
 .badge-4 { background: rgba(249, 115, 22, 0.2); color: var(--rating-4); }
 .badge-5 { background: rgba(239, 68, 68, 0.2); color: var(--rating-5); }
+.badge-6 { background: rgba(220, 38, 38, 0.3); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.5); }
 
 .empty-state {
   text-align: center;

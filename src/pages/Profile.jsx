@@ -317,7 +317,7 @@ export default function Profile() {
                   </div>
 
                   <span className={`badge badge-${highestRating}`}>
-                    {t.riskScore}: {highestRating}/5
+                    {t.riskScore}: {highestRating}/6
                   </span>
                 </div>
 
@@ -379,13 +379,8 @@ export default function Profile() {
                           </div>
 
                           <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                            {additive.ferpotravinaScore !== undefined && additive.ferpotravinaScore !== null && (
-                              <span className="badge-ferpotravina" style={{ fontSize: '0.72rem' }}>
-                                Fér: {additive.ferpotravinaScore}/6
-                              </span>
-                            )}
                             <span className={`badge badge-${additive.rating}`} style={{ fontSize: '0.72rem' }}>
-                              {additive.rating}/5
+                              {t.riskScore}: {additive.rating}/6
                             </span>
                           </div>
                         </div>

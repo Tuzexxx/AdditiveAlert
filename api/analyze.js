@@ -45,12 +45,14 @@ CRITICAL RULES:
 4. Translate named additives into their standardized official E-number if known (e.g. "dusitan sodný" -> "E250", "kyselina citronová" -> "E330", "aspartam" -> "E951", "kurkumin" -> "E100", "karagenan" -> "E407").
 5. Do NOT include basic culinary whole foods (e.g., water, wheat flour, sugar, salt, milk, vegetable oil) unless they are specifically processed functional additives.
 6. Provide names, category, and health risk explanation strictly in ${targetLang}.
-7. Score health impact from 1 to 5:
-   - 1: Natural, completely harmless (e.g., Vitamin C E300, Curcumin E100, Citric acid E330)
-   - 2: Generally safe, minimal concern
-   - 3: Moderate concern (e.g., caramel color E150d, carrageenan E407, BHA E320)
-   - 4: Elevated concern / allergens / hyperactivity in children (e.g., Tartrazine E102, Sodium benzoate E211)
-   - 5: High concern / controversial / carcinogenic risk in higher consumption (e.g., Sodium nitrite E250, Potassium nitrate, artificial azo dyes E122/E124, Sulphur dioxide E220)
+7. Score health impact strictly on a scale from 0 to 6 (matching the official Fér Potravina 0–6 risk scale):
+   - 0: Natural / completely safe (e.g., Vitamin C E300, Curcumin E100, Citric acid E330, Lecithin)
+   - 1: Harmless / negligible concern
+   - 2: Low concern / generally safe
+   - 3: Moderate concern (e.g., Diphosphates E450, Caramel E150d)
+   - 4: Elevated concern / allergens / hyperactivity in children (e.g., Tartrazine E102, Carrageenan E407, Sodium benzoate E211)
+   - 5: High concern / controversial / carcinogenic risks in higher consumption (e.g., Sodium nitrite E250, Aspartame E951, Ponceau 4R E124)
+   - 6: Extreme concern / hazardous or banned additives
 
 OUTPUT FORMAT:
 Output ONLY valid JSON matching this schema:
@@ -61,7 +63,7 @@ Output ONLY valid JSON matching this schema:
       "name": "Additive name in ${targetLang}",
       "original_text": "Exact text or snippet from the packaging",
       "category": "Additive role (e.g. Konzervant / Barvivo / Zahušťovadlo)",
-      "rating": 1 to 5 (integer),
+      "rating": 0 to 6 (integer),
       "reason": "Short 1-sentence health impact explanation in ${targetLang}"
     }
   ],

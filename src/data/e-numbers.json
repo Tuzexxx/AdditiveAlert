@@ -6,7 +6,7 @@
     "englishName": "Lecithins (Oat)",
     "germanName": "Haferlecithin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Emulsifier, stabiliser"
   },
   {
@@ -16,7 +16,7 @@
     "englishName": "Curcumin",
     "germanName": "Kurkumin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Yellow food colouring in mustard, curry powder, sauces, cheese"
   },
   {
@@ -26,7 +26,7 @@
     "englishName": "Riboflavin, Vitamin B2",
     "germanName": "Riboflavin, Vitamin B2",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Yellow food colouring, also a vitamin supplement"
   },
   {
@@ -36,7 +36,7 @@
     "englishName": "Chlorophylls and chlorophyllins",
     "germanName": "Chlorophylle und Chlorophylline",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Green colouring for confectionery, chewing gum"
   },
   {
@@ -46,7 +46,7 @@
     "englishName": "Caramel",
     "germanName": "Zuckerkulör",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Brown colouring in soft drinks, sauces, confectionery"
   },
   {
@@ -56,7 +56,7 @@
     "englishName": "Caramel I - Plain caramel",
     "germanName": "Karamell I - Einfacher Zuckerkulör",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Brown colouring"
   },
   {
@@ -66,7 +66,7 @@
     "englishName": "Carotenes",
     "germanName": "Carotine",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Orange colouring"
   },
   {
@@ -76,7 +76,7 @@
     "englishName": "Mixed carotenes",
     "germanName": "Gemischte Carotine",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Orange colouring"
   },
   {
@@ -86,7 +86,7 @@
     "englishName": "Beta-carotene",
     "germanName": "Beta-Carotin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Orange colouring, also a vitamin A precursor"
   },
   {
@@ -96,7 +96,7 @@
     "englishName": "Paprika extract, capsanthin, capsorubin",
     "germanName": "Paprikaextrakt, Capsanthin, Capsorubin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Red-orange colouring from paprika"
   },
   {
@@ -106,7 +106,7 @@
     "englishName": "Lycopene",
     "germanName": "Lycopin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Red colouring, antioxidant"
   },
   {
@@ -116,7 +116,7 @@
     "englishName": "Lutein",
     "germanName": "Lutein",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Yellow colouring"
   },
   {
@@ -126,7 +126,7 @@
     "englishName": "Cryptoxanthin",
     "germanName": "Cryptoxanthin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Yellow-orange colouring"
   },
   {
@@ -136,7 +136,7 @@
     "englishName": "Beetroot Red, Betanin",
     "germanName": "Betanin, Betenrot",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Red colouring from beetroot"
   },
   {
@@ -146,7 +146,7 @@
     "englishName": "Anthocyanins",
     "germanName": "Anthocyane",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Red to blue colouring from fruits and vegetables"
   },
   {
@@ -156,7 +156,7 @@
     "englishName": "Saffron, Saffron Yellow",
     "germanName": "Safran, Safrangelb",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Yellow colouring from saffron"
   },
   {
@@ -166,7 +166,7 @@
     "englishName": "Sandalwood",
     "germanName": "Sandelholz",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Red colouring"
   },
   {
@@ -176,7 +176,7 @@
     "englishName": "Calcium carbonates",
     "germanName": "Calciumcarbonate",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Whitening agent, anti-caking agent"
   },
   {
@@ -186,7 +186,7 @@
     "englishName": "Nisin",
     "germanName": "Nisin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Preservative in cheese, dairy products"
   },
   {
@@ -196,7 +196,7 @@
     "englishName": "Acetic acid",
     "germanName": "Essigsäure",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Acidity regulator, preservative"
   },
   {
@@ -206,7 +206,7 @@
     "englishName": "Lactic acid",
     "germanName": "Milchsäure",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Acidity regulator, preservative in yogurt, cheese"
   },
   {
@@ -216,7 +216,7 @@
     "englishName": "Carbon dioxide",
     "germanName": "Kohlendioxid",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Packaging gas, aerating agent"
   },
   {
@@ -226,7 +226,7 @@
     "englishName": "Malic acid",
     "germanName": "Apfelsäure",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Acidity regulator, flavouring agent"
   },
   {
@@ -236,7 +236,7 @@
     "englishName": "Ascorbic acid, Vitamin C",
     "germanName": "Ascorbinsäure, Vitamin C",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Antioxidant"
   },
   {
@@ -246,7 +246,7 @@
     "englishName": "Tocopherol-rich extract",
     "germanName": "Tocopherol-haltiger Extrakt",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Antioxidant, Vitamin E"
   },
   {
@@ -256,7 +256,7 @@
     "englishName": "Guaiac gum",
     "germanName": "Guajakharz",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Antioxidant"
   },
   {
@@ -266,7 +266,7 @@
     "englishName": "Lecithins",
     "germanName": "Lecithine",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Emulsifier, stabiliser in chocolate, margarine"
   },
   {
@@ -276,7 +276,7 @@
     "englishName": "Citric acid",
     "germanName": "Zitronensäure",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Acidity regulator, flavouring agent"
   },
   {
@@ -286,7 +286,7 @@
     "englishName": "Potassium tartrates",
     "germanName": "Kaliumtartrate",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Acidity regulator"
   },
   {
@@ -296,7 +296,7 @@
     "englishName": "Succinic acid",
     "germanName": "Bernsteinsäure",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Acidity regulator, flavour enhancer"
   },
   {
@@ -306,7 +306,7 @@
     "englishName": "Rosemary extracts",
     "germanName": "Rosmarinextrakte",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Antioxidant"
   },
   {
@@ -316,7 +316,7 @@
     "englishName": "Agar",
     "germanName": "Agar",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Gelling agent, thickener in jellies, ice cream"
   },
   {
@@ -326,7 +326,7 @@
     "englishName": "Processed eucheuma seaweed",
     "germanName": "Euchema-Alge",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Gelling agent, thickener"
   },
   {
@@ -336,7 +336,7 @@
     "englishName": "Arabinogalactan",
     "germanName": "Arabinogalactan",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Stabiliser, emulsifier"
   },
   {
@@ -346,7 +346,7 @@
     "englishName": "Locust bean gum, Carob gum",
     "germanName": "Johannisbrotkernmehl",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Thickener, stabiliser in ice cream, sauces"
   },
   {
@@ -356,7 +356,7 @@
     "englishName": "Guar gum",
     "germanName": "Guarkernmehl",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Thickener, stabiliser in sauces, dairy products"
   },
   {
@@ -366,7 +366,7 @@
     "englishName": "Gum arabic, Acacia gum",
     "germanName": "Gummi arabicum",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Thickener, stabiliser"
   },
   {
@@ -376,7 +376,7 @@
     "englishName": "Karaya gum",
     "germanName": "Karaya",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Thickener, emulsifier"
   },
   {
@@ -386,7 +386,7 @@
     "englishName": "Tara gum",
     "germanName": "Tarakernmehl",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Thickener, gelling agent"
   },
   {
@@ -396,7 +396,7 @@
     "englishName": "Gellan gum",
     "germanName": "Gellan",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Gelling agent, stabiliser"
   },
   {
@@ -406,7 +406,7 @@
     "englishName": "Ghatti gum",
     "germanName": "Ghatti",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Emulsifier, stabiliser"
   },
   {
@@ -416,7 +416,7 @@
     "englishName": "Konjac gum",
     "germanName": "Konjakgummi",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Thickener, gelling agent"
   },
   {
@@ -426,7 +426,7 @@
     "englishName": "Pectin",
     "germanName": "Pektin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Gelling agent"
   },
   {
@@ -436,7 +436,7 @@
     "englishName": "Gluconic acid",
     "germanName": "Gluconsäure",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Acidity regulator"
   },
   {
@@ -446,7 +446,7 @@
     "englishName": "Glycine",
     "germanName": "Glycin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Flavour enhancer, sweetener"
   },
   {
@@ -456,7 +456,7 @@
     "englishName": "L-Leucine",
     "germanName": "Leucin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Flavour enhancer"
   },
   {
@@ -466,7 +466,7 @@
     "englishName": "Beeswax, white and yellow",
     "germanName": "Bienenwachs, weiß und gelb",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Glazing agent for confectionery"
   },
   {
@@ -476,7 +476,7 @@
     "englishName": "Lanolin",
     "germanName": "Lanolin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Glazing agent"
   },
   {
@@ -486,7 +486,7 @@
     "englishName": "L-Cystine",
     "germanName": "L-Cystin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Flour treatment agent"
   },
   {
@@ -496,7 +496,7 @@
     "englishName": "Nitrogen",
     "germanName": "Stickstoff",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Packaging gas"
   },
   {
@@ -506,7 +506,7 @@
     "englishName": "Oxygen",
     "germanName": "Sauerstoff",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Packaging gas"
   },
   {
@@ -516,7 +516,7 @@
     "englishName": "Thaumatin",
     "germanName": "Thaumatin",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Sweetener, flavour enhancer"
   },
   {
@@ -526,7 +526,7 @@
     "englishName": "Steviol glycosides (Stevia)",
     "germanName": "Steviolglycoside (Stevia)",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Sweetener"
   },
   {
@@ -536,7 +536,7 @@
     "englishName": "Xylitol",
     "germanName": "Xylit",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Sweetener, humectant"
   },
   {
@@ -546,7 +546,7 @@
     "englishName": "Erythritol",
     "germanName": "Erythrit",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Sweetener, bulking agent"
   },
   {
@@ -556,7 +556,7 @@
     "englishName": "Lecithins",
     "germanName": "Lecithine",
     "ferpotravinaScore": 0,
-    "rating": 1,
+    "rating": 0,
     "description": "Emulsifier, stabiliser"
   },
   {
@@ -3976,7 +3976,7 @@
     "englishName": "Citrus Red 2",
     "germanName": "Citrusrot 2",
     "ferpotravinaScore": 6,
-    "rating": 5,
+    "rating": 6,
     "description": "Red colouring for citrus fruit skins"
   },
   {
@@ -3986,7 +3986,7 @@
     "englishName": "Amaranth",
     "germanName": "Amarant",
     "ferpotravinaScore": 6,
-    "rating": 5,
+    "rating": 6,
     "description": "Red colouring, used in spirits and cake decorations"
   },
   {
@@ -3996,7 +3996,7 @@
     "englishName": "Ponceau 4R, Cochineal Red A",
     "germanName": "Ponceau 4R, Cochenillerot A",
     "ferpotravinaScore": 6,
-    "rating": 5,
+    "rating": 6,
     "description": "Red colouring in sausages, sweets, jellies"
   },
   {
@@ -4006,7 +4006,7 @@
     "englishName": "Formaldehyde",
     "germanName": "Formaldehyd",
     "ferpotravinaScore": 6,
-    "rating": 5,
+    "rating": 6,
     "description": "Preservative"
   },
   {
@@ -4016,7 +4016,7 @@
     "englishName": "Cyclamates",
     "germanName": "Cyclamate",
     "ferpotravinaScore": 6,
-    "rating": 5,
+    "rating": 6,
     "description": "Sweetener"
   }
 ]

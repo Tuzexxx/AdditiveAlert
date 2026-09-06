@@ -137,38 +137,35 @@ export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
   }, []);
 
   // Filter and sort according to user rules:
-  // Step 1: Harmfulness level (5 first, then 4)
+  // Step 1: Harmfulness level (6 first, then 5, then 4)
   // Step 2: Frequency of searches/scans (Personal or Global counts)
   const topRiskyList = useMemo(() => {
     let candidates = eNumbersDatabase.filter(
-      (item) => item.rating >= 4 || (item.ferpotravinaScore && item.ferpotravinaScore >= 4)
+      (item) => (item.rating >= 4 || item.ferpotravinaScore >= 4)
     );
 
     // Filter by rating if chosen
-    if (filterRating === '5') {
-      candidates = candidates.filter((item) => item.rating === 5);
+    if (filterRating === 'high') {
+      candidates = candidates.filter((item) => (item.rating >= 5 || item.ferpotravinaScore >= 5));
     } else if (filterRating === '4') {
-      candidates = candidates.filter((item) => item.rating === 4);
+      candidates = candidates.filter((item) => (item.rating === 4 || item.ferpotravinaScore === 4));
     }
 
     const currentCounts = scopeMode === 'global' ? globalStats : userScanCounts;
 
-    // Sort: 1. Harmfulness (5 before 4) -> 2. Frequency (highest count first)
+    // Sort: 1. Harmfulness (6 before 5 before 4) -> 2. Frequency (highest count first)
     candidates.sort((a, b) => {
-      // Step 1: Rating level (5 before 4)
-      if (b.rating !== a.rating) {
-        return b.rating - a.rating;
+      const scoreA = a.ferpotravinaScore ?? a.rating ?? 0;
+      const scoreB = b.ferpotravinaScore ?? b.rating ?? 0;
+      if (scoreB !== scoreA) {
+        return scoreB - scoreA;
       }
-      // Step 2: Frequency of user/global scans (higher count first)
       const countA = currentCounts[a.id] || 0;
       const countB = currentCounts[b.id] || 0;
       if (countB !== countA) {
         return countB - countA;
       }
-      // Step 3: Tie-breaker by Fér Potravina score (6 before 5 before 4)
-      const ferA = a.ferpotravinaScore ?? 0;
-      const ferB = b.ferpotravinaScore ?? 0;
-      return ferB - ferA;
+      return (b.rating || 0) - (a.rating || 0);
     });
 
     return candidates.slice(0, 5);
@@ -234,15 +231,15 @@ export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
                 onClick={(e) => { e.stopPropagation(); setFilterRating('all'); }}
                 style={{ fontSize: '0.75rem', padding: '3px 8px', borderRadius: '10px' }}
               >
-                Vše (5 & 4)
+                Vše (4–6)
               </button>
               <button
                 type="button"
-                className={`lang-btn ${filterRating === '5' ? 'active' : ''}`}
-                onClick={(e) => { e.stopPropagation(); setFilterRating('5'); }}
-                style={{ fontSize: '0.75rem', padding: '3px 8px', borderRadius: '10px', color: filterRating === '5' ? '#fff' : 'var(--rating-5)' }}
+                className={`lang-btn ${filterRating === 'high' ? 'active' : ''}`}
+                onClick={(e) => { e.stopPropagation(); setFilterRating('high'); }}
+                style={{ fontSize: '0.75rem', padding: '3px 8px', borderRadius: '10px', color: filterRating === 'high' ? '#fff' : 'var(--rating-5)' }}
               >
-                🔴 5/5
+                🔴 5–6 / 6
               </button>
               <button
                 type="button"
@@ -250,7 +247,7 @@ export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
                 onClick={(e) => { e.stopPropagation(); setFilterRating('4'); }}
                 style={{ fontSize: '0.75rem', padding: '3px 8px', borderRadius: '10px', color: filterRating === '4' ? '#fff' : 'var(--rating-4)' }}
               >
-                🟠 4/5
+                🟠 4 / 6
               </button>
             </div>
           </div>
@@ -271,7 +268,7 @@ export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
                   className="top-risky-item"
                   style={{
                     background: 'rgba(0, 0, 0, 0.25)',
-                    borderLeft: `4px solid ${item.rating === 5 ? 'var(--rating-5)' : 'var(--rating-4)'}`,
+                    borderLeft: `4px solid var(--rating-${item.rating})`,
                     borderRadius: '8px',
                     padding: '10px 14px',
                   }}
@@ -283,11 +280,8 @@ export default function TopRiskyAdditives({ eNumbersDatabase = [] }) {
                       {localizedName}
                     </div>
                     <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      {item.ferpotravinaScore !== null && (
-                        <span className="badge-ferpotravina">Fér: {item.ferpotravinaScore}/6</span>
-                      )}
                       <span className={`badge badge-${item.rating}`}>
-                        {t.riskScore}: {item.rating}/5
+                        {t.riskScore}: {item.rating}/6
                       </span>
                     </div>
                   </div>
