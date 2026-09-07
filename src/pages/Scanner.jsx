@@ -1,10 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle, Globe, Zap, X } from 'lucide-react';
+import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle, Globe, Zap, X, FileText, RotateCcw, ArrowRight } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import defaultENumbersData from '../data/e-numbers.json';
 import { useLanguage } from '../i18n/LanguageContext';
 import { matchAdditivesOffline } from '../utils/fuzzyMatcher';
-import TopRiskyAdditives from '../components/TopRiskyAdditives';
 import { getDeviceId } from '../utils/deviceId';
 
 // Helper function to compress and resize camera photos before upload
@@ -77,7 +76,23 @@ function recordRiskyScanCounts(items) {
   }
 }
 
+const SAMPLES = [
+  {
+    labelKey: 'sampleSausage',
+    text: 'Vepřové maso 80%, pitná voda, jedlá sůl, konzervant: E250 (dusitan sodný), stabilizátor: E450, antioxidant: E300, dextróza, koření.',
+  },
+  {
+    labelKey: 'sampleCola',
+    text: 'Voda, oxid uhličitý, barvivo: E150d (amoniak-sulfitový karamel), sladidla: aspartam (E951) a acesulfam K (E950), kyselina fosforečná (E338), přírodní aroma, kofein.',
+  },
+  {
+    labelKey: 'sampleCheese',
+    text: 'Sýry, obnovené odstředěné mléko, máslo, tavicí soli: E450, E452, stabilizátor: E339, sůl, regulátor kyselosti: E330.',
+  },
+];
+
 export default function Scanner() {
+  const [scanMode, setScanMode] = useState('camera');
   const [inputText, setInputText] = useState('');
   const [isScanning, setIsScanning] = useState(false);
   const [results, setResults] = useState([]);
@@ -348,40 +363,46 @@ export default function Scanner() {
     }
   };
 
+  const handleSampleClick = (sampleText) => {
+    setInputText(sampleText);
+    analyzeIngredients({ textContent: sampleText });
+  };
+
+  const handleReset = () => {
+    setInputText('');
+    setResults([]);
+    setStatusNotice(null);
+    setPhotoPreview(null);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  const maxRating = results.length > 0 ? results.reduce((max, i) => Math.max(max, i.rating || 0), 0) : 0;
+
+  let verdictClass = 'safe';
+  let verdictTitle = t.verdictSafe;
+  let verdictDesc = t.verdictSafeDesc;
+
+  if (maxRating >= 5) {
+    verdictClass = 'high';
+    verdictTitle = t.verdictHigh;
+    verdictDesc = t.verdictHighDesc;
+  } else if (maxRating === 4) {
+    verdictClass = 'elevated';
+    verdictTitle = t.verdictElevated;
+    verdictDesc = t.verdictElevatedDesc;
+  } else if (maxRating === 3) {
+    verdictClass = 'moderate';
+    verdictTitle = t.verdictModerate;
+    verdictDesc = t.verdictModerateDesc;
+  }
+
   return (
     <>
       <header className="header">
         <h1>{t.appTitle}</h1>
         <p>{t.appSubtitle}</p>
-        
-        {/* Prominent Language Switcher */}
-        <div className="language-bar">
-          <Globe size={14} style={{ opacity: 0.7 }} />
-          <span>{t.langName}:</span>
-          <div className="lang-pills">
-            <button
-              type="button"
-              className={`lang-pill ${lang === 'cs' ? 'active' : ''}`}
-              onClick={() => setLanguage('cs')}
-            >
-              🇨🇿 Čeština
-            </button>
-            <button
-              type="button"
-              className={`lang-pill ${lang === 'en' ? 'active' : ''}`}
-              onClick={() => setLanguage('en')}
-            >
-              🇬🇧 English
-            </button>
-            <button
-              type="button"
-              className={`lang-pill ${lang === 'de' ? 'active' : ''}`}
-              onClick={() => setLanguage('de')}
-            >
-              🇩🇪 Deutsch
-            </button>
-          </div>
-        </div>
 
         {statusNotice && (
           <span className="mode-tag">
@@ -391,95 +412,198 @@ export default function Scanner() {
         )}
       </header>
 
-      <div className="glass-panel">
-        {/* Photo preview if user uploaded a photo */}
-        {photoPreview && (
-          <div style={{ marginBottom: '14px', position: 'relative', display: 'inline-block' }}>
-            <img
-              src={photoPreview}
-              alt="Uploaded label"
-              style={{ maxHeight: '160px', borderRadius: '8px', border: '1px solid var(--glass-border)', display: 'block' }}
-            />
-            <button
-              type="button"
-              onClick={() => { setPhotoPreview(null); setResults([]); }}
-              style={{
-                position: 'absolute', top: 6, right: 6, background: 'rgba(0,0,0,0.7)',
-                border: 'none', borderRadius: '50%', color: '#fff', padding: '4px', cursor: 'pointer'
-              }}
-              title="Remove photo"
-            >
-              <X size={16} />
-            </button>
-          </div>
-        )}
-
-        {isScanning && (
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 14px',
-            background: 'rgba(59, 130, 246, 0.15)', borderRadius: '8px', border: '1px solid rgba(59, 130, 246, 0.3)',
-            marginBottom: '14px', color: '#93c5fd'
-          }}>
-            <div className="loader" style={{ width: '18px', height: '18px', borderWidth: '2px' }}></div>
-            <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>{t.analyzing}</span>
-          </div>
-        )}
-
-        <div className="input-group">
-          <textarea
-            className="textarea-input"
-            placeholder={t.placeholder}
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-          />
-          <div className="btn-group">
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={isScanning}
-            >
-              <Camera size={20} />
-              {t.scanPhoto}
-            </button>
-            <input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              style={{ display: 'none' }}
-              onChange={handleImageUpload}
-            />
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handleScanClick}
-              disabled={isScanning}
-            >
-              <Search size={20} />
-              {t.analyze}
-            </button>
-          </div>
-        </div>
+      {/* Segmented Control (Mode Switcher) */}
+      <div className="segmented-control">
+        <button
+          type="button"
+          className={`segmented-btn ${scanMode === 'camera' ? 'active' : ''}`}
+          onClick={() => setScanMode('camera')}
+        >
+          <Camera size={18} />
+          {t.tabCamera}
+        </button>
+        <button
+          type="button"
+          className={`segmented-btn ${scanMode === 'text' ? 'active' : ''}`}
+          onClick={() => setScanMode('text')}
+        >
+          <FileText size={18} />
+          {t.tabText}
+        </button>
       </div>
 
+      <div className="glass-panel">
+        {isScanning && (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            padding: '12px 16px',
+            background: 'rgba(59, 130, 246, 0.12)',
+            borderRadius: 'var(--radius-md)',
+            border: '1px solid rgba(59, 130, 246, 0.25)',
+            marginBottom: '16px',
+            color: '#93c5fd',
+          }}>
+            <div className="loader" />
+            <span style={{ fontSize: '0.88rem', fontWeight: 600 }}>{t.analyzing}</span>
+          </div>
+        )}
+
+        {/* Hidden file input for camera/gallery */}
+        <input
+          type="file"
+          accept="image/*"
+          capture="environment"
+          ref={fileInputRef}
+          style={{ display: 'none' }}
+          onChange={handleImageUpload}
+        />
+
+        {scanMode === 'camera' ? (
+          <div>
+            {photoPreview ? (
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ position: 'relative', display: 'inline-block', marginBottom: '14px' }}>
+                  <img
+                    src={photoPreview}
+                    alt="Uploaded label"
+                    style={{
+                      maxHeight: '220px',
+                      maxWidth: '100%',
+                      borderRadius: 'var(--radius-md)',
+                      border: '1px solid var(--card-border)',
+                      boxShadow: 'var(--shadow-md)',
+                      display: 'block',
+                    }}
+                  />
+                  <button
+                    type="button"
+                    onClick={handleReset}
+                    style={{
+                      position: 'absolute',
+                      top: 8,
+                      right: 8,
+                      background: 'rgba(0,0,0,0.75)',
+                      border: 'none',
+                      borderRadius: '50%',
+                      color: '#fff',
+                      padding: '6px',
+                      cursor: 'pointer',
+                    }}
+                    title="Remove photo"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isScanning}
+                  >
+                    <Camera size={18} />
+                    {t.changePhoto}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="viewfinder-box" onClick={() => fileInputRef.current?.click()}>
+                <div className="viewfinder-corners" />
+                <div className="viewfinder-laser" />
+                <div className="viewfinder-icon-wrap">
+                  <Camera size={28} />
+                </div>
+                <p style={{ fontWeight: 700, fontSize: '1.05rem', marginBottom: '6px' }}>
+                  {t.takePhoto}
+                </p>
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', maxWidth: '340px', margin: '0 auto' }}>
+                  {t.cameraPrompt}
+                </p>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="input-group">
+            <textarea
+              className="textarea-input"
+              placeholder={t.placeholder}
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              rows={4}
+            />
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', gap: '8px', flexWrap: 'wrap' }}>
+              <div className="sample-chips-label" style={{ margin: 0 }}>
+                {t.trySamples}
+              </div>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={handleScanClick}
+                disabled={isScanning || !inputText.trim()}
+              >
+                <Search size={18} />
+                {t.analyze}
+              </button>
+            </div>
+            <div className="sample-chips" style={{ marginTop: '8px' }}>
+              {SAMPLES.map((sample) => (
+                <button
+                  key={sample.labelKey}
+                  type="button"
+                  className="chip-btn"
+                  onClick={() => handleSampleClick(sample.text)}
+                >
+                  {t[sample.labelKey] || sample.labelKey}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Yuka-Style Overall Product Verdict Card */}
+      {results.length > 0 && (
+        <div className={`verdict-card verdict-card-${verdictClass}`}>
+          <div className={`verdict-circle verdict-circle-${verdictClass}`}>
+            {maxRating}/6
+          </div>
+          <div className="verdict-info">
+            <div className="verdict-title">{verdictTitle}</div>
+            <div className="verdict-desc">{verdictDesc}</div>
+          </div>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="btn-icon"
+            title={t.newScan}
+            style={{ background: 'rgba(255, 255, 255, 0.08)', borderRadius: '50%', padding: '8px' }}
+          >
+            <RotateCcw size={18} />
+          </button>
+        </div>
+      )}
+
+      {/* Open Food Facts Style Ingredients Breakdown */}
       {results.length > 0 && (
         <div className="results-container">
           <div className="results-header">
             <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
               {t.resultsHeader}
-              {results.some(r => r.isInstant) && (
+              {results.some((r) => r.isInstant) && (
                 <span style={{ fontSize: '0.75rem', color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 600 }}>
                   <Zap size={13} /> {t.offlineNotice}
                 </span>
               )}
             </span>
-            <span className="badge" style={{ background: 'rgba(255,255,255,0.1)' }}>
-              {results.length} {t.foundCount}
+            <span className="badge" style={{ background: 'rgba(255,255,255,0.08)' }}>
+              {results.length} {t.detectedCount}
             </span>
           </div>
 
           {results.map((item, index) => {
-            const dbItem = item.matchedDb || eNumbersData.find((d) => d.id.toUpperCase() === (item.id || '').toUpperCase());
+            const dbItem = item.matchedDb || eNumbersData.find((d) => d.id?.toUpperCase() === (item.id || '').toUpperCase());
             const displayName = getLocalizedAdditiveName(dbItem, item.name, lang);
 
             return (
@@ -493,15 +617,13 @@ export default function Scanner() {
                     ) : (
                       <Info size={18} color="var(--rating-3)" />
                     )}
-                    {item.id !== 'N/A' ? `${item.id} - ` : ''}
+                    {item.id && item.id !== 'N/A' ? `${item.id} - ` : ''}
                     {displayName}
                   </span>
 
-                  <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                    <span className={`badge badge-${item.rating}`}>
-                      {t.riskScore}: {item.rating}/6
-                    </span>
-                  </div>
+                  <span className={`badge badge-${item.rating}`}>
+                    {t.riskScore}: {item.rating}/6
+                  </span>
                 </div>
 
                 {item.description && <p className="card-desc">{item.description}</p>}
@@ -539,9 +661,6 @@ export default function Scanner() {
           <p>{t.noAdditivesFound}</p>
         </div>
       )}
-
-      {/* Top 5 Most Common Harmful Additives Widget (Sorted: 1. Rating -> 2. Scan Frequency) */}
-      <TopRiskyAdditives eNumbersDatabase={eNumbersData} />
     </>
   );
 }

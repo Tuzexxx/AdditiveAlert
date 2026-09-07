@@ -40,7 +40,10 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="nav-brand">AdditiveAlert</Link>
+      <Link to="/" className="nav-brand">
+        <span className="nav-brand-dot"></span>
+        AdditiveAlert
+      </Link>
       
       <div className="nav-actions">
         {/* Language selector */}
