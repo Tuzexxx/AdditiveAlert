@@ -1,10 +1,44 @@
 import { useState, useRef, useEffect } from 'react';
-import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle, Globe, Zap, X, FileText, RotateCcw, ArrowRight } from 'lucide-react';
+import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle, Globe, Zap, X, FileText, RotateCcw, ArrowRight, Image as ImageIcon, Download } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import defaultENumbersData from '../data/e-numbers.json';
 import { useLanguage } from '../i18n/LanguageContext';
 import { matchAdditivesOffline } from '../utils/fuzzyMatcher';
 import { getDeviceId } from '../utils/deviceId';
+
+// Helper function to save a photo directly to the device's downloads/photos
+export function savePhotoToDevice(dataUrl, filename) {
+  try {
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = filename || `additivealert-etiketa-${Date.now()}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (err) {
+    console.warn('Could not save photo to device:', err);
+  }
+}
+
+// Helper to use native Web Share sheet (or fallback to download) to save into gallery
+export async function shareOrSavePhoto(dataUrl) {
+  try {
+    const res = await fetch(dataUrl);
+    const blob = await res.blob();
+    const file = new File([blob], `etiketa-${Date.now()}.jpg`, { type: 'image/jpeg' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({
+        files: [file],
+        title: 'Foto etikety',
+      });
+      return;
+    }
+  } catch (e) {
+    // Fallback if sharing is canceled or not supported
+  }
+  savePhotoToDevice(dataUrl);
+}
 
 // Helper function to compress and resize camera photos before upload
 function compressImage(file, maxDimension = 1280, quality = 0.80) {
@@ -103,7 +137,9 @@ export default function Scanner() {
   const [scanError, setScanError] = useState(null);
   const [extractedText, setExtractedText] = useState(null);
   const [hasScanned, setHasScanned] = useState(false);
-  const fileInputRef = useRef(null);
+  const [savedNotice, setSavedNotice] = useState(false);
+  const cameraInputRef = useRef(null);
+  const galleryInputRef = useRef(null);
   const { lang, setLanguage, t } = useLanguage();
 
   useEffect(() => {
@@ -362,7 +398,7 @@ export default function Scanner() {
     }
   };
 
-  const handleImageUpload = async (e) => {
+  const handleImageUpload = async (e, isFromCamera = false) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -375,13 +411,21 @@ export default function Scanner() {
       setIsScanning(true);
       const compressedBase64 = await compressImage(file, 1280, 0.80);
       setPhotoPreview(compressedBase64);
+
+      if (isFromCamera) {
+        savePhotoToDevice(compressedBase64);
+        setSavedNotice(true);
+        setTimeout(() => setSavedNotice(false), 4500);
+      }
+
       await analyzeIngredients({ imageBase64: compressedBase64 });
     } catch (err) {
       console.error('Image compression or upload error:', err);
       setScanError(t.scanFailedNotice);
       setIsScanning(false);
     } finally {
-      if (fileInputRef.current) fileInputRef.current.value = '';
+      if (cameraInputRef.current) cameraInputRef.current.value = '';
+      if (galleryInputRef.current) galleryInputRef.current.value = '';
     }
   };
 
@@ -400,8 +444,12 @@ export default function Scanner() {
     setScanError(null);
     setExtractedText(null);
     setHasScanned(false);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+    setSavedNotice(false);
+    if (cameraInputRef.current) {
+      cameraInputRef.current.value = '';
+    }
+    if (galleryInputRef.current) {
+      galleryInputRef.current.value = '';
     }
   };
 
@@ -477,14 +525,21 @@ export default function Scanner() {
           </div>
         )}
 
-        {/* Hidden file input for camera/gallery */}
+        {/* Hidden file inputs for camera & gallery */}
         <input
           type="file"
           accept="image/*"
           capture="environment"
-          ref={fileInputRef}
+          ref={cameraInputRef}
           style={{ display: 'none' }}
-          onChange={handleImageUpload}
+          onChange={(e) => handleImageUpload(e, true)}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          ref={galleryInputRef}
+          style={{ display: 'none' }}
+          onChange={(e) => handleImageUpload(e, false)}
         />
 
         {scanMode === 'camera' ? (
@@ -524,6 +579,25 @@ export default function Scanner() {
                   </button>
                 </div>
 
+                {savedNotice && (
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    padding: '6px 14px',
+                    background: 'rgba(34, 197, 94, 0.15)',
+                    border: '1px solid rgba(34, 197, 94, 0.3)',
+                    borderRadius: '20px',
+                    color: '#4ade80',
+                    fontSize: '0.84rem',
+                    fontWeight: 600,
+                    marginBottom: '14px',
+                  }}>
+                    <CheckCircle size={14} />
+                    {t.photoSavedNotice}
+                  </div>
+                )}
+
                 <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
                   <button
                     type="button"
@@ -546,16 +620,34 @@ export default function Scanner() {
                   <button
                     type="button"
                     className="btn btn-secondary"
-                    onClick={() => fileInputRef.current?.click()}
+                    onClick={() => cameraInputRef.current?.click()}
                     disabled={isScanning}
                   >
                     <Camera size={18} />
-                    {t.changePhoto}
+                    {t.takePhotoCamera}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => galleryInputRef.current?.click()}
+                    disabled={isScanning}
+                  >
+                    <ImageIcon size={18} />
+                    {t.chooseFromGallery}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={() => shareOrSavePhoto(photoPreview)}
+                    title={t.saveToGallery}
+                  >
+                    <Download size={18} />
+                    {t.saveToGallery}
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="viewfinder-box" onClick={() => fileInputRef.current?.click()}>
+              <div className="viewfinder-box">
                 <div className="viewfinder-corners" />
                 <div className="viewfinder-laser" />
                 <div className="viewfinder-icon-wrap">
@@ -564,9 +656,29 @@ export default function Scanner() {
                 <p style={{ fontWeight: 700, fontSize: '1.05rem', marginBottom: '6px' }}>
                   {t.takePhoto}
                 </p>
-                <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', maxWidth: '340px', margin: '0 auto' }}>
+                <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', maxWidth: '340px', margin: '0 auto 16px' }}>
                   {t.cameraPrompt}
                 </p>
+                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    style={{ padding: '10px 18px', fontSize: '0.92rem' }}
+                    onClick={() => cameraInputRef.current?.click()}
+                  >
+                    <Camera size={18} />
+                    {t.takePhotoCamera}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ padding: '10px 18px', fontSize: '0.92rem' }}
+                    onClick={() => galleryInputRef.current?.click()}
+                  >
+                    <ImageIcon size={18} />
+                    {t.chooseFromGallery}
+                  </button>
+                </div>
               </div>
             )}
           </div>

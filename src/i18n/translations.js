@@ -77,6 +77,10 @@ export const translations = {
     retryScan: 'Zkusit znovu',
     extractedLabelText: 'Rozpoznaný text z obalu',
     scanFailedNotice: 'Analýza se nezdařila. Zkontrolujte připojení nebo zkuste čitelnější fotku.',
+    takePhotoCamera: 'Vyfotit fotoaparátem',
+    chooseFromGallery: 'Vybrat z galerie',
+    saveToGallery: 'Uložit do galerie',
+    photoSavedNotice: 'Fotografie byla uložena do zařízení',
   },
   en: {
     appTitle: 'AdditiveAlert',
@@ -156,6 +160,10 @@ export const translations = {
     retryScan: 'Try Again',
     extractedLabelText: 'Detected Label Text',
     scanFailedNotice: 'Analysis failed. Check your connection or try a clearer photo.',
+    takePhotoCamera: 'Take with Camera',
+    chooseFromGallery: 'Choose from Gallery',
+    saveToGallery: 'Save to Gallery',
+    photoSavedNotice: 'Photo saved to device',
   },
   de: {
     appTitle: 'AdditiveAlert',
@@ -235,6 +243,10 @@ export const translations = {
     retryScan: 'Erneut versuchen',
     extractedLabelText: 'Erkannter Etikettentext',
     scanFailedNotice: 'Analyse fehlgeschlagen. Bitte Verbindung oder Fotoqualität prüfen.',
+    takePhotoCamera: 'Mit Kamera aufnehmen',
+    chooseFromGallery: 'Aus Galerie wählen',
+    saveToGallery: 'In Galerie speichern',
+    photoSavedNotice: 'Foto auf Gerät gespeichert',
   },
 };
 
