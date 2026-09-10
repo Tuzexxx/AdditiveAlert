@@ -4,9 +4,8 @@ export const config = {
 
 const MODELS = [
   'gemini-3.6-flash',
-  'gemini-3.7-flash',
-  'gemini-3.8-flash',
-  'gemini-3.5-flash',
+  'gemini-3.1-flash-lite',
+  'gemini-3.5-flash-lite',
 ];
 
 export default async function handler(req, res) {
@@ -95,6 +94,12 @@ Output ONLY valid JSON matching this schema:
           },
         });
       }
+
+      if (!text) {
+        parts.push({
+          text: 'Read and extract all ingredients and identify all food additives/E-numbers from this packaging image. Return valid JSON only.',
+        });
+      }
     }
 
     const requestBody = JSON.stringify({
@@ -105,9 +110,6 @@ Output ONLY valid JSON matching this schema:
       generationConfig: {
         responseMimeType: 'application/json',
         temperature: 0.1,
-        thinkingConfig: {
-          thinkingBudget: 50,
-        },
       },
     });
 
@@ -116,12 +118,18 @@ Output ONLY valid JSON matching this schema:
 
     for (const model of MODELS) {
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8500);
+
         const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
         const response = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: requestBody,
+          signal: controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         if (response.ok) {
           geminiResponse = response;
@@ -145,14 +153,26 @@ Output ONLY valid JSON matching this schema:
     }
 
     const data = await geminiResponse.json();
-    const candidateText =
-      data.candidates?.[0]?.content?.parts?.[0]?.text;
+    let candidateText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!candidateText) {
+      const partsArr = data.candidates?.[0]?.content?.parts || [];
+      const textPart = partsArr.find((p) => p.text);
+      if (textPart) {
+        candidateText = textPart.text;
+      }
+    }
 
     if (!candidateText) {
       return res.status(500).json({ error: 'No content returned from Gemini' });
     }
 
-    const parsedResult = JSON.parse(candidateText);
+    let cleanedText = candidateText.trim();
+    if (cleanedText.startsWith('```')) {
+      cleanedText = cleanedText.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/i, '').trim();
+    }
+
+    const parsedResult = JSON.parse(cleanedText);
     return res.status(200).json({
       success: true,
       ...parsedResult,

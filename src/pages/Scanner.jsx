@@ -7,7 +7,7 @@ import { matchAdditivesOffline } from '../utils/fuzzyMatcher';
 import { getDeviceId } from '../utils/deviceId';
 
 // Helper function to compress and resize camera photos before upload
-function compressImage(file, maxDimension = 1600, quality = 0.85) {
+function compressImage(file, maxDimension = 1280, quality = 0.80) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -100,6 +100,9 @@ export default function Scanner() {
   const [session, setSession] = useState(null);
   const [statusNotice, setStatusNotice] = useState(null);
   const [photoPreview, setPhotoPreview] = useState(null);
+  const [scanError, setScanError] = useState(null);
+  const [extractedText, setExtractedText] = useState(null);
+  const [hasScanned, setHasScanned] = useState(false);
   const fileInputRef = useRef(null);
   const { lang, setLanguage, t } = useLanguage();
 
@@ -275,6 +278,7 @@ export default function Scanner() {
   // Main analyze handler: calls Gemini Flash Serverless API with fallback
   const analyzeIngredients = async ({ imageBase64, textContent }) => {
     setIsScanning(true);
+    setScanError(null);
 
     try {
       const response = await fetch('/api/analyze', {
@@ -293,10 +297,31 @@ export default function Scanner() {
 
       const data = await response.json();
 
-      if (data.success && Array.isArray(data.additives)) {
-        const enriched = data.additives.map((aiItem) => {
+      if (data.success) {
+        let additivesList = Array.isArray(data.additives) ? data.additives : [];
+        const detectedText = data.ingredients_summary || '';
+        if (detectedText) {
+          setExtractedText(detectedText);
+        }
+
+        // Offline safety fallback: if AI vision detected text but 0 additives, run offline fuzzy matcher
+        if (additivesList.length === 0 && detectedText) {
+          const offlineMatches = matchAdditivesOffline(detectedText, eNumbersData);
+          if (offlineMatches.length > 0) {
+            additivesList = offlineMatches.map(({ item, matchedSnippet }) => ({
+              id: item.id,
+              name: item.name,
+              original_text: matchedSnippet,
+              category: item.description,
+              rating: item.rating,
+              reason: item.description,
+            }));
+          }
+        }
+
+        const enriched = additivesList.map((aiItem) => {
           const matchedDb = eNumbersData.find(
-            (db) => db.id.toUpperCase() === (aiItem.id || '').toUpperCase()
+            (db) => db.id?.toUpperCase() === (aiItem.id || '').toUpperCase()
           );
 
           const finalRating = matchedDb?.rating ?? matchedDb?.ferpotravinaScore ?? aiItem.rating ?? 0;
@@ -317,8 +342,12 @@ export default function Scanner() {
 
         enriched.sort((a, b) => b.rating - a.rating);
         setResults(enriched);
+        setHasScanned(true);
+
         saveBatchScanHistory(enriched, {
-          snippet: textContent ? (textContent.slice(0, 80) + (textContent.length > 80 ? '...' : '')) : null,
+          snippet: textContent
+            ? (textContent.slice(0, 80) + (textContent.length > 80 ? '...' : ''))
+            : (detectedText ? (detectedText.slice(0, 80) + (detectedText.length > 80 ? '...' : '')) : null),
           hasPhoto: !!imageBase64,
         });
         setStatusNotice(t.aiNotice);
@@ -329,8 +358,9 @@ export default function Scanner() {
       console.warn('AI analysis error, falling back to local database parsing:', err);
       if (textContent) {
         extractENumbersOffline(textContent);
+        setHasScanned(true);
       } else {
-        alert(t.errorScan);
+        setScanError(t.scanFailedNotice);
       }
     } finally {
       setIsScanning(false);
@@ -338,6 +368,8 @@ export default function Scanner() {
   };
 
   const handleScanClick = () => {
+    setScanError(null);
+    setHasScanned(false);
     if (inputText.trim()) {
       analyzeIngredients({ textContent: inputText.trim() });
     } else {
@@ -349,14 +381,19 @@ export default function Scanner() {
     const file = e.target.files?.[0];
     if (!file) return;
 
+    setScanError(null);
+    setHasScanned(false);
+    setExtractedText(null);
+    setResults([]);
+
     try {
       setIsScanning(true);
-      const compressedBase64 = await compressImage(file, 1600, 0.85);
+      const compressedBase64 = await compressImage(file, 1280, 0.80);
       setPhotoPreview(compressedBase64);
       await analyzeIngredients({ imageBase64: compressedBase64 });
     } catch (err) {
       console.error('Image compression or upload error:', err);
-      alert(t.errorScan);
+      setScanError(t.scanFailedNotice);
       setIsScanning(false);
     } finally {
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -364,6 +401,8 @@ export default function Scanner() {
   };
 
   const handleSampleClick = (sampleText) => {
+    setScanError(null);
+    setHasScanned(false);
     setInputText(sampleText);
     analyzeIngredients({ textContent: sampleText });
   };
@@ -373,6 +412,9 @@ export default function Scanner() {
     setResults([]);
     setStatusNotice(null);
     setPhotoPreview(null);
+    setScanError(null);
+    setExtractedText(null);
+    setHasScanned(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
@@ -464,12 +506,12 @@ export default function Scanner() {
           <div>
             {photoPreview ? (
               <div style={{ textAlign: 'center' }}>
-                <div style={{ position: 'relative', display: 'inline-block', marginBottom: '14px' }}>
+                <div style={{ position: 'relative', display: 'inline-block', marginBottom: '16px' }}>
                   <img
                     src={photoPreview}
                     alt="Uploaded label"
                     style={{
-                      maxHeight: '220px',
+                      maxHeight: '250px',
                       maxWidth: '100%',
                       borderRadius: 'var(--radius-md)',
                       border: '1px solid var(--card-border)',
@@ -496,7 +538,26 @@ export default function Scanner() {
                     <X size={16} />
                   </button>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
+
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={() => analyzeIngredients({ imageBase64: photoPreview })}
+                    disabled={isScanning}
+                  >
+                    {isScanning ? (
+                      <>
+                        <div className="loader" style={{ width: '16px', height: '16px', borderWidth: '2px' }} />
+                        {t.analyzing}
+                      </>
+                    ) : (
+                      <>
+                        <Search size={18} />
+                        {t.analyzePhoto}
+                      </>
+                    )}
+                  </button>
                   <button
                     type="button"
                     className="btn btn-secondary"
@@ -563,7 +624,68 @@ export default function Scanner() {
         )}
       </div>
 
-      {/* Yuka-Style Overall Product Verdict Card */}
+      {/* Friendly Inline Error Card */}
+      {scanError && (
+        <div style={{
+          marginBottom: '16px',
+          padding: '14px 16px',
+          background: 'rgba(239, 68, 68, 0.12)',
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          color: '#fca5a5',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          alignItems: 'center',
+          textAlign: 'center',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', fontWeight: 600 }}>
+            <AlertTriangle size={18} color="var(--rating-5)" />
+            {scanError}
+          </div>
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              style={{ padding: '8px 14px', fontSize: '0.82rem' }}
+              onClick={() => photoPreview ? analyzeIngredients({ imageBase64: photoPreview }) : (inputText ? analyzeIngredients({ textContent: inputText }) : null)}
+            >
+              <RotateCcw size={14} />
+              {t.retryScan}
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              style={{ padding: '8px 14px', fontSize: '0.82rem' }}
+              onClick={() => setScanMode('text')}
+            >
+              <FileText size={14} />
+              {t.tabText}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Extracted Label Text Card */}
+      {extractedText && (
+        <div style={{
+          marginBottom: '16px',
+          padding: '12px 16px',
+          background: 'rgba(255, 255, 255, 0.03)',
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid var(--card-border)',
+          fontSize: '0.82rem',
+          color: 'var(--text-secondary)',
+          lineHeight: 1.45,
+        }}>
+          <strong style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+            🏷️ {t.extractedLabelText}:
+          </strong>
+          <p style={{ fontStyle: 'italic', margin: 0 }}>"{extractedText}"</p>
+        </div>
+      )}
+
+      {/* Yuka-Style Overall Product Verdict Card (when additives found) */}
       {results.length > 0 && (
         <div className={`verdict-card verdict-card-${verdictClass}`}>
           <div className={`verdict-circle verdict-circle-${verdictClass}`}>
@@ -572,6 +694,28 @@ export default function Scanner() {
           <div className="verdict-info">
             <div className="verdict-title">{verdictTitle}</div>
             <div className="verdict-desc">{verdictDesc}</div>
+          </div>
+          <button
+            type="button"
+            onClick={handleReset}
+            className="btn-icon"
+            title={t.newScan}
+            style={{ background: 'rgba(255, 255, 255, 0.08)', borderRadius: '50%', padding: '8px' }}
+          >
+            <RotateCcw size={18} />
+          </button>
+        </div>
+      )}
+
+      {/* Yuka-Style Safe Verdict Card (when 0 additives found after scan) */}
+      {hasScanned && results.length === 0 && !isScanning && !scanError && (
+        <div className="verdict-card verdict-card-safe">
+          <div className="verdict-circle verdict-circle-safe">
+            0/6
+          </div>
+          <div className="verdict-info">
+            <div className="verdict-title">{t.verdictSafe}</div>
+            <div className="verdict-desc">{t.noAdditivesFound}</div>
           </div>
           <button
             type="button"
@@ -655,7 +799,7 @@ export default function Scanner() {
         </div>
       )}
 
-      {results.length === 0 && inputText && !isScanning && (
+      {results.length === 0 && inputText && !isScanning && !hasScanned && (
         <div className="empty-state">
           <AlertCircle size={28} style={{ marginBottom: '8px', opacity: 0.6 }} />
           <p>{t.noAdditivesFound}</p>

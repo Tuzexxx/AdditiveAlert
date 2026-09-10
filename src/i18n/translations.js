@@ -73,6 +73,10 @@ export const translations = {
     newScan: 'Nový sken',
     overallScore: 'Celkové hodnocení',
     detectedCount: 'aditiv',
+    analyzePhoto: 'Analyzovat fotografii',
+    retryScan: 'Zkusit znovu',
+    extractedLabelText: 'Rozpoznaný text z obalu',
+    scanFailedNotice: 'Analýza se nezdařila. Zkontrolujte připojení nebo zkuste čitelnější fotku.',
   },
   en: {
     appTitle: 'AdditiveAlert',
@@ -148,6 +152,10 @@ export const translations = {
     newScan: 'New Scan',
     overallScore: 'Overall Verdict',
     detectedCount: 'additives',
+    analyzePhoto: 'Analyze Photo',
+    retryScan: 'Try Again',
+    extractedLabelText: 'Detected Label Text',
+    scanFailedNotice: 'Analysis failed. Check your connection or try a clearer photo.',
   },
   de: {
     appTitle: 'AdditiveAlert',
@@ -223,6 +231,10 @@ export const translations = {
     newScan: 'Neuer Scan',
     overallScore: 'Gesamtbewertung',
     detectedCount: 'Zusatzstoffe',
+    analyzePhoto: 'Foto analysieren',
+    retryScan: 'Erneut versuchen',
+    extractedLabelText: 'Erkannter Etikettentext',
+    scanFailedNotice: 'Analyse fehlgeschlagen. Bitte Verbindung oder Fotoqualität prüfen.',
   },
 };
 
