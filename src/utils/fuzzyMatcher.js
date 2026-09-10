@@ -63,6 +63,24 @@ export function getStem(word) {
   return stem;
 }
 
+// Color words and common culinary words that must NEVER trigger matches on their own
+const COLOR_WORDS = new Set([
+  'rot', 'rote', 'roter', 'rotes', 'gelb', 'gelbe', 'gelber', 'gelbes',
+  'gruen', 'gruene', 'gruener', 'gruenes', 'blau', 'blaue', 'blauer', 'blaues',
+  'schwarz', 'schwarze', 'schwarzer', 'schwarzes', 'weiss', 'weisse', 'weisser', 'weisses',
+  'braun', 'braune', 'brauner', 'braunes',
+  'cerven', 'cervena', 'cervene', 'cerveny', 'zlut', 'zluta', 'zlute', 'zluty',
+  'zelen', 'zelena', 'zelene', 'zeleny', 'modr', 'modra', 'modre', 'modry',
+  'cern', 'cerna', 'cerne', 'cerny', 'hned', 'hneda', 'hnede', 'hnedy', 'bila', 'bile', 'bily',
+  'red', 'yellow', 'green', 'blue', 'black', 'white', 'brown'
+]);
+
+const GENERIC_STOP_WORDS = new Set([
+  'extrakt', 'extract', 'prirodni', 'natural',
+  'olej', 'oil', 'oel', 'sul', 'salt', 'salz', 'voda', 'water', 'wasser',
+  'mouka', 'flour', 'mehl', 'cukr', 'sugar', 'zucker'
+]);
+
 /**
  * Robust fuzzy offline matcher:
  * Scans normalized text for exact E-numbers AND multi-word fuzzy additive names.
@@ -71,9 +89,11 @@ export function matchAdditivesOffline(rawText, eNumbersDatabase) {
   if (!rawText || !Array.isArray(eNumbersDatabase)) return [];
 
   const normalizedInput = normalizeText(rawText);
+  // Tokenize normalized input into words (preserve alphanumeric codes like 2g, 4r)
   const inputWords = normalizedInput
-    .split(/[\s,.:;()/\\[\]{}<>=+\-_*!?"'`~|]+/)
-    .filter(w => w.length >= 2);
+    .split(/[\s,.:;()/\\[\]{}<>=+\-_*!?"'`~|%]+/)
+    .filter(w => w.length >= 1);
+  const inputWordSet = new Set(inputWords);
   const inputStems = inputWords.map(w => ({ word: w, stem: getStem(w) }));
 
   // 1. Find E-numbers via strict boundary regex (e.g. E100, E-100, E 100, E150d, E 331)
@@ -111,37 +131,78 @@ export function matchAdditivesOffline(rawText, eNumbersDatabase) {
       ].filter(Boolean);
 
       for (const candidate of candidates) {
-        const normCandidate = normalizeText(candidate);
-        
-        // Exact substring match in normalized text
-        if (normCandidate.length >= 4 && normalizedInput.includes(normCandidate)) {
-          isMatched = true;
-          matchedSnippet = candidate;
-          break;
+        // Strip secondary parenthetical comments: "Rot 2G ( Cl... )" -> "Rot 2G"
+        const candidateClean = candidate.replace(/\([^)]*\)/g, '').trim();
+        const normCandidate = normalizeText(candidateClean);
+
+        // 1. Exact phrase match with boundary check
+        if (normCandidate.length >= 4) {
+          const escaped = normCandidate.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp('(?:^|[^a-z0-9])' + escaped + '(?:$|[^a-z0-9])');
+          if (regex.test(normalizedInput)) {
+            isMatched = true;
+            matchedSnippet = candidateClean;
+            break;
+          }
         }
 
-        // Multi-word stem matching (e.g. "kyselina citronova" matches "kyselinou citronovou")
+        // 2. Token-based matching for multi-word additives
+        // Keep tokens of length >= 1 (so 2g, 4r, fcf, etc. are retained!)
         const candWords = normCandidate
-          .split(/[\s,.:;()/\\[\]{}<>=+\-_*!?"'`~|]+/)
-          .filter(w => w.length >= 3);
+          .split(/[\s,.:;()/\\[\]{}<>=+\-_*!?"'`~|%]+/)
+          .filter(w => w.length >= 1 && !/^\d+$/.test(w)); // exclude pure numbers
 
-        const STOP_WORDS = new Set(['kyselina', 'acid', 'saeure', 'extrakt', 'extract', 'prirodni', 'natural']);
-        const meaningfulWords = candWords.filter(w => !STOP_WORDS.has(w));
+        if (candWords.length === 0) continue;
 
-        if (meaningfulWords.length > 0) {
-          const allMeaningfulFound = meaningfulWords.every(candWord => {
-            const candStem = getStem(candWord);
-            return inputStems.some(
-              ({ word, stem }) =>
-                word === candWord ||
-                (stem.length >= 3 && stem === candStem) ||
-                (candWord.length >= 5 && word.startsWith(candStem))
+        const containsColor = candWords.some(w => COLOR_WORDS.has(w));
+        const meaningfulWords = candWords.filter(w => !GENERIC_STOP_WORDS.has(w));
+
+        // NEVER match if the only meaningful word is a generic color (e.g. "Rot", "Gelb", "Grün")
+        if (meaningfulWords.length === 1 && COLOR_WORDS.has(meaningfulWords[0])) {
+          continue;
+        }
+
+        // Single unique chemical name (e.g. Aspartam, Benzoan, Tartrazin) - length >= 6
+        if (meaningfulWords.length === 1) {
+          const singleWord = meaningfulWords[0];
+          if (singleWord.length >= 6 && !containsColor) {
+            const singleStem = getStem(singleWord);
+            const found = inputStems.some(({ word, stem }) =>
+              word === singleWord || (stem.length >= 4 && stem === singleStem)
             );
+            if (found) {
+              isMatched = true;
+              matchedSnippet = candidateClean;
+              break;
+            }
+          }
+          continue;
+        }
+
+        // Multi-word phrase: e.g. "Rot 2G", "Dusitan sodny", "Kyselina citronova"
+        if (meaningfulWords.length >= 2) {
+          // If the phrase contains a color (e.g. "Rot 2G"), the alphanumeric code (e.g. "2g") MUST match exactly as a word!
+          if (containsColor) {
+            const nonColorWords = meaningfulWords.filter(w => !COLOR_WORDS.has(w));
+            if (nonColorWords.length === 0) continue;
+            // Every non-color word must be present in the input
+            const allNonColorsFound = nonColorWords.every(w => inputWordSet.has(w));
+            if (!allNonColorsFound) continue;
+          }
+
+          const allFound = meaningfulWords.every(candWord => {
+            const candStem = getStem(candWord);
+            return inputStems.some(({ word, stem }) => {
+              if (word === candWord) return true;
+              if (candWord.length >= 4 && stem.length >= 3 && stem === candStem) return true;
+              if (candWord.length >= 6 && word.startsWith(candStem)) return true;
+              return false;
+            });
           });
 
-          if (allMeaningfulFound) {
+          if (allFound) {
             isMatched = true;
-            matchedSnippet = candidate;
+            matchedSnippet = candidateClean;
             break;
           }
         }

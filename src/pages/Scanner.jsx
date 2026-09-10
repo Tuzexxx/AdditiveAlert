@@ -298,25 +298,10 @@ export default function Scanner() {
       const data = await response.json();
 
       if (data.success) {
-        let additivesList = Array.isArray(data.additives) ? data.additives : [];
+        const additivesList = Array.isArray(data.additives) ? data.additives : [];
         const detectedText = data.ingredients_summary || '';
         if (detectedText) {
           setExtractedText(detectedText);
-        }
-
-        // Offline safety fallback: if AI vision detected text but 0 additives, run offline fuzzy matcher
-        if (additivesList.length === 0 && detectedText) {
-          const offlineMatches = matchAdditivesOffline(detectedText, eNumbersData);
-          if (offlineMatches.length > 0) {
-            additivesList = offlineMatches.map(({ item, matchedSnippet }) => ({
-              id: item.id,
-              name: item.name,
-              original_text: matchedSnippet,
-              category: item.description,
-              rating: item.rating,
-              reason: item.description,
-            }));
-          }
         }
 
         const enriched = additivesList.map((aiItem) => {
