@@ -1,5 +1,21 @@
-import { useState, useRef, useEffect } from 'react';
-import { Camera, Search, AlertTriangle, CheckCircle, Info, Sparkles, AlertCircle, Globe, Zap, X, FileText, RotateCcw, ArrowRight, Image as ImageIcon, Download } from 'lucide-react';
+import { useState, useRef, useEffect, useMemo } from 'react';
+import {
+  Camera,
+  Search,
+  AlertTriangle,
+  CheckCircle,
+  Info,
+  Sparkles,
+  AlertCircle,
+  X,
+  FileText,
+  RotateCcw,
+  Image as ImageIcon,
+  Download,
+  Copy,
+  ChevronDown,
+  ChevronUp,
+} from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import defaultENumbersData from '../data/e-numbers.json';
 import { useLanguage } from '../i18n/LanguageContext';
@@ -34,14 +50,14 @@ export async function shareOrSavePhoto(dataUrl) {
       });
       return;
     }
-  } catch (e) {
+  } catch {
     // Fallback if sharing is canceled or not supported
   }
   savePhotoToDevice(dataUrl);
 }
 
 // Helper function to compress and resize camera photos before upload
-function compressImage(file, maxDimension = 1280, quality = 0.80) {
+function compressImage(file, maxDimension = 1280, quality = 0.8) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -138,17 +154,25 @@ export default function Scanner() {
   const [extractedText, setExtractedText] = useState(null);
   const [hasScanned, setHasScanned] = useState(false);
   const [savedNotice, setSavedNotice] = useState(false);
+
+  // Ergonomic UX state additions
+  const [filterRisk, setFilterRisk] = useState('all'); // 'all' | 'risky' | 'moderate' | 'safe'
+  const [searchQuery, setSearchQuery] = useState('');
+  const [expandedIds, setExpandedIds] = useState({});
+  const [isTextExpanded, setIsTextExpanded] = useState(false);
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false);
+  const [copiedSummary, setCopiedSummary] = useState(false);
+
   const cameraInputRef = useRef(null);
   const galleryInputRef = useRef(null);
-  const { lang, setLanguage, t } = useLanguage();
+  const { lang, t } = useLanguage();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => setSession(session));
 
     const fetchAdditives = async () => {
-      // Invalidate old stale caches
       localStorage.removeItem('additivealert_db');
-      
+
       const cached = localStorage.getItem('additivealert_db_v3');
       if (cached) {
         setENumbersData(JSON.parse(cached));
@@ -181,7 +205,7 @@ export default function Scanner() {
     fetchAdditives();
   }, []);
 
-  // REAL-TIME BLESKOVÝ NÁHLED: Jakmile uživatel píše nebo vloží text, okamžitě spustíme offline fuzzy match (0 ms)!
+  // Real-time fuzzy match preview when typing or pasting text
   useEffect(() => {
     const text = inputText.trim();
     if (!text || text.length < 3) {
@@ -213,16 +237,32 @@ export default function Scanner() {
     }, 120);
 
     return () => clearTimeout(timer);
-  }, [inputText, eNumbersData, t.instantPreviewNotice]);
+  }, [inputText, eNumbersData, t.instantPreviewNotice, isScanning, photoPreview]);
+
+  // When results change, expand risky items (4+) by default; keep safe items compact
+  useEffect(() => {
+    if (results.length > 0) {
+      const initial = {};
+      results.forEach((item, idx) => {
+        const key = `${item.id}-${idx}`;
+        if ((item.rating || 0) >= 4) {
+          initial[key] = true;
+        }
+      });
+      setExpandedIds(initial);
+    } else {
+      setExpandedIds({});
+      setFilterRisk('all');
+      setSearchQuery('');
+    }
+  }, [results]);
 
   // Batch save scan history for anonymous device and authenticated user
   const saveBatchScanHistory = async (items, scanMeta = {}) => {
     if (!items || items.length === 0) return;
 
-    // 1. Update personal scan frequencies for risky additives (ratings 4 & 5)
     recordRiskyScanCounts(items);
 
-    // 2. Crowdsource to global community stats via /api/stats (non-blocking)
     const validIds = items
       .map((item) => (item.id || '').toUpperCase().replace(/\s/g, ''))
       .filter((id) => id && id.startsWith('E') && id !== 'N/A');
@@ -235,16 +275,23 @@ export default function Scanner() {
       }).catch((err) => console.warn('Global stats sync notice:', err));
     }
 
-    // 3. Save scan to local device history (anonymous, persistent, zero-login)
     try {
       const deviceId = getDeviceId();
       const existing = JSON.parse(localStorage.getItem('additivealert_scan_history') || '[]');
-      
+
       const newScan = {
         id: 'scan_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
         timestamp: new Date().toISOString(),
         deviceId: deviceId,
-        snippet: scanMeta.snippet || (scanMeta.hasPhoto ? (lang === 'cs' ? 'Fotografie etikety' : lang === 'de' ? 'Etikettenfoto' : 'Photo of label') : 'Sken složení'),
+        snippet:
+          scanMeta.snippet ||
+          (scanMeta.hasPhoto
+            ? lang === 'cs'
+              ? 'Fotografie etikety'
+              : lang === 'de'
+                ? 'Etikettenfoto'
+                : 'Photo of label'
+            : 'Sken složení'),
         hasPhoto: !!scanMeta.hasPhoto,
         additives: items.map((item) => ({
           id: item.id,
@@ -268,7 +315,6 @@ export default function Scanner() {
       console.warn('Could not save local scan history:', e);
     }
 
-    // 4. If logged into Supabase, also save to cloud account
     if (session && supabase) {
       try {
         const rows = items.map((item) => ({
@@ -285,7 +331,6 @@ export default function Scanner() {
     }
   };
 
-  // Robust offline fallback parsing using fuzzy matching (abbreviations, stemming, diacritics)
   const extractENumbersOffline = (text) => {
     const matches = matchAdditivesOffline(text, eNumbersData);
 
@@ -311,7 +356,6 @@ export default function Scanner() {
     return resultsArray;
   };
 
-  // Main analyze handler: calls Gemini Flash Serverless API with fallback
   const analyzeIngredients = async ({ imageBase64, textContent }) => {
     setIsScanning(true);
     setScanError(null);
@@ -367,8 +411,10 @@ export default function Scanner() {
 
         saveBatchScanHistory(enriched, {
           snippet: textContent
-            ? (textContent.slice(0, 80) + (textContent.length > 80 ? '...' : ''))
-            : (detectedText ? (detectedText.slice(0, 80) + (detectedText.length > 80 ? '...' : '')) : null),
+            ? textContent.slice(0, 80) + (textContent.length > 80 ? '...' : '')
+            : detectedText
+              ? detectedText.slice(0, 80) + (detectedText.length > 80 ? '...' : '')
+              : null,
           hasPhoto: !!imageBase64,
         });
         setStatusNotice(t.aiNotice);
@@ -409,7 +455,7 @@ export default function Scanner() {
 
     try {
       setIsScanning(true);
-      const compressedBase64 = await compressImage(file, 1280, 0.80);
+      const compressedBase64 = await compressImage(file, 1280, 0.8);
       setPhotoPreview(compressedBase64);
 
       if (isFromCamera) {
@@ -445,15 +491,75 @@ export default function Scanner() {
     setExtractedText(null);
     setHasScanned(false);
     setSavedNotice(false);
-    if (cameraInputRef.current) {
-      cameraInputRef.current.value = '';
-    }
-    if (galleryInputRef.current) {
-      galleryInputRef.current.value = '';
-    }
+    setFilterRisk('all');
+    setSearchQuery('');
+    setExpandedIds({});
+    setIsTextExpanded(false);
+    setIsPhotoModalOpen(false);
+    if (cameraInputRef.current) cameraInputRef.current.value = '';
+    if (galleryInputRef.current) galleryInputRef.current.value = '';
   };
 
-  const maxRating = results.length > 0 ? results.reduce((max, i) => Math.max(max, i.rating || 0), 0) : 0;
+  const toggleExpand = (key) => {
+    setExpandedIds((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  const maxRating =
+    results.length > 0 ? results.reduce((max, i) => Math.max(max, i.rating || 0), 0) : 0;
+
+  const riskyCount = useMemo(() => results.filter((r) => (r.rating || 0) >= 4).length, [results]);
+  const moderateCount = useMemo(() => results.filter((r) => (r.rating || 0) === 3).length, [results]);
+  const safeCount = useMemo(() => results.filter((r) => (r.rating || 0) <= 2).length, [results]);
+
+  const filteredResults = useMemo(() => {
+    return results.filter((item) => {
+      const score = item.rating || 0;
+      if (filterRisk === 'risky' && score < 4) return false;
+      if (filterRisk === 'moderate' && score !== 3) return false;
+      if (filterRisk === 'safe' && score > 2) return false;
+
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const dbItem =
+          item.matchedDb ||
+          eNumbersData.find((d) => d.id?.toUpperCase() === (item.id || '').toUpperCase());
+        const displayName = getLocalizedAdditiveName(dbItem, item.name, lang).toLowerCase();
+        const code = (item.id || '').toLowerCase();
+        const desc = (item.description || '').toLowerCase();
+        const reason = (item.reason || '').toLowerCase();
+        const cat = (item.category || '').toLowerCase();
+
+        return (
+          displayName.includes(q) ||
+          code.includes(q) ||
+          desc.includes(q) ||
+          reason.includes(q) ||
+          cat.includes(q)
+        );
+      }
+
+      return true;
+    });
+  }, [results, filterRisk, searchQuery, eNumbersData, lang]);
+
+  const allFilteredExpanded = useMemo(() => {
+    if (filteredResults.length === 0) return false;
+    return filteredResults.every((item, idx) => expandedIds[`${item.id}-${idx}`]);
+  }, [filteredResults, expandedIds]);
+
+  const toggleAllExpanded = () => {
+    const nextState = !allFilteredExpanded;
+    const nextMap = {};
+    if (nextState) {
+      filteredResults.forEach((item, idx) => {
+        nextMap[`${item.id}-${idx}`] = true;
+      });
+    }
+    setExpandedIds(nextMap);
+  };
 
   let verdictClass = 'safe';
   let verdictTitle = t.verdictSafe;
@@ -472,6 +578,31 @@ export default function Scanner() {
     verdictTitle = t.verdictModerate;
     verdictDesc = t.verdictModerateDesc;
   }
+
+  const handleCopySummary = async () => {
+    if (results.length === 0) return;
+    try {
+      const header = `${t.appTitle} - ${t.overallScore}: ${maxRating}/6 (${verdictTitle})`;
+      const itemsList = results
+        .map((item) => {
+          const dbItem =
+            item.matchedDb ||
+            eNumbersData.find((d) => d.id?.toUpperCase() === (item.id || '').toUpperCase());
+          const displayName = getLocalizedAdditiveName(dbItem, item.name, lang);
+          const code = item.id && item.id !== 'N/A' ? `${item.id} - ` : '';
+          const cat = item.category ? ` (${item.category})` : '';
+          return `• ${code}${displayName} [${item.rating}/6]${cat}`;
+        })
+        .join('\n');
+
+      const fullText = `${header}\n\n${t.resultsHeader} (${results.length}):\n${itemsList}`;
+      await navigator.clipboard.writeText(fullText);
+      setCopiedSummary(true);
+      setTimeout(() => setCopiedSummary(false), 2500);
+    } catch {
+      // ignore
+    }
+  };
 
   return (
     <>
@@ -494,7 +625,7 @@ export default function Scanner() {
           className={`segmented-btn ${scanMode === 'camera' ? 'active' : ''}`}
           onClick={() => setScanMode('camera')}
         >
-          <Camera size={18} />
+          <Camera size={17} />
           {t.tabCamera}
         </button>
         <button
@@ -502,26 +633,16 @@ export default function Scanner() {
           className={`segmented-btn ${scanMode === 'text' ? 'active' : ''}`}
           onClick={() => setScanMode('text')}
         >
-          <FileText size={18} />
+          <FileText size={17} />
           {t.tabText}
         </button>
       </div>
 
       <div className="glass-panel">
         {isScanning && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-            padding: '12px 16px',
-            background: 'rgba(59, 130, 246, 0.12)',
-            borderRadius: 'var(--radius-md)',
-            border: '1px solid rgba(59, 130, 246, 0.25)',
-            marginBottom: '16px',
-            color: '#93c5fd',
-          }}>
+          <div className="scanner-status-bar">
             <div className="loader" />
-            <span style={{ fontSize: '0.88rem', fontWeight: 600 }}>{t.analyzing}</span>
+            <span className="scanner-status-text">{t.analyzing}</span>
           </div>
         )}
 
@@ -545,137 +666,107 @@ export default function Scanner() {
         {scanMode === 'camera' ? (
           <div>
             {photoPreview ? (
-              <div style={{ textAlign: 'center' }}>
-                <div style={{ position: 'relative', display: 'inline-block', marginBottom: '16px' }}>
-                  <img
-                    src={photoPreview}
-                    alt="Uploaded label"
-                    style={{
-                      maxHeight: '250px',
-                      maxWidth: '100%',
-                      borderRadius: 'var(--radius-md)',
-                      border: '1px solid var(--card-border)',
-                      boxShadow: 'var(--shadow-md)',
-                      display: 'block',
-                    }}
-                  />
+              <div className="compact-photo-bar">
+                <button
+                  type="button"
+                  className="photo-thumb-btn"
+                  onClick={() => setIsPhotoModalOpen(true)}
+                  title="Kliknutím zvětšit foto"
+                >
+                  <img src={photoPreview} alt="Etiketa" className="photo-thumb-img" />
+                  <span className="photo-thumb-zoom-badge">
+                    <Search size={10} />
+                  </span>
+                </button>
+
+                <div className="compact-photo-info">
+                  <span className="compact-photo-title">{t.photoReady}</span>
+                  {savedNotice ? (
+                    <span className="compact-photo-saved">
+                      <CheckCircle size={12} /> {t.photoSavedNotice}
+                    </span>
+                  ) : (
+                    <span className="compact-photo-sub">
+                      {isScanning
+                        ? t.analyzing
+                        : results.length > 0
+                          ? `${results.length} ${t.detectedCount}`
+                          : 'Etiketa načtena'}
+                    </span>
+                  )}
+                </div>
+
+                <div className="compact-photo-actions">
                   <button
                     type="button"
+                    className="compact-action-btn"
+                    onClick={() => cameraInputRef.current?.click()}
+                    disabled={isScanning}
+                    title={t.takePhotoCamera}
+                  >
+                    <Camera size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    className="compact-action-btn"
+                    onClick={() => galleryInputRef.current?.click()}
+                    disabled={isScanning}
+                    title={t.chooseFromGallery}
+                  >
+                    <ImageIcon size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    className="compact-action-btn"
+                    onClick={() => shareOrSavePhoto(photoPreview)}
+                    title={t.saveToGallery}
+                  >
+                    <Download size={16} />
+                  </button>
+                  <button
+                    type="button"
+                    className="compact-action-btn compact-action-remove"
                     onClick={handleReset}
-                    style={{
-                      position: 'absolute',
-                      top: 8,
-                      right: 8,
-                      background: 'rgba(0,0,0,0.75)',
-                      border: 'none',
-                      borderRadius: '50%',
-                      color: '#fff',
-                      padding: '6px',
-                      cursor: 'pointer',
-                    }}
-                    title="Remove photo"
+                    disabled={isScanning}
+                    title={t.removePhoto}
                   >
                     <X size={16} />
                   </button>
                 </div>
-
-                {savedNotice && (
-                  <div style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '6px',
-                    padding: '6px 14px',
-                    background: 'rgba(34, 197, 94, 0.15)',
-                    border: '1px solid rgba(34, 197, 94, 0.3)',
-                    borderRadius: '20px',
-                    color: '#4ade80',
-                    fontSize: '0.84rem',
-                    fontWeight: 600,
-                    marginBottom: '14px',
-                  }}>
-                    <CheckCircle size={14} />
-                    {t.photoSavedNotice}
-                  </div>
-                )}
-
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={() => analyzeIngredients({ imageBase64: photoPreview })}
-                    disabled={isScanning}
-                  >
-                    {isScanning ? (
-                      <>
-                        <div className="loader" style={{ width: '16px', height: '16px', borderWidth: '2px' }} />
-                        {t.analyzing}
-                      </>
-                    ) : (
-                      <>
-                        <Search size={18} />
-                        {t.analyzePhoto}
-                      </>
-                    )}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => cameraInputRef.current?.click()}
-                    disabled={isScanning}
-                  >
-                    <Camera size={18} />
-                    {t.takePhotoCamera}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => galleryInputRef.current?.click()}
-                    disabled={isScanning}
-                  >
-                    <ImageIcon size={18} />
-                    {t.chooseFromGallery}
-                  </button>
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    onClick={() => shareOrSavePhoto(photoPreview)}
-                    title={t.saveToGallery}
-                  >
-                    <Download size={18} />
-                    {t.saveToGallery}
-                  </button>
-                </div>
               </div>
             ) : (
-              <div className="viewfinder-box">
+              <div
+                className="viewfinder-box"
+                onClick={() => cameraInputRef.current?.click()}
+                role="button"
+                tabIndex={0}
+              >
                 <div className="viewfinder-corners" />
                 <div className="viewfinder-laser" />
                 <div className="viewfinder-icon-wrap">
-                  <Camera size={28} />
+                  <Camera size={26} />
                 </div>
-                <p style={{ fontWeight: 700, fontSize: '1.05rem', marginBottom: '6px' }}>
-                  {t.takePhoto}
-                </p>
-                <p style={{ fontSize: '0.84rem', color: 'var(--text-secondary)', maxWidth: '340px', margin: '0 auto 16px' }}>
-                  {t.cameraPrompt}
-                </p>
-                <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <p className="viewfinder-title">{t.takePhoto}</p>
+                <p className="viewfinder-sub">{t.cameraPrompt}</p>
+
+                <div
+                  className="viewfinder-actions"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <button
                     type="button"
-                    className="btn btn-primary"
-                    style={{ padding: '10px 18px', fontSize: '0.92rem' }}
+                    className="btn btn-primary btn-sm"
                     onClick={() => cameraInputRef.current?.click()}
                   >
-                    <Camera size={18} />
+                    <Camera size={16} />
                     {t.takePhotoCamera}
                   </button>
                   <button
                     type="button"
-                    className="btn btn-secondary"
-                    style={{ padding: '10px 18px', fontSize: '0.92rem' }}
+                    className="btn btn-secondary btn-sm"
                     onClick={() => galleryInputRef.current?.click()}
                   >
-                    <ImageIcon size={18} />
+                    <ImageIcon size={16} />
                     {t.chooseFromGallery}
                   </button>
                 </div>
@@ -684,28 +775,40 @@ export default function Scanner() {
           </div>
         ) : (
           <div className="input-group">
-            <textarea
-              className="textarea-input"
-              placeholder={t.placeholder}
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              rows={4}
-            />
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '12px', gap: '8px', flexWrap: 'wrap' }}>
-              <div className="sample-chips-label" style={{ margin: 0 }}>
-                {t.trySamples}
-              </div>
+            <div className="textarea-wrapper">
+              <textarea
+                className="textarea-input"
+                placeholder={t.placeholder}
+                value={inputText}
+                onChange={(e) => setInputText(e.target.value)}
+                rows={3}
+              />
+              {inputText && (
+                <button
+                  type="button"
+                  className="textarea-clear-btn"
+                  onClick={() => setInputText('')}
+                  title="Smazat text"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+
+            <div className="text-actions-bar">
+              <div className="sample-chips-label">{t.trySamples}</div>
               <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary btn-sm"
                 onClick={handleScanClick}
                 disabled={isScanning || !inputText.trim()}
               >
-                <Search size={18} />
+                <Search size={16} />
                 {t.analyze}
               </button>
             </div>
-            <div className="sample-chips" style={{ marginTop: '8px' }}>
+
+            <div className="sample-chips">
               {SAMPLES.map((sample) => (
                 <button
                   key={sample.labelKey}
@@ -723,37 +826,29 @@ export default function Scanner() {
 
       {/* Friendly Inline Error Card */}
       {scanError && (
-        <div style={{
-          marginBottom: '16px',
-          padding: '14px 16px',
-          background: 'rgba(239, 68, 68, 0.12)',
-          borderRadius: 'var(--radius-md)',
-          border: '1px solid rgba(239, 68, 68, 0.3)',
-          color: '#fca5a5',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '10px',
-          alignItems: 'center',
-          textAlign: 'center',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.9rem', fontWeight: 600 }}>
+        <div className="error-card">
+          <div className="error-title">
             <AlertTriangle size={18} color="var(--rating-5)" />
             {scanError}
           </div>
-          <div style={{ display: 'flex', gap: '8px' }}>
+          <div className="error-actions">
             <button
               type="button"
-              className="btn btn-secondary"
-              style={{ padding: '8px 14px', fontSize: '0.82rem' }}
-              onClick={() => photoPreview ? analyzeIngredients({ imageBase64: photoPreview }) : (inputText ? analyzeIngredients({ textContent: inputText }) : null)}
+              className="btn btn-secondary btn-sm"
+              onClick={() =>
+                photoPreview
+                  ? analyzeIngredients({ imageBase64: photoPreview })
+                  : inputText
+                    ? analyzeIngredients({ textContent: inputText })
+                    : null
+              }
             >
               <RotateCcw size={14} />
               {t.retryScan}
             </button>
             <button
               type="button"
-              className="btn btn-secondary"
-              style={{ padding: '8px 14px', fontSize: '0.82rem' }}
+              className="btn btn-secondary btn-sm"
               onClick={() => setScanMode('text')}
             >
               <FileText size={14} />
@@ -763,143 +858,327 @@ export default function Scanner() {
         </div>
       )}
 
-      {/* Extracted Label Text Card */}
-      {extractedText && (
-        <div style={{
-          marginBottom: '16px',
-          padding: '12px 16px',
-          background: 'rgba(255, 255, 255, 0.03)',
-          borderRadius: 'var(--radius-md)',
-          border: '1px solid var(--card-border)',
-          fontSize: '0.82rem',
-          color: 'var(--text-secondary)',
-          lineHeight: 1.45,
-        }}>
-          <strong style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-            🏷️ {t.extractedLabelText}:
-          </strong>
-          <p style={{ fontStyle: 'italic', margin: 0 }}>"{extractedText}"</p>
-        </div>
-      )}
-
       {/* Yuka-Style Overall Product Verdict Card (when additives found) */}
       {results.length > 0 && (
         <div className={`verdict-card verdict-card-${verdictClass}`}>
-          <div className={`verdict-circle verdict-circle-${verdictClass}`}>
-            {maxRating}/6
+          <div className="verdict-main">
+            <div className={`verdict-circle verdict-circle-${verdictClass}`}>
+              {maxRating}/6
+            </div>
+            <div className="verdict-info">
+              <div className="verdict-title">{verdictTitle}</div>
+              <div className="verdict-desc">{verdictDesc}</div>
+
+              {/* Interactive Breakdown Pill Badges */}
+              <div className="verdict-breakdown">
+                {riskyCount > 0 && (
+                  <button
+                    type="button"
+                    className={`breakdown-chip breakdown-chip-risky ${filterRisk === 'risky' ? 'active' : ''}`}
+                    onClick={() => setFilterRisk(filterRisk === 'risky' ? 'all' : 'risky')}
+                    title="Filtrovat riziková"
+                  >
+                    <span className="dot dot-risky" />
+                    {riskyCount} {t.filterRisky}
+                  </button>
+                )}
+                {moderateCount > 0 && (
+                  <button
+                    type="button"
+                    className={`breakdown-chip breakdown-chip-moderate ${filterRisk === 'moderate' ? 'active' : ''}`}
+                    onClick={() => setFilterRisk(filterRisk === 'moderate' ? 'all' : 'moderate')}
+                    title="Filtrovat ke zvážení"
+                  >
+                    <span className="dot dot-moderate" />
+                    {moderateCount} {t.filterModerate}
+                  </button>
+                )}
+                {safeCount > 0 && (
+                  <button
+                    type="button"
+                    className={`breakdown-chip breakdown-chip-safe ${filterRisk === 'safe' ? 'active' : ''}`}
+                    onClick={() => setFilterRisk(filterRisk === 'safe' ? 'all' : 'safe')}
+                    title="Filtrovat bezpečná"
+                  >
+                    <span className="dot dot-safe" />
+                    {safeCount} {t.filterSafe}
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
-          <div className="verdict-info">
-            <div className="verdict-title">{verdictTitle}</div>
-            <div className="verdict-desc">{verdictDesc}</div>
+
+          <div className="verdict-actions">
+            <button
+              type="button"
+              onClick={handleCopySummary}
+              className={`btn-icon ${copiedSummary ? 'copied' : ''}`}
+              title={copiedSummary ? t.summaryCopied : t.copySummary}
+            >
+              {copiedSummary ? <CheckCircle size={18} color="#34d399" /> : <Copy size={18} />}
+            </button>
+            <button
+              type="button"
+              onClick={handleReset}
+              className="btn-icon"
+              title={t.newScan}
+            >
+              <RotateCcw size={18} />
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={handleReset}
-            className="btn-icon"
-            title={t.newScan}
-            style={{ background: 'rgba(255, 255, 255, 0.08)', borderRadius: '50%', padding: '8px' }}
-          >
-            <RotateCcw size={18} />
-          </button>
         </div>
       )}
 
       {/* Yuka-Style Safe Verdict Card (when 0 additives found after scan) */}
       {hasScanned && results.length === 0 && !isScanning && !scanError && (
         <div className="verdict-card verdict-card-safe">
-          <div className="verdict-circle verdict-circle-safe">
-            0/6
-          </div>
-          <div className="verdict-info">
-            <div className="verdict-title">{t.verdictSafe}</div>
-            <div className="verdict-desc">{t.noAdditivesFound}</div>
+          <div className="verdict-main">
+            <div className="verdict-circle verdict-circle-safe">0/6</div>
+            <div className="verdict-info">
+              <div className="verdict-title">{t.verdictSafe}</div>
+              <div className="verdict-desc">{t.noAdditivesFound}</div>
+            </div>
           </div>
           <button
             type="button"
             onClick={handleReset}
             className="btn-icon"
             title={t.newScan}
-            style={{ background: 'rgba(255, 255, 255, 0.08)', borderRadius: '50%', padding: '8px' }}
           >
             <RotateCcw size={18} />
           </button>
         </div>
       )}
 
-      {/* Open Food Facts Style Ingredients Breakdown */}
-      {results.length > 0 && (
-        <div className="results-container">
-          <div className="results-header">
-            <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              {t.resultsHeader}
-              {results.some((r) => r.isInstant) && (
-                <span style={{ fontSize: '0.75rem', color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '3px', fontWeight: 600 }}>
-                  <Zap size={13} /> {t.offlineNotice}
-                </span>
-              )}
+      {/* Collapsible Extracted Label Text Drawer */}
+      {extractedText && (
+        <div className="extracted-text-drawer">
+          <button
+            type="button"
+            className="extracted-text-toggle"
+            onClick={() => setIsTextExpanded(!isTextExpanded)}
+          >
+            <span className="extracted-text-label">
+              🏷️ {t.extractedLabelText} ({extractedText.split(/\s+/).filter(Boolean).length}{' '}
+              {t.wordsCount})
             </span>
-            <span className="badge" style={{ background: 'rgba(255,255,255,0.08)' }}>
-              {results.length} {t.detectedCount}
+            <span className="extracted-text-chevron">
+              {isTextExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
             </span>
-          </div>
-
-          {results.map((item, index) => {
-            const dbItem = item.matchedDb || eNumbersData.find((d) => d.id?.toUpperCase() === (item.id || '').toUpperCase());
-            const displayName = getLocalizedAdditiveName(dbItem, item.name, lang);
-
-            return (
-              <div key={`${item.id}-${index}`} className={`ingredient-card rating-${item.rating}`}>
-                <div className="card-header">
-                  <span className="card-title">
-                    {item.rating >= 4 ? (
-                      <AlertTriangle size={18} color="var(--rating-5)" />
-                    ) : item.rating <= 2 ? (
-                      <CheckCircle size={18} color="var(--rating-1)" />
-                    ) : (
-                      <Info size={18} color="var(--rating-3)" />
-                    )}
-                    {item.id && item.id !== 'N/A' ? `${item.id} - ` : ''}
-                    {displayName}
-                  </span>
-
-                  <span className={`badge badge-${item.rating}`}>
-                    {t.riskScore}: {item.rating}/6
-                  </span>
-                </div>
-
-                {item.description && <p className="card-desc">{item.description}</p>}
-
-                {item.reason && item.reason !== item.description && (
-                  <div className="card-reason">
-                    <strong>{t.whyCare}:</strong> {item.reason}
-                  </div>
-                )}
-
-                <div className="card-meta">
-                  {item.category && (
-                    <span className="card-meta-item">
-                      {t.category}: {item.category}
-                    </span>
-                  )}
-                  {item.original_text && (
-                    <span className="card-meta-item">
-                      {t.originalText}: <em>"{item.original_text}"</em>
-                    </span>
-                  )}
-                  <span className="card-meta-item">
-                    {t.riskLevels[item.rating] || ''}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+          </button>
+          {isTextExpanded && (
+            <div className="extracted-text-content">
+              <p>"{extractedText}"</p>
+            </div>
+          )}
         </div>
       )}
 
+      {/* Modern Filtered & Expandable Results Breakdown */}
+      {results.length > 0 && (
+        <div className="results-container">
+          <div className="results-toolbar">
+            <div className="filter-chips">
+              <button
+                type="button"
+                className={`filter-chip ${filterRisk === 'all' ? 'active' : ''}`}
+                onClick={() => setFilterRisk('all')}
+              >
+                {t.filterAll} ({results.length})
+              </button>
+              {riskyCount > 0 && (
+                <button
+                  type="button"
+                  className={`filter-chip filter-chip-risky ${filterRisk === 'risky' ? 'active' : ''}`}
+                  onClick={() => setFilterRisk('risky')}
+                >
+                  🔴 {t.filterRisky} ({riskyCount})
+                </button>
+              )}
+              {moderateCount > 0 && (
+                <button
+                  type="button"
+                  className={`filter-chip filter-chip-moderate ${filterRisk === 'moderate' ? 'active' : ''}`}
+                  onClick={() => setFilterRisk('moderate')}
+                >
+                  🟡 {t.filterModerate} ({moderateCount})
+                </button>
+              )}
+              {safeCount > 0 && (
+                <button
+                  type="button"
+                  className={`filter-chip filter-chip-safe ${filterRisk === 'safe' ? 'active' : ''}`}
+                  onClick={() => setFilterRisk('safe')}
+                >
+                  🟢 {t.filterSafe} ({safeCount})
+                </button>
+              )}
+            </div>
+
+            {results.length > 1 && (
+              <div className="toolbar-actions">
+                <button
+                  type="button"
+                  className="toolbar-btn"
+                  onClick={toggleAllExpanded}
+                  title={allFilteredExpanded ? t.collapseAll : t.expandAll}
+                >
+                  {allFilteredExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                  <span>{allFilteredExpanded ? t.collapseAll : t.expandAll}</span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Quick search input if 3+ items */}
+          {results.length >= 3 && (
+            <div className="results-search-wrap">
+              <Search size={14} className="search-icon" />
+              <input
+                type="text"
+                className="results-search-input"
+                placeholder={t.searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  className="search-clear-btn"
+                  onClick={() => setSearchQuery('')}
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+          )}
+
+          {filteredResults.length === 0 ? (
+            <div className="no-filter-results">
+              <p>{t.noFilterResults}</p>
+            </div>
+          ) : (
+            filteredResults.map((item, index) => {
+              const cardKey = `${item.id}-${index}`;
+              const isExpanded = !!expandedIds[cardKey];
+              const dbItem =
+                item.matchedDb ||
+                eNumbersData.find((d) => d.id?.toUpperCase() === (item.id || '').toUpperCase());
+              const displayName = getLocalizedAdditiveName(dbItem, item.name, lang);
+
+              return (
+                <div
+                  key={cardKey}
+                  className={`ingredient-card rating-${item.rating} ${isExpanded ? 'expanded' : 'collapsed'}`}
+                >
+                  <div
+                    className="card-header-clickable"
+                    onClick={() => toggleExpand(cardKey)}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <div className="card-left">
+                      <span className="card-risk-icon">
+                        {item.rating >= 4 ? (
+                          <AlertTriangle size={18} color="var(--rating-5)" />
+                        ) : item.rating <= 2 ? (
+                          <CheckCircle size={18} color="var(--rating-1)" />
+                        ) : (
+                          <Info size={18} color="var(--rating-3)" />
+                        )}
+                      </span>
+                      <div className="card-title-group">
+                        <span className="card-title">
+                          {item.id && item.id !== 'N/A' && (
+                            <strong className="card-code">{item.id}</strong>
+                          )}
+                          <span className="card-name">{displayName}</span>
+                        </span>
+                        {item.category && (
+                          <span className="card-category-inline">{item.category}</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="card-right">
+                      <span className={`badge badge-${item.rating}`}>
+                        {item.rating}/6
+                      </span>
+                      <span className="card-chevron">
+                        {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Summary teaser when collapsed */}
+                  {!isExpanded && item.rating >= 4 && item.reason && (
+                    <div className="card-collapsed-teaser">
+                      <span className="teaser-dot" />
+                      <span className="teaser-text">{item.reason}</span>
+                    </div>
+                  )}
+
+                  {/* Expandable Accordion Body */}
+                  {isExpanded && (
+                    <div className="card-expanded-body">
+                      {item.reason && (
+                        <div className="card-reason">
+                          <strong>{t.whyCare}:</strong> {item.reason}
+                        </div>
+                      )}
+
+                      {item.description && item.description !== item.reason && (
+                        <p className="card-desc">{item.description}</p>
+                      )}
+
+                      <div className="card-meta">
+                        {item.category && (
+                          <span className="card-meta-item">
+                            {t.category}: <em>{item.category}</em>
+                          </span>
+                        )}
+                        {item.original_text && (
+                          <span className="card-meta-item">
+                            {t.originalText}: <em>"{item.original_text}"</em>
+                          </span>
+                        )}
+                        <span className="card-meta-item card-meta-level">
+                          {t.riskLevels[item.rating] || ''}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })
+          )}
+        </div>
+      )}
+
+      {/* Empty State */}
       {results.length === 0 && inputText && !isScanning && !hasScanned && (
         <div className="empty-state">
           <AlertCircle size={28} style={{ marginBottom: '8px', opacity: 0.6 }} />
           <p>{t.noAdditivesFound}</p>
+        </div>
+      )}
+
+      {/* Lightweight Full Image Zoom Modal */}
+      {isPhotoModalOpen && photoPreview && (
+        <div className="modal-overlay" onClick={() => setIsPhotoModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <span className="modal-title">{t.extractedLabelText}</span>
+              <button
+                type="button"
+                className="modal-close"
+                onClick={() => setIsPhotoModalOpen(false)}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <img src={photoPreview} alt="Full label" className="modal-image" />
+          </div>
         </div>
       )}
     </>
